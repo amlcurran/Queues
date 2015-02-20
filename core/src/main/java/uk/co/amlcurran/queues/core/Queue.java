@@ -1,15 +1,13 @@
 package uk.co.amlcurran.queues.core;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class Queue {
     private final QueuePersister queuePersister;
     private final List<QueueItem> queueItems;
     private long id;
-    private QueueItem queueItem;
-    private Iterator<QueueItem> iterator;
+    private int iteratorIndex = 0;
 
     public Queue(QueuePersister queuePersister) {
         this.queuePersister = queuePersister;
@@ -26,9 +24,8 @@ public class Queue {
     }
 
     public QueueItem next() {
-        if (iterator == null) {
-            iterator = queueItems.iterator();
-        }
-        return iterator.next();
+        QueueItem item = queueItems.get(iteratorIndex);
+        iteratorIndex++;
+        return item;
     }
 }

@@ -42,6 +42,19 @@ public class QueueTest {
         assertThat(queue.next(), is(queueItem2));
     }
 
+    @Test
+    public void testAddingAndIteratingWorks() {
+        Queue queue = new Queue(UNUSED_PERSISTER);
+
+        QueueItem queueItem = new QueueItem("Hello");
+        queue.addItem(queueItem);
+        assertThat(queue.next(), is(queueItem));
+
+        QueueItem queueItem2 = new QueueItem("How are you");
+        queue.addItem(queueItem2);
+        assertThat(queue.next(), is(queueItem2));
+    }
+
     private static final QueuePersister UNUSED_PERSISTER = new QueuePersister() {
         @Override
         public void addItemToQueue(long queueId, QueueItem queueItem) {
