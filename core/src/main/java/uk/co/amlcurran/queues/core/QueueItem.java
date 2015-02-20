@@ -8,6 +8,11 @@ public class QueueItem {
     }
 
     @Override
+    public String toString() {
+        return "Queue item: " + label;
+    }
+
+    @Override
     public boolean equals(Object obj) {
         return obj instanceof QueueItem && ((QueueItem) obj).label.equals(label);
     }
