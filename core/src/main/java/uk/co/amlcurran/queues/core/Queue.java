@@ -28,4 +28,8 @@ public class Queue {
         iteratorIndex++;
         return item;
     }
+
+    public void removeItem(QueueItem item) {
+        queueItems.remove(item);
+    }
 }
