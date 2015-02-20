@@ -1,16 +1,23 @@
 package uk.co.amlcurran.queues.core;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 public class Queue {
     private final QueuePersister queuePersister;
+    private final List<QueueItem> queueItems;
     private long id;
     private QueueItem queueItem;
+    private Iterator<QueueItem> iterator;
 
     public Queue(QueuePersister queuePersister) {
         this.queuePersister = queuePersister;
+        this.queueItems = new ArrayList<>();
     }
 
     public void addItem(QueueItem queueItem) {
-        this.queueItem = queueItem;
+        queueItems.add(queueItem);
         queuePersister.addItemToQueue(id, queueItem);
     }
 
@@ -19,6 +26,9 @@ public class Queue {
     }
 
     public QueueItem next() {
-        return queueItem;
+        if (iterator == null) {
+            iterator = queueItems.iterator();
+        }
+        return iterator.next();
     }
 }

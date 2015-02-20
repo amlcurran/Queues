@@ -20,13 +20,26 @@ public class QueueTest {
     }
 
     @Test
-      public void testAddingAnItemToAQueue_MeansItCanBeRetrieved() {
+    public void testAddingAnItemToAQueue_MeansItCanBeRetrieved() {
         Queue queue = new Queue(UNUSED_PERSISTER);
 
         QueueItem queueItem = new QueueItem("Hello");
         queue.addItem(queueItem);
 
         assertThat(queue.next(), is(queueItem));
+    }
+
+    @Test
+    public void testAddingTwoItemsToAQueue_RetrievesThemInTheCorrectOrder() {
+        Queue queue = new Queue(UNUSED_PERSISTER);
+
+        QueueItem queueItem = new QueueItem("Hello");
+        QueueItem queueItem2 = new QueueItem("How are you");
+        queue.addItem(queueItem);
+        queue.addItem(queueItem2);
+
+        assertThat(queue.next(), is(queueItem));
+        assertThat(queue.next(), is(queueItem2));
     }
 
     private static final QueuePersister UNUSED_PERSISTER = new QueuePersister() {
