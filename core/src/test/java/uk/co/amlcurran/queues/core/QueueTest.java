@@ -94,6 +94,11 @@ public class QueueTest {
         public void removeItemFromQueue(long queueId, QueueItem queueItem) {
 
         }
+
+        @Override
+        public int queueCount() {
+            return 0;
+        }
     };
 
 
@@ -111,6 +116,11 @@ public class QueueTest {
         @Override
         public void removeItemFromQueue(long queueId, QueueItem queueItem) {
             remove_Item = queueItem;
+        }
+
+        @Override
+        public int queueCount() {
+            return 0;
         }
     }
 }
