@@ -8,4 +8,11 @@ public interface QueuePersister {
     void removeItemFromQueue(long queueId, QueueItem queueItem);
 
     List<Queue> queues();
+
+    void saveQueue(Queue queue, Callbacks callbacks);
+
+    interface Callbacks {
+
+    }
+
 }

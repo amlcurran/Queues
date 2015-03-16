@@ -101,6 +101,12 @@ public class QueueTest {
         public List<Queue> queues() {
             return null;
         }
+
+        @Override
+        public void saveQueue(Queue queue, Callbacks callbacks) {
+
+        }
+
     };
 
 
@@ -124,5 +130,11 @@ public class QueueTest {
         public List<Queue> queues() {
             return null;
         }
+
+        @Override
+        public void saveQueue(Queue queue, Callbacks callbacks) {
+
+        }
+
     }
 }

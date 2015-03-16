@@ -13,14 +13,14 @@ public class QueueListTest {
 
     @Test
     public void returnsTheCorrectAmountOfQueues() {
-        QueueList queueList = new QueueList(new QueuePersister(3));
+        QueueList queueList = new QueueList(new BasicQueuePersister(3));
 
         assertThat(queueList.size(), is(3));
     }
 
     @Test
     public void addingAQueueIncrementsTheNumberOfQueues() {
-        QueuePersister queuePersister = new QueuePersister(0);
+        BasicQueuePersister queuePersister = new BasicQueuePersister(0);
         QueueList queueList = new QueueList(queuePersister);
 
         queueList.add(new Queue(queuePersister));
@@ -28,11 +28,23 @@ public class QueueListTest {
         assertThat(queueList.size(), is(1));
     }
 
-    private static class QueuePersister implements uk.co.amlcurran.queues.core.QueuePersister {
+    @Test
+    public void addingAQueuePersistsIt() {
+        BasicQueuePersister queuePersister = new BasicQueuePersister(0);
+        QueueList queueList = new QueueList(queuePersister);
+
+        Queue queue = new Queue(queuePersister);
+        queueList.add(queue);
+
+        assertThat(queuePersister.addedQueue, is(queue));
+    }
+
+    private static class BasicQueuePersister implements QueuePersister {
 
         private final int numberOfQueues;
+        public Queue addedQueue;
 
-        private QueuePersister(int numberOfQueues) {
+        private BasicQueuePersister(int numberOfQueues) {
             this.numberOfQueues = numberOfQueues;
         }
 
@@ -60,12 +72,20 @@ public class QueueListTest {
                 }
             };
         }
+
+        @Override
+        public void saveQueue(Queue queue, Callbacks callbacks) {
+            addedQueue = queue;
+        }
+
     }
 
     private class QueueList {
         private final List<Queue> queues;
+        private final BasicQueuePersister queuePersister;
 
-        public QueueList(QueuePersister queuePersister) {
+        public QueueList(BasicQueuePersister queuePersister) {
+            this.queuePersister = queuePersister;
             this.queues = new ArrayList<>(queuePersister.queues());
         }
 
@@ -75,6 +95,7 @@ public class QueueListTest {
 
         public void add(Queue queue) {
             queues.add(queue);
+            queuePersister.saveQueue(queue, null);
         }
     }
 }
