@@ -69,9 +69,29 @@ public class QueueTest {
         assertThat(queue.next(), is(queueItem2));
     }
 
+    @Test
+    public void testRemovingAnItem_RemovesItFromThePersister() {
+        AssertingQueuePersister queuePersister = new AssertingQueuePersister();
+        Queue queue = new Queue(queuePersister);
+
+        QueueItem queueItem = new QueueItem("Hello");
+        QueueItem queueItem2 = new QueueItem("How are you");
+        queue.addItem(queueItem);
+        queue.addItem(queueItem2);
+
+        queue.removeItem(new QueueItem("Hello"));
+
+        assertThat(queuePersister.remove_Item, is(queueItem));
+    }
+
     private static final QueuePersister UNUSED_PERSISTER = new QueuePersister() {
         @Override
         public void addItemToQueue(long queueId, QueueItem queueItem) {
+
+        }
+
+        @Override
+        public void removeItemFromQueue(long queueId, QueueItem queueItem) {
 
         }
     };
@@ -79,12 +99,18 @@ public class QueueTest {
 
     private class AssertingQueuePersister implements QueuePersister {
         public QueueItem saveNewItem_item;
+        public QueueItem remove_Item;
         public long saveNewItem_queueId;
 
         @Override
         public void addItemToQueue(long queueId, QueueItem queueItem) {
             saveNewItem_item = queueItem;
             saveNewItem_queueId = queueId;
+        }
+
+        @Override
+        public void removeItemFromQueue(long queueId, QueueItem queueItem) {
+            remove_Item = queueItem;
         }
     }
 }

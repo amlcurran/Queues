@@ -31,5 +31,6 @@ public class Queue {
 
     public void removeItem(QueueItem item) {
         queueItems.remove(item);
+        queuePersister.removeItemFromQueue(id, item);
     }
 }
