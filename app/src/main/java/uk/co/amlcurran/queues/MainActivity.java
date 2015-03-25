@@ -16,7 +16,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         getFragmentManager().beginTransaction()
-                .replace(R.id.content, new QueueFragment())
+                .replace(R.id.content, new QueueListFragment())
                 .commit();
     }
 
@@ -38,6 +38,6 @@ public class MainActivity extends Activity {
     private void addNewQueue() {
         QueueList queueList = QueuesApplication.queueList(this);
         queueList.add(queueList.newQueue());
-        ((QueueFragment) getFragmentManager().findFragmentById(R.id.content)).poke();
+        ((QueueListFragment) getFragmentManager().findFragmentById(R.id.content)).poke();
     }
 }

@@ -7,12 +7,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import uk.co.amlcurran.queues.core.Queue;
 import uk.co.amlcurran.queues.core.QueueList;
 
-public class QueueFragment extends Fragment {
+public class QueueListFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
@@ -27,31 +25,14 @@ public class QueueFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        QueueList queueList = QueuesApplication.queueList(getActivity());
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        final QueueList queueList = QueuesApplication.queueList(getActivity());
-        adapter = new RecyclerView.Adapter() {
-
-            @Override
-            public RecyclerView.ViewHolder onCreateViewHolder(final ViewGroup viewGroup, final int i) {
-                View view = LayoutInflater.from(getActivity()).inflate(android.R.layout.simple_list_item_1, viewGroup, false);
-                return new RecyclerView.ViewHolder(view) { };
-            }
-
-            @Override
-            public void onBindViewHolder(final RecyclerView.ViewHolder viewHolder, final int i) {
-                Queue queue = queueList.all().get(i);
-                ((TextView) viewHolder.itemView).setText("" + queue.getId());
-            }
-
-            @Override
-            public int getItemCount() {
-                return queueList.size();
-            }
-        };
+        adapter = new QueueListAdapter(queueList, LayoutInflater.from(getActivity()));
         recyclerView.setAdapter(adapter);
     }
 
     public void poke() {
         adapter.notifyDataSetChanged();
     }
+
 }
