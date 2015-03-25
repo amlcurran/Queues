@@ -42,6 +42,10 @@ public class QueueList {
         listeners.add(listListener);
     }
 
+    public void removeCallbacks(ListListener listListener) {
+        listeners.remove(listListener);
+    }
+
     public interface ListListener {
 
         void queueAdded(Queue queue);

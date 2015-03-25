@@ -6,9 +6,7 @@ import java.util.AbstractList;
 import java.util.List;
 
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class QueueListTest {
 
@@ -74,6 +72,19 @@ public class QueueListTest {
         queueList.add(firstQueue);
 
         assertThat(listListener.queueAdded, is(firstQueue));
+    }
+
+    @Test
+    public void addingARemovedListenerDoesntGetNotified() {
+        QueueList queueList = new QueueList(new BasicQueuePersister(0));
+        AssertingListListener listListener = new AssertingListListener();
+        queueList.addCallbacks(listListener);
+        queueList.removeCallbacks(listListener);
+
+        Queue firstQueue = queueList.newQueue();
+        queueList.add(firstQueue);
+
+        assertNull(listListener.queueAdded);
     }
 
     private static class BasicQueuePersister implements QueuePersister {
