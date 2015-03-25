@@ -46,6 +46,10 @@ public class QueueList {
         listeners.remove(listListener);
     }
 
+    public int positionFromQueue(Queue queue) {
+        return queues.indexOf(queue);
+    }
+
     public interface ListListener {
 
         void queueAdded(Queue queue);

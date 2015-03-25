@@ -87,6 +87,20 @@ public class QueueListTest {
         assertNull(listListener.queueAdded);
     }
 
+    @Test
+    public void gettingThePositionFromQueueReturnsTheCorrectPosition() {
+        BasicQueuePersister queuePersister = new BasicQueuePersister(0);
+        QueueList queueList = new QueueList(queuePersister);
+
+        Queue firstQueue = queueList.newQueue();
+        Queue secondQueue = queueList.newQueue();
+        queueList.add(firstQueue);
+        queueList.add(secondQueue);
+
+        assertThat(queueList.positionFromQueue(firstQueue), is(0));
+        assertThat(queueList.positionFromQueue(secondQueue), is(1));
+    }
+
     private static class BasicQueuePersister implements QueuePersister {
 
         private final int numberOfQueues;
