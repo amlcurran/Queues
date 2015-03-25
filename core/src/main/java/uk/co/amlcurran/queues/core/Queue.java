@@ -26,6 +26,10 @@ public class Queue {
         queuePersister.addItemToQueue(id, queueItem);
     }
 
+    public String getTitle() {
+        return title;
+    }
+
     public long getId() {
         return id;
     }

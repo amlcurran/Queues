@@ -29,7 +29,7 @@ class QueueListAdapter extends RecyclerView.Adapter<ViewHolder> {
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
         Queue queue = queueList.all().get(i);
-        ((TextView) viewHolder.itemView).setText("" + queue.getId());
+        ((TextView) viewHolder.itemView).setText(String.format("%1$d : %2$s", queue.getId(), queue.getTitle()));
     }
 
     @Override
