@@ -19,38 +19,39 @@ public class QueuesApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        queueList = new QueueList(new QueuePersister() {
-
-            private final List<Queue> queues = new ArrayList<>();
-
-            @Override
-            public void addItemToQueue(final long queueId, final QueueItem queueItem) {
-            }
-
-            @Override
-            public void removeItemFromQueue(final long queueId, final QueueItem queueItem) {
-
-            }
-
-            @Override
-            public List<Queue> queues() {
-                return Collections.unmodifiableList(queues);
-            }
-
-            @Override
-            public void saveQueue(final Queue queue, final Callbacks callbacks) {
-                queues.add(queue);
-            }
-
-            @Override
-            public long uniqueId() {
-                return queues.size();
-            }
-        });
+        queueList = new QueueList(new InMemoryPersister());
     }
 
     public static QueueList queueList(Context context) {
         return ((QueuesApplication) context.getApplicationContext()).queueList;
     }
 
+    private static class InMemoryPersister implements QueuePersister {
+
+        private final List<Queue> queues = new ArrayList<>();
+
+        @Override
+        public void addItemToQueue(final long queueId, final QueueItem queueItem) {
+        }
+
+        @Override
+        public void removeItemFromQueue(final long queueId, final QueueItem queueItem) {
+
+        }
+
+        @Override
+        public List<Queue> queues() {
+            return Collections.unmodifiableList(queues);
+        }
+
+        @Override
+        public void saveQueue(final Queue queue, final Callbacks callbacks) {
+            queues.add(queue);
+        }
+
+        @Override
+        public long uniqueId() {
+            return queues.size();
+        }
+    }
 }
