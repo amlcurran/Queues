@@ -12,6 +12,8 @@ import static org.junit.Assert.assertTrue;
 
 public class QueueListTest {
 
+    private static final QueuePersister UNUSED_PERSISTER = null;
+
     @Test
     public void returnsTheCorrectAmountOfQueues() {
         QueueList queueList = new QueueList(new BasicQueuePersister(3));
@@ -62,6 +64,18 @@ public class QueueListTest {
         assertNotEquals(secondQueue.getId(), firstQueue.getId());
     }
 
+    @Test
+    public void addingAListNotifiesListeners() {
+        QueueList queueList = new QueueList(new BasicQueuePersister(0));
+        AssertingListListener listListener = new AssertingListListener();
+        queueList.addCallbacks(listListener);
+
+        Queue firstQueue = queueList.newQueue();
+        queueList.add(firstQueue);
+
+        assertThat(listListener.queueAdded, is(firstQueue));
+    }
+
     private static class BasicQueuePersister implements QueuePersister {
 
         private final int numberOfQueues;
@@ -109,4 +123,12 @@ public class QueueListTest {
 
     }
 
+    private class AssertingListListener implements QueueList.ListListener {
+        public Queue queueAdded;
+
+        @Override
+        public void queueAdded(Queue queue) {
+            queueAdded = queue;
+        }
+    }
 }
