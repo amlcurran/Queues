@@ -24,7 +24,7 @@ public class QueueListTest {
         BasicQueuePersister queuePersister = new BasicQueuePersister(0);
         QueueList queueList = new QueueList(queuePersister);
 
-        queueList.add(Queue.withPersister(queuePersister));
+        queueList.add(QueueFactory.withPersister(queuePersister));
 
         assertThat(queueList.size(), is(1));
     }
@@ -34,7 +34,7 @@ public class QueueListTest {
         BasicQueuePersister queuePersister = new BasicQueuePersister(0);
         QueueList queueList = new QueueList(queuePersister);
 
-        Queue queue = Queue.withPersister(queuePersister);
+        Queue queue = QueueFactory.withPersister(queuePersister);
         queueList.add(queue);
 
         assertThat(queuePersister.addedQueue, is(queue));
@@ -45,7 +45,7 @@ public class QueueListTest {
         BasicQueuePersister queuePersister = new BasicQueuePersister(0);
         QueueList queueList = new QueueList(queuePersister);
 
-        Queue queue = Queue.withPersister(queuePersister);
+        Queue queue = QueueFactory.withPersister(queuePersister);
         queueList.add(queue);
 
         assertTrue(queueList.all().contains(queue));

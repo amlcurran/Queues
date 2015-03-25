@@ -31,7 +31,7 @@ public class QueueList {
     }
 
     public Queue newQueue() {
-        return Queue.withPersister(queuePersister);
+        return Queue.withPersister("UNUSED_TITLE", queuePersister);
     }
 
     public List<Queue> all() {

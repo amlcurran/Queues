@@ -12,7 +12,7 @@ public class QueueTest {
     @Test
     public void testAddingAnItemToAQueue_WillPersistIt() {
         AssertingQueuePersister persister = new AssertingQueuePersister();
-        Queue queue = Queue.withPersister(persister);
+        Queue queue = QueueFactory.withPersister(persister);
 
         QueueItem queueItem = new QueueItem("Hello");
         queue.addItem(queueItem);
@@ -23,7 +23,7 @@ public class QueueTest {
 
     @Test
     public void testAddingAnItemToAQueue_MeansItCanBeRetrieved() {
-        Queue queue = Queue.withPersister(UNUSED_PERSISTER);
+        Queue queue = QueueFactory.withPersister(UNUSED_PERSISTER);
 
         QueueItem queueItem = new QueueItem("Hello");
         queue.addItem(queueItem);
@@ -33,7 +33,7 @@ public class QueueTest {
 
     @Test
     public void testAddingTwoItemsToAQueue_RetrievesThemInTheCorrectOrder() {
-        Queue queue = Queue.withPersister(UNUSED_PERSISTER);
+        Queue queue = QueueFactory.withPersister(UNUSED_PERSISTER);
 
         QueueItem queueItem = new QueueItem("Hello");
         QueueItem queueItem2 = new QueueItem("How are you");
@@ -46,7 +46,7 @@ public class QueueTest {
 
     @Test
     public void testAddingAndIteratingWorks() {
-        Queue queue = Queue.withPersister(UNUSED_PERSISTER);
+        Queue queue = QueueFactory.withPersister(UNUSED_PERSISTER);
 
         QueueItem queueItem = new QueueItem("Hello");
         queue.addItem(queueItem);
@@ -59,7 +59,7 @@ public class QueueTest {
 
     @Test
     public void testRemovingAnItem_RemovesIt() {
-        Queue queue = Queue.withPersister(UNUSED_PERSISTER);
+        Queue queue = QueueFactory.withPersister(UNUSED_PERSISTER);
 
         QueueItem queueItem = new QueueItem("Hello");
         QueueItem queueItem2 = new QueueItem("How are you");
@@ -74,7 +74,7 @@ public class QueueTest {
     @Test
     public void testRemovingAnItem_RemovesItFromThePersister() {
         AssertingQueuePersister queuePersister = new AssertingQueuePersister();
-        Queue queue = Queue.withPersister(queuePersister);
+        Queue queue = QueueFactory.withPersister(queuePersister);
 
         QueueItem queueItem = new QueueItem("Hello");
         QueueItem queueItem2 = new QueueItem("How are you");
@@ -113,7 +113,6 @@ public class QueueTest {
         }
 
     };
-
 
     private class AssertingQueuePersister implements QueuePersister {
         public QueueItem saveNewItem_item;

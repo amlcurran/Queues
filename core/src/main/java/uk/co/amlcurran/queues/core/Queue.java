@@ -6,17 +6,19 @@ import java.util.List;
 public class Queue {
     private final QueuePersister queuePersister;
     private final List<QueueItem> queueItems;
+    private final String title;
     private long id;
     private int iteratorIndex = 0;
 
-    public Queue(long id, QueuePersister queuePersister) {
+    private Queue(String title, long id, QueuePersister queuePersister) {
+        this.title = title;
         this.id = id;
         this.queuePersister = queuePersister;
         this.queueItems = new ArrayList<>();
     }
 
-    static Queue withPersister(final QueuePersister queuePersister) {
-        return new Queue(queuePersister.uniqueId(), queuePersister);
+    static Queue withPersister(String title, final QueuePersister queuePersister) {
+        return new Queue(title, queuePersister.uniqueId(), queuePersister);
     }
 
     public void addItem(QueueItem queueItem) {
