@@ -12,7 +12,7 @@ public class QueueTest {
     @Test
     public void testAddingAnItemToAQueue_WillPersistIt() {
         AssertingQueuePersister persister = new AssertingQueuePersister();
-        Queue queue = new Queue(persister);
+        Queue queue = new Queue(4, persister);
 
         QueueItem queueItem = new QueueItem("Hello");
         queue.addItem(queueItem);
@@ -23,7 +23,7 @@ public class QueueTest {
 
     @Test
     public void testAddingAnItemToAQueue_MeansItCanBeRetrieved() {
-        Queue queue = new Queue(UNUSED_PERSISTER);
+        Queue queue = new Queue(4, UNUSED_PERSISTER);
 
         QueueItem queueItem = new QueueItem("Hello");
         queue.addItem(queueItem);
@@ -33,7 +33,7 @@ public class QueueTest {
 
     @Test
     public void testAddingTwoItemsToAQueue_RetrievesThemInTheCorrectOrder() {
-        Queue queue = new Queue(UNUSED_PERSISTER);
+        Queue queue = new Queue(4, UNUSED_PERSISTER);
 
         QueueItem queueItem = new QueueItem("Hello");
         QueueItem queueItem2 = new QueueItem("How are you");
@@ -46,7 +46,7 @@ public class QueueTest {
 
     @Test
     public void testAddingAndIteratingWorks() {
-        Queue queue = new Queue(UNUSED_PERSISTER);
+        Queue queue = new Queue(4, UNUSED_PERSISTER);
 
         QueueItem queueItem = new QueueItem("Hello");
         queue.addItem(queueItem);
@@ -59,7 +59,7 @@ public class QueueTest {
 
     @Test
     public void testRemovingAnItem_RemovesIt() {
-        Queue queue = new Queue(UNUSED_PERSISTER);
+        Queue queue = new Queue(4, UNUSED_PERSISTER);
 
         QueueItem queueItem = new QueueItem("Hello");
         QueueItem queueItem2 = new QueueItem("How are you");
@@ -74,7 +74,7 @@ public class QueueTest {
     @Test
     public void testRemovingAnItem_RemovesItFromThePersister() {
         AssertingQueuePersister queuePersister = new AssertingQueuePersister();
-        Queue queue = new Queue(queuePersister);
+        Queue queue = new Queue(4, queuePersister);
 
         QueueItem queueItem = new QueueItem("Hello");
         QueueItem queueItem2 = new QueueItem("How are you");

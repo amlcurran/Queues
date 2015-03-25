@@ -9,7 +9,8 @@ public class Queue {
     private long id;
     private int iteratorIndex = 0;
 
-    public Queue(QueuePersister queuePersister) {
+    public Queue(long id, QueuePersister queuePersister) {
+        this.id = id;
         this.queuePersister = queuePersister;
         this.queueItems = new ArrayList<>();
     }

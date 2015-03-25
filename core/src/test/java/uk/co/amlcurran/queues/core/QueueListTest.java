@@ -23,7 +23,7 @@ public class QueueListTest {
         BasicQueuePersister queuePersister = new BasicQueuePersister(0);
         QueueList queueList = new QueueList(queuePersister);
 
-        queueList.add(new Queue(queuePersister));
+        queueList.add(new Queue(4, queuePersister));
 
         assertThat(queueList.size(), is(1));
     }
@@ -33,7 +33,7 @@ public class QueueListTest {
         BasicQueuePersister queuePersister = new BasicQueuePersister(0);
         QueueList queueList = new QueueList(queuePersister);
 
-        Queue queue = new Queue(queuePersister);
+        Queue queue = new Queue(4, queuePersister);
         queueList.add(queue);
 
         assertThat(queuePersister.addedQueue, is(queue));
