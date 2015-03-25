@@ -3,8 +3,6 @@ package uk.co.amlcurran.queues.core;
 import org.junit.Test;
 
 import java.util.AbstractList;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import static org.hamcrest.core.Is.is;
@@ -111,30 +109,4 @@ public class QueueListTest {
 
     }
 
-    public class QueueList {
-        private final List<Queue> queues;
-        private final BasicQueuePersister queuePersister;
-
-        public QueueList(BasicQueuePersister queuePersister) {
-            this.queuePersister = queuePersister;
-            this.queues = new ArrayList<>(queuePersister.queues());
-        }
-
-        public int size() {
-            return queues.size();
-        }
-
-        public void add(Queue queue) {
-            queues.add(queue);
-            queuePersister.saveQueue(queue, null);
-        }
-
-        public Queue newQueue() {
-            return Queue.withPersister(queuePersister);
-        }
-
-        public List<Queue> all() {
-            return Collections.unmodifiableList(queues);
-        }
-    }
 }
