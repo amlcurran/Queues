@@ -107,6 +107,11 @@ public class QueueTest {
 
         }
 
+        @Override
+        public long uniqueId() {
+            return 0;
+        }
+
     };
 
 
@@ -134,6 +139,11 @@ public class QueueTest {
         @Override
         public void saveQueue(Queue queue, Callbacks callbacks) {
 
+        }
+
+        @Override
+        public long uniqueId() {
+            return 0;
         }
 
     }

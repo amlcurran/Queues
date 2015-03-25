@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertThat;
 
 public class QueueListTest {
@@ -39,9 +40,21 @@ public class QueueListTest {
         assertThat(queuePersister.addedQueue, is(queue));
     }
 
+    @Test
+    public void addingAQueueGivesItAUniqueId() {
+        BasicQueuePersister queuePersister = new BasicQueuePersister(0);
+        QueueList queueList = new QueueList(queuePersister);
+
+        Queue firstQueue = queueList.newQueue();
+        Queue secondQueue = queueList.newQueue();
+
+        assertNotEquals(secondQueue.getId(), firstQueue.getId());
+    }
+
     private static class BasicQueuePersister implements QueuePersister {
 
         private final int numberOfQueues;
+        private long nextId = 0;
         public Queue addedQueue;
 
         private BasicQueuePersister(int numberOfQueues) {
@@ -78,6 +91,11 @@ public class QueueListTest {
             addedQueue = queue;
         }
 
+        @Override
+        public long uniqueId() {
+            return nextId++;
+        }
+
     }
 
     private class QueueList {
@@ -96,6 +114,10 @@ public class QueueListTest {
         public void add(Queue queue) {
             queues.add(queue);
             queuePersister.saveQueue(queue, null);
+        }
+
+        public Queue newQueue() {
+            return Queue.withPersister(queuePersister);
         }
     }
 }

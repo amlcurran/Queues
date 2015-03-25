@@ -11,6 +11,8 @@ public interface QueuePersister {
 
     void saveQueue(Queue queue, Callbacks callbacks);
 
+    long uniqueId();
+
     interface Callbacks {
 
     }

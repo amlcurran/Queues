@@ -16,7 +16,7 @@ public class Queue {
     }
 
     static Queue withPersister(final QueuePersister queuePersister) {
-        return new Queue(4, queuePersister);
+        return new Queue(queuePersister.uniqueId(), queuePersister);
     }
 
     public void addItem(QueueItem queueItem) {
