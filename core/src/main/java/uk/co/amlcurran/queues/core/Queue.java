@@ -15,6 +15,10 @@ public class Queue {
         this.queueItems = new ArrayList<>();
     }
 
+    static Queue withPersister(final QueuePersister queuePersister) {
+        return new Queue(4, queuePersister);
+    }
+
     public void addItem(QueueItem queueItem) {
         queueItems.add(queueItem);
         queuePersister.addItemToQueue(id, queueItem);
