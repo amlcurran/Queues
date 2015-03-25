@@ -4,11 +4,13 @@ import org.junit.Test;
 
 import java.util.AbstractList;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 public class QueueListTest {
 
@@ -38,6 +40,17 @@ public class QueueListTest {
         queueList.add(queue);
 
         assertThat(queuePersister.addedQueue, is(queue));
+    }
+
+    @Test
+    public void addingAQueueReturnsItFromTheList() {
+        BasicQueuePersister queuePersister = new BasicQueuePersister(0);
+        QueueList queueList = new QueueList(queuePersister);
+
+        Queue queue = Queue.withPersister(queuePersister);
+        queueList.add(queue);
+
+        assertTrue(queueList.all().contains(queue));
     }
 
     @Test
@@ -98,7 +111,7 @@ public class QueueListTest {
 
     }
 
-    private class QueueList {
+    public class QueueList {
         private final List<Queue> queues;
         private final BasicQueuePersister queuePersister;
 
@@ -118,6 +131,10 @@ public class QueueListTest {
 
         public Queue newQueue() {
             return Queue.withPersister(queuePersister);
+        }
+
+        public List<Queue> all() {
+            return Collections.unmodifiableList(queues);
         }
     }
 }
