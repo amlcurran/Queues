@@ -48,7 +48,7 @@ public class QueueListFragment extends Fragment {
     private QueueList.ListListener updateSelfListener = new QueueList.ListListener() {
         @Override
         public void queueAdded(Queue queue) {
-            adapter.notifyDataSetChanged();
+            adapter.notifyItemInserted(queueList.positionFromQueue(queue));
         }
     };
 
