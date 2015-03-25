@@ -8,12 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import uk.co.amlcurran.queues.core.Queue;
 import uk.co.amlcurran.queues.core.QueueList;
 
 public class QueueListFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
+    private QueueList queueList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -25,14 +27,29 @@ public class QueueListFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        QueueList queueList = QueuesApplication.queueList(getActivity());
+        queueList = QueuesApplication.queueList(getActivity());
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter = new QueueListAdapter(queueList, LayoutInflater.from(getActivity()));
         recyclerView.setAdapter(adapter);
     }
 
-    public void poke() {
-        adapter.notifyDataSetChanged();
+    @Override
+    public void onStart() {
+        super.onStart();
+        queueList.addCallbacks(updateSelfListener);
     }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        queueList.removeCallbacks(updateSelfListener);
+    }
+
+    private QueueList.ListListener updateSelfListener = new QueueList.ListListener() {
+        @Override
+        public void queueAdded(Queue queue) {
+            adapter.notifyDataSetChanged();
+        }
+    };
 
 }

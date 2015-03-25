@@ -38,6 +38,5 @@ public class MainActivity extends Activity {
     private void addNewQueue() {
         QueueList queueList = QueuesApplication.queueList(this);
         queueList.add(queueList.newQueue());
-        ((QueueListFragment) getFragmentManager().findFragmentById(R.id.content)).poke();
     }
 }
