@@ -11,12 +11,11 @@ import uk.co.amlcurran.queues.core.QueueList;
 
 class QueueListAdapter extends RecyclerView.Adapter<ViewHolder> {
 
-    private final QueueList queueList;
-
-    private LayoutInflater layoutInflater;
+    private final BasicQueueSource basicQueueSource;
+    private final LayoutInflater layoutInflater;
 
     public QueueListAdapter(QueueList queueList, LayoutInflater layoutInflater) {
-        this.queueList = queueList;
+        this.basicQueueSource = new BasicQueueSource(queueList);
         this.layoutInflater = layoutInflater;
     }
 
@@ -28,13 +27,13 @@ class QueueListAdapter extends RecyclerView.Adapter<ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
-        Queue queue = queueList.all().get(i);
+        Queue queue = basicQueueSource.get(i);
         ((TextView) viewHolder.itemView).setText(String.format("%1$d : %2$s", queue.getId(), queue.getTitle()));
     }
 
     @Override
     public int getItemCount() {
-        return queueList.size();
+        return basicQueueSource.size();
     }
 
 }
