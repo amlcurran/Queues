@@ -5,6 +5,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import uk.co.amlcurran.queues.core.Queue;
 import uk.co.amlcurran.queues.core.QueueList;
 
 public class MainActivity extends ActionBarActivity {
@@ -23,6 +24,7 @@ public class MainActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(final Menu menu) {
         final boolean createOptionsMenu = super.onCreateOptionsMenu(menu);
         menu.add("Add");
+        menu.add("Remove");
         return createOptionsMenu;
     }
 
@@ -30,8 +32,18 @@ public class MainActivity extends ActionBarActivity {
     public boolean onOptionsItemSelected(final MenuItem item) {
         if ("Add".equals(item.getTitle())) {
             addNewQueue();
+        } else if ("Remove".equals(item.getTitle())) {
+            removeQueue();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void removeQueue() {
+        QueueList queueList = QueuesApplication.queueList(this);
+        if (queueList.size() > 0) {
+            Queue queue = queueList.all().get(0);
+            queueList.remove(queue);
+        }
     }
 
     private void addNewQueue() {
