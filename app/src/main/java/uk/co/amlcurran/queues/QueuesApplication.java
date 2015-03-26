@@ -53,5 +53,10 @@ public class QueuesApplication extends Application {
         public long uniqueId() {
             return queues.size();
         }
+
+        @Override
+        public void deleteQueue(Queue queue, Callbacks callbacks) {
+            queues.remove(queue);
+        }
     }
 }

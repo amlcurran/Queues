@@ -41,6 +41,18 @@ public class QueueListTest {
     }
 
     @Test
+    public void removingAQueueUnpersistsIt() {
+        BasicQueuePersister queuePersister = new BasicQueuePersister(0);
+        QueueList queueList = new QueueList(queuePersister);
+
+        Queue queue = QueueFactory.withPersister(queuePersister);
+        queueList.add(queue);
+        queueList.remove(queue);
+
+        assertThat(queuePersister.removedQueue, is(queue));
+    }
+
+    @Test
     public void addingAQueueReturnsItFromTheList() {
         BasicQueuePersister queuePersister = new BasicQueuePersister(0);
         QueueList queueList = new QueueList(queuePersister);
@@ -106,6 +118,7 @@ public class QueueListTest {
         private final int numberOfQueues;
         private long nextId = 0;
         public Queue addedQueue;
+        public Queue removedQueue;
 
         private BasicQueuePersister(int numberOfQueues) {
             this.numberOfQueues = numberOfQueues;
@@ -144,6 +157,11 @@ public class QueueListTest {
         @Override
         public long uniqueId() {
             return nextId++;
+        }
+
+        @Override
+        public void deleteQueue(Queue queue, Callbacks callbacks) {
+            removedQueue = queue;
         }
 
     }

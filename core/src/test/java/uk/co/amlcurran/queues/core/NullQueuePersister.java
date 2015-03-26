@@ -36,6 +36,11 @@ class NullQueuePersister implements QueuePersister {
         return 0;
     }
 
+    @Override
+    public void deleteQueue(Queue queue, Callbacks callbacks) {
+
+    }
+
     public static QueuePersister empty() {
         return new NullQueuePersister(Collections.<Queue>emptyList());
     }

@@ -53,6 +53,7 @@ public class QueueList {
     public void remove(final Queue queue) {
         final int removedPosition = positionFromQueue(queue);
         queues.remove(queue);
+        queuePersister.deleteQueue(queue, null);
         notifyListeners(new ListenerAction() {
             @Override
             public void act(ListListener listListener) {

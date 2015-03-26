@@ -112,6 +112,11 @@ public class QueueTest {
             return 0;
         }
 
+        @Override
+        public void deleteQueue(Queue queue, Callbacks callbacks) {
+
+        }
+
     };
 
     private class AssertingQueuePersister implements QueuePersister {
@@ -143,6 +148,11 @@ public class QueueTest {
         @Override
         public long uniqueId() {
             return 0;
+        }
+
+        @Override
+        public void deleteQueue(Queue queue, Callbacks callbacks) {
+
         }
 
     }
