@@ -30,8 +30,8 @@ public class QueueList {
         });
     }
 
-    public Queue newQueue() {
-        return Queue.withPersister("UNUSED_TITLE", queuePersister);
+    public Queue newQueue(String title) {
+        return Queue.withPersister(title, queuePersister);
     }
 
     public List<Queue> all() {
@@ -60,6 +60,10 @@ public class QueueList {
                 listListener.queueRemoved(queue, removedPosition);
             }
         });
+    }
+
+    public void addNewQueue(String title) {
+        add(newQueue(title));
     }
 
     public interface ListListener {

@@ -68,8 +68,8 @@ public class QueueListTest {
         BasicQueuePersister queuePersister = new BasicQueuePersister(0);
         QueueList queueList = new QueueList(queuePersister);
 
-        Queue firstQueue = queueList.newQueue();
-        Queue secondQueue = queueList.newQueue();
+        Queue firstQueue = queueList.newQueue(title);
+        Queue secondQueue = queueList.newQueue(title);
 
         assertNotEquals(secondQueue.getId(), firstQueue.getId());
     }
@@ -80,7 +80,7 @@ public class QueueListTest {
         AssertingListListener listListener = new AssertingListListener();
         queueList.addCallbacks(listListener);
 
-        Queue firstQueue = queueList.newQueue();
+        Queue firstQueue = queueList.newQueue(title);
         queueList.add(firstQueue);
 
         assertThat(listListener.queueAdded, is(firstQueue));
@@ -93,7 +93,7 @@ public class QueueListTest {
         queueList.addCallbacks(listListener);
         queueList.removeCallbacks(listListener);
 
-        Queue firstQueue = queueList.newQueue();
+        Queue firstQueue = queueList.newQueue(title);
         queueList.add(firstQueue);
 
         assertNull(listListener.queueAdded);
@@ -104,8 +104,8 @@ public class QueueListTest {
         BasicQueuePersister queuePersister = new BasicQueuePersister(0);
         QueueList queueList = new QueueList(queuePersister);
 
-        Queue firstQueue = queueList.newQueue();
-        Queue secondQueue = queueList.newQueue();
+        Queue firstQueue = queueList.newQueue(title);
+        Queue secondQueue = queueList.newQueue(title);
         queueList.add(firstQueue);
         queueList.add(secondQueue);
 

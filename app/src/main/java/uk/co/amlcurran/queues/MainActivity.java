@@ -48,6 +48,6 @@ public class MainActivity extends ActionBarActivity {
 
     private void addNewQueue() {
         QueueList queueList = QueuesApplication.queueList(this);
-        queueList.add(queueList.newQueue());
+        queueList.add(queueList.newQueue("Boo"));
     }
 }

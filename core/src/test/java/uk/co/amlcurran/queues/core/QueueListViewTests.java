@@ -14,7 +14,7 @@ public class QueueListViewTests {
         QueueListController queueListController = new QueueListController(queueListView, queueList);
         queueListController.start();
 
-        queueList.add(queueList.newQueue());
+        queueList.add(queueList.newQueue(title));
 
         assertThat(queueListView.addedItem, is(0));
     }
@@ -26,8 +26,8 @@ public class QueueListViewTests {
         QueueListController queueListController = new QueueListController(queueListView, queueList);
         queueListController.start();
 
-        Queue queue = queueList.newQueue();
-        queueList.add(queueList.newQueue());
+        Queue queue = queueList.newQueue(title);
+        queueList.add(queueList.newQueue(title));
         queueList.add(queue);
         queueList.remove(queue);
 
