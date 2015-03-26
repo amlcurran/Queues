@@ -1,4 +1,4 @@
-package uk.co.amlcurran.queues;
+package uk.co.amlcurran.queues.core;
 
 import uk.co.amlcurran.queues.core.Queue;
 import uk.co.amlcurran.queues.core.QueueList;

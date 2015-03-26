@@ -9,16 +9,16 @@ public class QueueListController {
         this.queueList = queueList;
     }
 
-    public QueueList getQueueList() {
-        return queueList;
-    }
-
     public void start() {
         queueList.addCallbacks(updateSelfListener);
     }
 
     public void stop() {
         queueList.removeCallbacks(updateSelfListener);
+    }
+
+    public BasicQueueSource createQueueSource() {
+        return new BasicQueueSource(queueList);
     }
 
     private QueueList.ListListener updateSelfListener = new QueueList.ListListener() {

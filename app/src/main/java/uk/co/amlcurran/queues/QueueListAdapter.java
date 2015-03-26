@@ -6,16 +6,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import uk.co.amlcurran.queues.core.BasicQueueSource;
 import uk.co.amlcurran.queues.core.Queue;
-import uk.co.amlcurran.queues.core.QueueList;
 
 class QueueListAdapter extends RecyclerView.Adapter<ViewHolder> {
 
     private final BasicQueueSource basicQueueSource;
     private final LayoutInflater layoutInflater;
 
-    public QueueListAdapter(QueueList queueList, LayoutInflater layoutInflater) {
-        this.basicQueueSource = new BasicQueueSource(queueList);
+    public QueueListAdapter(BasicQueueSource queueSource, LayoutInflater layoutInflater) {
+        this.basicQueueSource = queueSource;
         this.layoutInflater = layoutInflater;
     }
 
