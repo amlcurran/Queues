@@ -2,8 +2,8 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat">
-      <item name="colorPrimary">#ffff730e</item>
-      <item name="colorPrimaryDark">#ffe35b12</item>
+      <item name="colorPrimary">#ff416a9d</item>
+      <item name="colorPrimaryDark">#ff3d4e7f</item>
         <!-- Customize your theme here. -->
     </style>
 
