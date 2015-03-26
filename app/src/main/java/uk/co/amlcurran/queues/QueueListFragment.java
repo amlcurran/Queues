@@ -50,4 +50,9 @@ public class QueueListFragment extends Fragment implements QueueListView {
         adapter.notifyItemInserted(position);
     }
 
+    @Override
+    public void itemRemoved(int position) {
+        adapter.notifyItemRemoved(position);
+    }
+
 }

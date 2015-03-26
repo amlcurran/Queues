@@ -155,5 +155,10 @@ public class QueueListTest {
         public void queueAdded(Queue queue) {
             queueAdded = queue;
         }
+
+        @Override
+        public void queueRemoved(Queue queue, int removedPosition) {
+
+        }
     }
 }

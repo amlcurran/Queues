@@ -50,9 +50,22 @@ public class QueueList {
         return queues.indexOf(queue);
     }
 
+    public void remove(final Queue queue) {
+        final int removedPosition = positionFromQueue(queue);
+        queues.remove(queue);
+        notifyListeners(new ListenerAction() {
+            @Override
+            public void act(ListListener listListener) {
+                listListener.queueRemoved(queue, removedPosition);
+            }
+        });
+    }
+
     public interface ListListener {
 
         void queueAdded(Queue queue);
+
+        void queueRemoved(Queue queue, int removedPosition);
     }
 
     private void notifyListeners(ListenerAction action) {

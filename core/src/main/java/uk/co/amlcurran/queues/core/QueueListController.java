@@ -27,6 +27,11 @@ public class QueueListController {
             int position = queueList.positionFromQueue(queue);
             queueListView.itemAdded(position);
         }
+
+        @Override
+        public void queueRemoved(Queue queue, int removedPosition) {
+            queueListView.itemRemoved(removedPosition);
+        }
     };
 
     private static class BasicQueueSource implements Source<Queue> {
