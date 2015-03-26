@@ -1,7 +1,4 @@
-package uk.co.amlcurran.queues;
-
-import uk.co.amlcurran.queues.core.Queue;
-import uk.co.amlcurran.queues.core.QueueList;
+package uk.co.amlcurran.queues.core;
 
 public class QueueListController {
     private final QueueListView queueListView;
@@ -12,19 +9,19 @@ public class QueueListController {
         this.queueList = queueList;
     }
 
-    QueueList getQueueList() {
+    public QueueList getQueueList() {
         return queueList;
     }
 
-    void start() {
+    public void start() {
         queueList.addCallbacks(updateSelfListener);
     }
 
-    void stop() {
+    public void stop() {
         queueList.removeCallbacks(updateSelfListener);
     }
 
-    QueueList.ListListener updateSelfListener = new QueueList.ListListener() {
+    private QueueList.ListListener updateSelfListener = new QueueList.ListListener() {
         @Override
         public void queueAdded(Queue queue) {
             int position = queueList.positionFromQueue(queue);

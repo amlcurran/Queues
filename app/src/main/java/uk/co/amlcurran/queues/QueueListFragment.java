@@ -8,6 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import uk.co.amlcurran.queues.core.QueueListController;
+import uk.co.amlcurran.queues.core.QueueListView;
+
 public class QueueListFragment extends Fragment implements QueueListView {
 
     private QueueListController queueListController;

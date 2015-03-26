@@ -1,4 +1,4 @@
-package uk.co.amlcurran.queues;
+package uk.co.amlcurran.queues.core;
 
 public interface QueueListView {
     void itemAdded(int position);
