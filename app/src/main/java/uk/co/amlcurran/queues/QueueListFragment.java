@@ -8,14 +8,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import uk.co.amlcurran.queues.core.Queue;
-import uk.co.amlcurran.queues.core.QueueList;
+public class QueueListFragment extends Fragment implements QueueListView {
 
-public class QueueListFragment extends Fragment {
-
+    private QueueListController queueListController;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
-    private QueueList queueList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -27,29 +24,27 @@ public class QueueListFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        queueList = QueuesApplication.queueList(getActivity());
+        queueListController = new QueueListController(this, QueuesApplication.queueList(getActivity()));
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adapter = new QueueListAdapter(queueList, LayoutInflater.from(getActivity()));
+        adapter = new QueueListAdapter(queueListController.getQueueList(), LayoutInflater.from(getActivity()));
         recyclerView.setAdapter(adapter);
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        queueList.addCallbacks(updateSelfListener);
+        queueListController.start();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        queueList.removeCallbacks(updateSelfListener);
+        queueListController.stop();
     }
 
-    private QueueList.ListListener updateSelfListener = new QueueList.ListListener() {
-        @Override
-        public void queueAdded(Queue queue) {
-            adapter.notifyItemInserted(queueList.positionFromQueue(queue));
-        }
-    };
+    @Override
+    public void itemAdded(int position) {
+        adapter.notifyItemInserted(position);
+    }
 
 }
