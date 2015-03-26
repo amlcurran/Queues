@@ -11,6 +11,7 @@ import static org.junit.Assert.*;
 public class QueueListTest {
 
     private static final QueuePersister UNUSED_PERSISTER = null;
+    private String title = "title";
 
     @Test
     public void returnsTheCorrectAmountOfQueues() {

@@ -7,6 +7,8 @@ import static org.junit.Assert.assertThat;
 
 public class QueueListViewTests {
 
+    private String title = "hello";
+
     @Test
     public void whenAnItemIsAddedTheViewIsUpdated() {
         AssertingQueueListView queueListView = new AssertingQueueListView();
