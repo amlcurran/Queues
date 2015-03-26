@@ -17,7 +17,7 @@ public class QueueListController {
         queueList.removeCallbacks(updateSelfListener);
     }
 
-    public BasicQueueSource createQueueSource() {
+    public Source<Queue> createQueueSource() {
         return new BasicQueueSource(queueList);
     }
 
@@ -28,4 +28,22 @@ public class QueueListController {
             queueListView.itemAdded(position);
         }
     };
+
+    private static class BasicQueueSource implements Source<Queue> {
+        private final QueueList queueList;
+
+        public BasicQueueSource(QueueList queueList) {
+            this.queueList = queueList;
+        }
+
+        @Override
+        public Queue get(int position) {
+            return queueList.all().get(position);
+        }
+
+        @Override
+        public int size() {
+            return queueList.size();
+        }
+    }
 }

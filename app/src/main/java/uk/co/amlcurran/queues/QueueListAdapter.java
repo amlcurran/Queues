@@ -6,16 +6,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import uk.co.amlcurran.queues.core.BasicQueueSource;
 import uk.co.amlcurran.queues.core.Queue;
+import uk.co.amlcurran.queues.core.Source;
 
 class QueueListAdapter extends RecyclerView.Adapter<ViewHolder> {
 
-    private final BasicQueueSource basicQueueSource;
+    private final Source<Queue> queueSource;
     private final LayoutInflater layoutInflater;
 
-    public QueueListAdapter(BasicQueueSource queueSource, LayoutInflater layoutInflater) {
-        this.basicQueueSource = queueSource;
+    public QueueListAdapter(Source<Queue> queueSource, LayoutInflater layoutInflater) {
+        this.queueSource = queueSource;
         this.layoutInflater = layoutInflater;
     }
 
@@ -27,13 +27,13 @@ class QueueListAdapter extends RecyclerView.Adapter<ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
-        Queue queue = basicQueueSource.get(i);
+        Queue queue = queueSource.get(i);
         ((TextView) viewHolder.itemView).setText(String.format("%1$d : %2$s", queue.getId(), queue.getTitle()));
     }
 
     @Override
     public int getItemCount() {
-        return basicQueueSource.size();
+        return queueSource.size();
     }
 
 }
