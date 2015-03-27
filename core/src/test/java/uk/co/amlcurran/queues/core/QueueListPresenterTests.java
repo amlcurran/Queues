@@ -39,7 +39,7 @@ public class QueueListPresenterTests {
     }
 
     @Test
-    public void wheAnItemIsSelected_TheNavigationControllerMovesToQueueView() {
+    public void whenAnItemIsSelected_TheNavigationControllerMovesToQueueView() {
         AssertingNavigationController navigationController = new AssertingNavigationController();
         QueueList queueList = new QueueList(TestQueuePersister.withNumberOfQueues(2));
         QueueListPresenter queueListPresenter = new QueueListPresenter(UNUSED_VIEW, navigationController, queueList);
