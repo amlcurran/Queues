@@ -14,7 +14,7 @@ public class QueueListPresenterTests {
     @Test
     public void whenAnItemIsAddedTheViewIsUpdated() {
         AssertingQueueListView queueListView = new AssertingQueueListView();
-        QueueList queueList = new QueueList(NullQueuePersister.empty());
+        QueueList queueList = new QueueList(Persisters.empty());
         QueueListPresenter queueListPresenter = new QueueListPresenter(queueListView, UNUSED_NAV, queueList);
         queueListPresenter.start();
 
@@ -26,7 +26,7 @@ public class QueueListPresenterTests {
     @Test
     public void whenAnItemIsRemovedTheViewIsUpdated() {
         AssertingQueueListView queueListView = new AssertingQueueListView();
-        QueueList queueList = new QueueList(NullQueuePersister.empty());
+        QueueList queueList = new QueueList(Persisters.empty());
         QueueListPresenter queueListPresenter = new QueueListPresenter(queueListView, UNUSED_NAV, queueList);
         queueListPresenter.start();
 
