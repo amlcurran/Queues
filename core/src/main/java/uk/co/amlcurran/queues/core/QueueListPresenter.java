@@ -2,10 +2,12 @@ package uk.co.amlcurran.queues.core;
 
 public class QueueListPresenter {
     private final QueueListView queueListView;
+    private final NavigationController navigationController;
     private final QueueList queueList;
 
-    public QueueListPresenter(QueueListView queueListView, QueueList queueList) {
+    public QueueListPresenter(QueueListView queueListView, NavigationController navigationController, QueueList queueList) {
         this.queueListView = queueListView;
+        this.navigationController = navigationController;
         this.queueList = queueList;
     }
 
@@ -15,6 +17,10 @@ public class QueueListPresenter {
 
     public void stop() {
         queueList.removeCallbacks(updateSelfListener);
+    }
+
+    public void selectedQueue(int position) {
+        navigationController.viewQueue(queueList.all().get(position));
     }
 
     public Source<Queue> createQueueSource() {

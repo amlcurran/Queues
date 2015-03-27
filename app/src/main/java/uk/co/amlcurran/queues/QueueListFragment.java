@@ -32,7 +32,7 @@ public class QueueListFragment extends Fragment implements QueueListView {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        queueListPresenter = new QueueListPresenter(this, QueuesApplication.queueList(getActivity()));
+        queueListPresenter = new QueueListPresenter(this, null, QueuesApplication.queueList(getActivity()));
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter = new QueueListAdapter(queueListPresenter.createQueueSource(), LayoutInflater.from(getActivity()));
         recyclerView.setAdapter(adapter);
