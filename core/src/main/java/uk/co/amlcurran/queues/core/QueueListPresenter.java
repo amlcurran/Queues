@@ -1,10 +1,10 @@
 package uk.co.amlcurran.queues.core;
 
-public class QueueListController {
+public class QueueListPresenter {
     private final QueueListView queueListView;
     private final QueueList queueList;
 
-    public QueueListController(QueueListView queueListView, QueueList queueList) {
+    public QueueListPresenter(QueueListView queueListView, QueueList queueList) {
         this.queueListView = queueListView;
         this.queueList = queueList;
     }

@@ -11,12 +11,12 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 
-import uk.co.amlcurran.queues.core.QueueListController;
+import uk.co.amlcurran.queues.core.QueueListPresenter;
 import uk.co.amlcurran.queues.core.QueueListView;
 
 public class QueueListFragment extends Fragment implements QueueListView {
 
-    private QueueListController queueListController;
+    private QueueListPresenter queueListPresenter;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private TextView newTitleEntry;
@@ -32,9 +32,9 @@ public class QueueListFragment extends Fragment implements QueueListView {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        queueListController = new QueueListController(this, QueuesApplication.queueList(getActivity()));
+        queueListPresenter = new QueueListPresenter(this, QueuesApplication.queueList(getActivity()));
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adapter = new QueueListAdapter(queueListController.createQueueSource(), LayoutInflater.from(getActivity()));
+        adapter = new QueueListAdapter(queueListPresenter.createQueueSource(), LayoutInflater.from(getActivity()));
         recyclerView.setAdapter(adapter);
         newTitleEntry.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -53,13 +53,13 @@ public class QueueListFragment extends Fragment implements QueueListView {
     @Override
     public void onStart() {
         super.onStart();
-        queueListController.start();
+        queueListPresenter.start();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        queueListController.stop();
+        queueListPresenter.stop();
     }
 
     @Override
