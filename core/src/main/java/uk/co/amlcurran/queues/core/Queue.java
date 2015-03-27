@@ -7,7 +7,7 @@ public class Queue {
     private final QueuePersister queuePersister;
     private final List<QueueItem> queueItems;
     private final String title;
-    private long id;
+    private final long id;
     private int iteratorIndex = 0;
 
     private Queue(String title, long id, QueuePersister queuePersister) {

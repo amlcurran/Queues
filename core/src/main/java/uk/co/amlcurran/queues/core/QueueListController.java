@@ -21,7 +21,7 @@ public class QueueListController {
         return new BasicQueueSource(queueList);
     }
 
-    private QueueList.ListListener updateSelfListener = new QueueList.ListListener() {
+    private final QueueList.ListListener updateSelfListener = new QueueList.ListListener() {
         @Override
         public void queueAdded(Queue queue) {
             int position = queueList.positionFromQueue(queue);
