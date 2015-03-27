@@ -10,10 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import uk.co.amlcurran.queues.core.NavigationController;
-import uk.co.amlcurran.queues.core.Queue;
 import uk.co.amlcurran.queues.core.QueueListPresenter;
 import uk.co.amlcurran.queues.core.QueueListView;
 
@@ -35,12 +32,7 @@ public class QueueListFragment extends Fragment implements QueueListView {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        queueListPresenter = new QueueListPresenter(this, new NavigationController() {
-            @Override
-            public void viewQueue(Queue queue) {
-                Toast.makeText(getActivity(), "View me this queue: " + queue.getTitle(), Toast.LENGTH_SHORT).show();
-            }
-        }, QueuesApplication.queueList(getActivity()));
+        queueListPresenter = new QueueListPresenter(this, new ActivityNavigationController(getActivity()), QueuesApplication.queueList(getActivity()));
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter = new QueueListAdapter(queueListPresenter.createQueueSource(), LayoutInflater.from(getActivity()), new QueueListAdapter.QueueListSelectionListener() {
             @Override
