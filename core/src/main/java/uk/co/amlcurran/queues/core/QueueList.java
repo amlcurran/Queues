@@ -27,7 +27,7 @@ public class QueueList {
                 notifyListeners(new ListenerAction() {
                     @Override
                     public void act(ListListener listListener) {
-                        remove(queue);
+                        removeFromMemCache(queue);
                     }
                 });
             }
@@ -61,9 +61,13 @@ public class QueueList {
     }
 
     public void remove(final Queue queue) {
+        removeFromMemCache(queue);
+        queuePersister.deleteQueue(queue, null);
+    }
+
+    private void removeFromMemCache(final Queue queue) {
         final int removedPosition = positionFromQueue(queue);
         queues.remove(queue);
-        queuePersister.deleteQueue(queue, null);
         notifyListeners(new ListenerAction() {
             @Override
             public void act(ListListener listListener) {
