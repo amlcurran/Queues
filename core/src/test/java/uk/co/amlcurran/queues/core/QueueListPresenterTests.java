@@ -9,7 +9,7 @@ public class QueueListPresenterTests {
 
     private static final QueueListView UNUSED_VIEW = null;
     private static final NavigationController UNUSED_NAV = null;
-    private String title = "hello";
+    private static final String TITLE = "hello";
 
     @Test
     public void whenAnItemIsAddedTheViewIsUpdated() {
@@ -18,7 +18,7 @@ public class QueueListPresenterTests {
         QueueListPresenter queueListPresenter = new QueueListPresenter(queueListView, UNUSED_NAV, queueList);
         queueListPresenter.start();
 
-        queueList.add(queueList.newQueue(title));
+        queueList.add(queueList.newQueue(TITLE));
 
         assertThat(queueListView.addedItem, is(0));
     }
@@ -30,8 +30,8 @@ public class QueueListPresenterTests {
         QueueListPresenter queueListPresenter = new QueueListPresenter(queueListView, UNUSED_NAV, queueList);
         queueListPresenter.start();
 
-        Queue queue = queueList.newQueue(title);
-        queueList.add(queueList.newQueue(title));
+        Queue queue = queueList.newQueue(TITLE);
+        queueList.add(queueList.newQueue(TITLE));
         queueList.add(queue);
         queueList.remove(queue);
 
