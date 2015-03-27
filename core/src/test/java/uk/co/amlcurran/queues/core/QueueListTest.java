@@ -42,6 +42,20 @@ public class QueueListTest {
     }
 
     @Test
+    public void addingAQueueRemovesItIfItFailedToSave() {
+        QueuePersister queuePersister = Persisters.saveFailing();
+        QueueList queueList = new QueueList(queuePersister);
+        AssertingListListener listListener = new AssertingListListener();
+        queueList.addCallbacks(listListener);
+
+        Queue queue = QueueFactory.withPersister(queuePersister);
+        queueList.add(queue);
+
+        assertThat(listListener.queueRemoved, is(queue));
+        assertThat(queueList.size(), is(0));
+    }
+
+    @Test
     public void removingAQueueUnpersistsIt() {
         BasicQueuePersister queuePersister = new BasicQueuePersister(0);
         QueueList queueList = new QueueList(queuePersister);
@@ -169,6 +183,7 @@ public class QueueListTest {
 
     private class AssertingListListener implements QueueList.ListListener {
         public Queue queueAdded;
+        public Queue queueRemoved;
 
         @Override
         public void queueAdded(Queue queue) {
@@ -177,7 +192,7 @@ public class QueueListTest {
 
         @Override
         public void queueRemoved(Queue queue, int removedPosition) {
-
+            queueRemoved = queue;
         }
     }
 }

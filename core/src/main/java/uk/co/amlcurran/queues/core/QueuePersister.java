@@ -17,6 +17,7 @@ public interface QueuePersister {
 
     interface Callbacks {
 
+        void failedToSave(Queue queue);
     }
 
 }

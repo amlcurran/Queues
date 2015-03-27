@@ -41,7 +41,7 @@ class NullQueuePersister implements QueuePersister {
 
     }
 
-    public static QueuePersister empty() {
+    public static NullQueuePersister empty() {
         return new NullQueuePersister(Collections.<Queue>emptyList());
     }
 }

@@ -21,7 +21,17 @@ public class QueueList {
 
     public void add(final Queue queue) {
         queues.add(queue);
-        queuePersister.saveQueue(queue, null);
+        queuePersister.saveQueue(queue, new QueuePersister.Callbacks() {
+            @Override
+            public void failedToSave(final Queue queue) {
+                notifyListeners(new ListenerAction() {
+                    @Override
+                    public void act(ListListener listListener) {
+                        remove(queue);
+                    }
+                });
+            }
+        });
         notifyListeners(new ListenerAction() {
             @Override
             public void act(ListListener listListener) {
