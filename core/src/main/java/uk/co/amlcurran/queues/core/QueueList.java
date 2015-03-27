@@ -40,7 +40,7 @@ public class QueueList {
         });
     }
 
-    public Queue newQueue(String title) {
+    private Queue newQueue(String title) {
         return Queue.withPersister(title, queuePersister);
     }
 
@@ -76,8 +76,10 @@ public class QueueList {
         });
     }
 
-    public void addNewQueue(String title) {
-        add(newQueue(title));
+    public Queue addNewQueue(String title) {
+        Queue queue = newQueue(title);
+        add(queue);
+        return queue;
     }
 
     public interface ListListener {

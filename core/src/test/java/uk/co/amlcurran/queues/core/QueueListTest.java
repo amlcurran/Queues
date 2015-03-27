@@ -11,11 +11,11 @@ import static org.junit.Assert.*;
 public class QueueListTest {
 
     private static final QueuePersister UNUSED_PERSISTER = null;
-    private String title = "title";
+    private static final String TITLE = "title";
 
     @Test
     public void returnsTheCorrectAmountOfQueues() {
-        QueueList queueList = new QueueList(new BasicQueuePersister(3));
+        QueueList queueList = QueueLists.sameThreadQueueList(new BasicQueuePersister(3));
 
         assertThat(queueList.size(), is(3));
     }
@@ -23,9 +23,9 @@ public class QueueListTest {
     @Test
     public void addingAQueueIncrementsTheNumberOfQueues() {
         BasicQueuePersister queuePersister = new BasicQueuePersister(0);
-        QueueList queueList = new QueueList(queuePersister);
+        QueueList queueList = QueueLists.sameThreadQueueList(queuePersister);
 
-        queueList.add(QueueFactory.withPersister(queuePersister));
+        queueList.addNewQueue(TITLE);
 
         assertThat(queueList.size(), is(1));
     }
@@ -33,10 +33,9 @@ public class QueueListTest {
     @Test
     public void addingAQueuePersistsIt() {
         BasicQueuePersister queuePersister = new BasicQueuePersister(0);
-        QueueList queueList = new QueueList(queuePersister);
+        QueueList queueList = QueueLists.sameThreadQueueList(queuePersister);
 
-        Queue queue = QueueFactory.withPersister(queuePersister);
-        queueList.add(queue);
+        Queue queue = queueList.addNewQueue(TITLE);
 
         assertThat(queuePersister.addedQueue, is(queue));
     }
@@ -48,8 +47,7 @@ public class QueueListTest {
         AssertingListListener listListener = new AssertingListListener();
         queueList.addCallbacks(listListener);
 
-        Queue queue = QueueFactory.withPersister(queuePersister);
-        queueList.add(queue);
+        Queue queue = queueList.addNewQueue(TITLE);
 
         assertThat(listListener.queueRemoved, is(queue));
         assertThat(queueList.size(), is(0));
@@ -58,10 +56,9 @@ public class QueueListTest {
     @Test
     public void removingAQueueUnpersistsIt() {
         BasicQueuePersister queuePersister = new BasicQueuePersister(0);
-        QueueList queueList = new QueueList(queuePersister);
+        QueueList queueList = QueueLists.sameThreadQueueList(queuePersister);
 
-        Queue queue = QueueFactory.withPersister(queuePersister);
-        queueList.add(queue);
+        Queue queue = queueList.addNewQueue(TITLE);
         queueList.remove(queue);
 
         assertThat(queuePersister.removedQueue, is(queue));
@@ -69,47 +66,45 @@ public class QueueListTest {
 
     @Test
     public void addingAQueueReturnsItFromTheList() {
-        BasicQueuePersister queuePersister = new BasicQueuePersister(0);
-        QueueList queueList = new QueueList(queuePersister);
+        int numberOfQueues = 0;
+        BasicQueuePersister queuePersister = new BasicQueuePersister(numberOfQueues);
+        QueueList queueList = QueueLists.sameThreadQueueList(queuePersister);
 
-        Queue queue = QueueFactory.withPersister(queuePersister);
-        queueList.add(queue);
+        Queue newQueue = queueList.addNewQueue(TITLE);
 
-        assertTrue(queueList.all().contains(queue));
+        assertTrue(queueList.all().contains(newQueue));
     }
 
     @Test
     public void addingAQueueGivesItAUniqueId() {
         BasicQueuePersister queuePersister = new BasicQueuePersister(0);
-        QueueList queueList = new QueueList(queuePersister);
+        QueueList queueList = QueueLists.sameThreadQueueList(queuePersister);
 
-        Queue firstQueue = queueList.newQueue(title);
-        Queue secondQueue = queueList.newQueue(title);
+        Queue firstQueue = queueList.addNewQueue(TITLE);
+        Queue secondQueue = queueList.addNewQueue(TITLE);
 
         assertNotEquals(secondQueue.getId(), firstQueue.getId());
     }
 
     @Test
     public void addingAListNotifiesListeners() {
-        QueueList queueList = new QueueList(new BasicQueuePersister(0));
+        QueueList queueList = QueueLists.sameThreadQueueList(new BasicQueuePersister(0));
         AssertingListListener listListener = new AssertingListListener();
         queueList.addCallbacks(listListener);
 
-        Queue firstQueue = queueList.newQueue(title);
-        queueList.add(firstQueue);
+        Queue firstQueue = queueList.addNewQueue(TITLE);
 
         assertThat(listListener.queueAdded, is(firstQueue));
     }
 
     @Test
     public void addingARemovedListenerDoesntGetNotified() {
-        QueueList queueList = new QueueList(new BasicQueuePersister(0));
+        QueueList queueList = QueueLists.sameThreadQueueList(new BasicQueuePersister(0));
         AssertingListListener listListener = new AssertingListListener();
         queueList.addCallbacks(listListener);
         queueList.removeCallbacks(listListener);
 
-        Queue firstQueue = queueList.newQueue(title);
-        queueList.add(firstQueue);
+        queueList.addNewQueue(TITLE);
 
         assertNull(listListener.queueAdded);
     }
@@ -117,15 +112,18 @@ public class QueueListTest {
     @Test
     public void gettingThePositionFromQueueReturnsTheCorrectPosition() {
         BasicQueuePersister queuePersister = new BasicQueuePersister(0);
-        QueueList queueList = new QueueList(queuePersister);
+        QueueList queueList = QueueLists.sameThreadQueueList(queuePersister);
 
-        Queue firstQueue = queueList.newQueue(title);
-        Queue secondQueue = queueList.newQueue(title);
-        queueList.add(firstQueue);
-        queueList.add(secondQueue);
+        Queue firstQueue = queueList.addNewQueue(TITLE);
+        Queue secondQueue = queueList.addNewQueue(TITLE);
 
         assertThat(queueList.positionFromQueue(firstQueue), is(0));
         assertThat(queueList.positionFromQueue(secondQueue), is(1));
+    }
+
+    @Test
+    public void persistingIsDoneOnTheBackgroundThread() {
+
     }
 
     private static class BasicQueuePersister implements QueuePersister {

@@ -18,7 +18,7 @@ public class QueueListPresenterTests {
         QueueListPresenter queueListPresenter = new QueueListPresenter(queueListView, UNUSED_NAV, queueList);
         queueListPresenter.start();
 
-        queueList.add(queueList.newQueue(TITLE));
+        queueList.addNewQueue(TITLE);
 
         assertThat(queueListView.addedItem, is(0));
     }
@@ -30,9 +30,8 @@ public class QueueListPresenterTests {
         QueueListPresenter queueListPresenter = new QueueListPresenter(queueListView, UNUSED_NAV, queueList);
         queueListPresenter.start();
 
-        Queue queue = queueList.newQueue(TITLE);
-        queueList.add(queueList.newQueue(TITLE));
-        queueList.add(queue);
+        queueList.addNewQueue(TITLE);
+        Queue queue = queueList.addNewQueue(TITLE);
         queueList.remove(queue);
 
         assertThat(queueListView.removedItem, is(1));
