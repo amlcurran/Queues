@@ -1,4 +1,4 @@
-package uk.co.amlcurran.queues;
+package uk.co.amlcurran.queues.list;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -11,6 +11,9 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 
+import uk.co.amlcurran.queues.ActivityNavigationController;
+import uk.co.amlcurran.queues.QueuesApplication;
+import uk.co.amlcurran.queues.R;
 import uk.co.amlcurran.queues.core.QueueListPresenter;
 import uk.co.amlcurran.queues.core.QueueListView;
 

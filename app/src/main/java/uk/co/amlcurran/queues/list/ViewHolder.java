@@ -1,4 +1,4 @@
-package uk.co.amlcurran.queues;
+package uk.co.amlcurran.queues.list;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;

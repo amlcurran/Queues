@@ -4,8 +4,9 @@ import android.app.Activity;
 
 import uk.co.amlcurran.queues.core.NavigationController;
 import uk.co.amlcurran.queues.core.Queue;
+import uk.co.amlcurran.queues.queue.QueueActivity;
 
-class ActivityNavigationController implements NavigationController {
+public class ActivityNavigationController implements NavigationController {
 
     private Activity activity;
 
