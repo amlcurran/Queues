@@ -2,9 +2,6 @@ package uk.co.amlcurran.queues.core;
 
 import org.junit.Test;
 
-import java.util.AbstractList;
-import java.util.List;
-
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
@@ -15,14 +12,14 @@ public class QueueListTest {
 
     @Test
     public void returnsTheCorrectAmountOfQueues() {
-        QueueList queueList = QueueLists.sameThreadQueueList(new BasicQueuePersister(3));
+        QueueList queueList = QueueLists.sameThreadQueueList(Persisters.withNumberOfItems(3));
 
         assertThat(queueList.size(), is(3));
     }
 
     @Test
     public void addingAQueueIncrementsTheNumberOfQueues() {
-        BasicQueuePersister queuePersister = new BasicQueuePersister(0);
+        Persisters.BasicQueuePersister queuePersister = Persisters.withNumberOfItems(0);
         QueueList queueList = QueueLists.sameThreadQueueList(queuePersister);
 
         queueList.addNewQueue(TITLE);
@@ -32,7 +29,7 @@ public class QueueListTest {
 
     @Test
     public void addingAQueuePersistsIt() {
-        BasicQueuePersister queuePersister = new BasicQueuePersister(0);
+        Persisters.BasicQueuePersister queuePersister = Persisters.withNumberOfItems(0);
         QueueList queueList = QueueLists.sameThreadQueueList(queuePersister);
 
         Queue queue = queueList.addNewQueue(TITLE);
@@ -55,7 +52,7 @@ public class QueueListTest {
 
     @Test
     public void removingAQueueUnpersistsIt() {
-        BasicQueuePersister queuePersister = new BasicQueuePersister(0);
+        Persisters.BasicQueuePersister queuePersister = Persisters.withNumberOfItems(0);
         QueueList queueList = QueueLists.sameThreadQueueList(queuePersister);
 
         Queue queue = queueList.addNewQueue(TITLE);
@@ -67,7 +64,7 @@ public class QueueListTest {
     @Test
     public void addingAQueueReturnsItFromTheList() {
         int numberOfQueues = 0;
-        BasicQueuePersister queuePersister = new BasicQueuePersister(numberOfQueues);
+        Persisters.BasicQueuePersister queuePersister = Persisters.withNumberOfItems(numberOfQueues);
         QueueList queueList = QueueLists.sameThreadQueueList(queuePersister);
 
         Queue newQueue = queueList.addNewQueue(TITLE);
@@ -77,7 +74,7 @@ public class QueueListTest {
 
     @Test
     public void addingAQueueGivesItAUniqueId() {
-        BasicQueuePersister queuePersister = new BasicQueuePersister(0);
+        Persisters.BasicQueuePersister queuePersister = Persisters.withNumberOfItems(0);
         QueueList queueList = QueueLists.sameThreadQueueList(queuePersister);
 
         Queue firstQueue = queueList.addNewQueue(TITLE);
@@ -88,7 +85,7 @@ public class QueueListTest {
 
     @Test
     public void addingAListNotifiesListeners() {
-        QueueList queueList = QueueLists.sameThreadQueueList(new BasicQueuePersister(0));
+        QueueList queueList = QueueLists.sameThreadQueueList(Persisters.withNumberOfItems(0));
         AssertingListListener listListener = new AssertingListListener();
         queueList.addCallbacks(listListener);
 
@@ -99,7 +96,7 @@ public class QueueListTest {
 
     @Test
     public void addingARemovedListenerDoesntGetNotified() {
-        QueueList queueList = QueueLists.sameThreadQueueList(new BasicQueuePersister(0));
+        QueueList queueList = QueueLists.sameThreadQueueList(Persisters.withNumberOfItems(0));
         AssertingListListener listListener = new AssertingListListener();
         queueList.addCallbacks(listListener);
         queueList.removeCallbacks(listListener);
@@ -111,7 +108,7 @@ public class QueueListTest {
 
     @Test
     public void gettingThePositionFromQueueReturnsTheCorrectPosition() {
-        BasicQueuePersister queuePersister = new BasicQueuePersister(0);
+        Persisters.BasicQueuePersister queuePersister = Persisters.withNumberOfItems(0);
         QueueList queueList = QueueLists.sameThreadQueueList(queuePersister);
 
         Queue firstQueue = queueList.addNewQueue(TITLE);
@@ -123,59 +120,6 @@ public class QueueListTest {
 
     @Test
     public void persistingIsDoneOnTheBackgroundThread() {
-
-    }
-
-    private static class BasicQueuePersister implements QueuePersister {
-
-        private final int numberOfQueues;
-        private long nextId = 0;
-        public Queue addedQueue;
-        public Queue removedQueue;
-
-        private BasicQueuePersister(int numberOfQueues) {
-            this.numberOfQueues = numberOfQueues;
-        }
-
-        @Override
-        public void addItemToQueue(long queueId, QueueItem queueItem) {
-
-        }
-
-        @Override
-        public void removeItemFromQueue(long queueId, QueueItem queueItem) {
-
-        }
-
-        @Override
-        public List<Queue> queues() {
-            return new AbstractList<Queue>() {
-                @Override
-                public Queue get(int index) {
-                    return null;
-                }
-
-                @Override
-                public int size() {
-                    return numberOfQueues;
-                }
-            };
-        }
-
-        @Override
-        public void saveQueue(Queue queue, Callbacks callbacks) {
-            addedQueue = queue;
-        }
-
-        @Override
-        public long uniqueId() {
-            return nextId++;
-        }
-
-        @Override
-        public void deleteQueue(Queue queue, Callbacks callbacks) {
-            removedQueue = queue;
-        }
 
     }
 
