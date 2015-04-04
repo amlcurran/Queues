@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.provider.BaseColumns;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +34,7 @@ public class SQLitePersister implements QueuePersister {
 
     @Override
     public void queues(LoadCallbacks callbacks) {
-        Cursor cursor = db.getReadableDatabase().query("queuelist", null, null, null, null, null, null);
+        Cursor cursor = db.getReadableDatabase().query(QueueList.TABLE_NAME, null, null, null, null, null, null);
         List<Queue> queues = new ArrayList<>();
         while (cursor.moveToNext()) {
             queues.add(fromCursor(cursor));
@@ -43,15 +44,17 @@ public class SQLitePersister implements QueuePersister {
     }
 
     private Queue fromCursor(Cursor cursor) {
-        String title = cursor.getString(cursor.getColumnIndex("title"));
-        long id = cursor.getLong(cursor.getColumnIndex("_id"));
+        String title = cursor.getString(cursor.getColumnIndex(QueueList.TITLE));
+        long id = cursor.getLong(cursor.getColumnIndex(QueueList._ID));
         return new Queue(title, id, this);
     }
 
     @Override
     public void saveQueue(Queue queue, Callbacks callbacks) {
         ContentValues queueValues = fromQueue(queue);
-        int update = db.getWritableDatabase().update("queuelist", queueValues, "_id=?", new String[]{String.valueOf(queue.getId())});
+        SQLiteDatabase database = db.getWritableDatabase();
+        int update = database.update(QueueList.TABLE_NAME, queueValues, whereIdClause(), whereIdArgs(queue));
+        database.close();
         if (update == 0) {
             callbacks.failedToSave(queue);
         }
@@ -65,7 +68,7 @@ public class SQLitePersister implements QueuePersister {
 
     @Override
     public long uniqueId() {
-        long inserted = db.getWritableDatabase().insert("queuelist", "title", null);
+        long inserted = db.getWritableDatabase().insert(QueueList.TABLE_NAME, QueueList.TITLE, null);
         if (inserted == -1) {
             throw new IllegalArgumentException("Failed to insert");
         }
@@ -74,7 +77,15 @@ public class SQLitePersister implements QueuePersister {
 
     @Override
     public void deleteQueue(Queue queue, Callbacks callbacks) {
-        db.getWritableDatabase().delete("queuelist", "_id=?", new String[] { String.valueOf(queue.getId()) });
+        db.getWritableDatabase().delete(QueueList.TABLE_NAME, whereIdClause(), whereIdArgs(queue));
+    }
+
+    private static String[] whereIdArgs(Queue queue) {
+        return new String[]{String.valueOf(queue.getId())};
+    }
+
+    private static String whereIdClause() {
+        return QueueList._ID;
     }
 
     private class DbHelper extends SQLiteOpenHelper {
@@ -94,5 +105,10 @@ public class SQLitePersister implements QueuePersister {
         }
     }
 
+    public interface QueueList extends BaseColumns {
+
+        String TABLE_NAME = "queuelist";
+        String TITLE = "title";
+    }
 
 }
