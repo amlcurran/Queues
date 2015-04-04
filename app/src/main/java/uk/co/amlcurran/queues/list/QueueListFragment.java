@@ -26,7 +26,7 @@ public class QueueListFragment extends Fragment implements QueueListView {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View inflate = inflater.inflate(R.layout.fragment_queue, container, false);
+        View inflate = inflater.inflate(R.layout.fragment_queue_list, container, false);
         recyclerView = (RecyclerView) inflate.findViewById(R.id.queue_list);
         newTitleEntry = ((TextView) inflate.findViewById(R.id.queue_title_entry));
         return inflate;
