@@ -23,6 +23,9 @@ public class QueueActivity extends ActionBarActivity {
 
 //        long id = getIntent().getLongExtra(QUEUE_ID, -1);
 //        QueuesApplication.queueList(this).
+        getFragmentManager().beginTransaction()
+                .replace(R.id.content, new QueueFragment())
+                .commit();
     }
 
     public static Intent viewQueue(Activity activity, Queue queue) {
