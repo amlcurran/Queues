@@ -2,8 +2,14 @@ package uk.co.amlcurran.queues.core;
 
 import org.junit.Test;
 
+import uk.co.amlcurran.queues.core.persisters.BasicQueuePersister;
+import uk.co.amlcurran.queues.core.persisters.Persisters;
+
 import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertTrue;
 
 public class QueueListTest {
 
@@ -19,7 +25,7 @@ public class QueueListTest {
 
     @Test
     public void addingAQueueIncrementsTheNumberOfQueues() {
-        Persisters.BasicQueuePersister queuePersister = Persisters.withNumberOfItems(0);
+        BasicQueuePersister queuePersister = Persisters.withNumberOfItems(0);
         QueueList queueList = QueueLists.sameThreadQueueList(queuePersister);
 
         queueList.addNewQueue(TITLE);
@@ -29,7 +35,7 @@ public class QueueListTest {
 
     @Test
     public void addingAQueuePersistsIt() {
-        Persisters.BasicQueuePersister queuePersister = Persisters.withNumberOfItems(0);
+        BasicQueuePersister queuePersister = Persisters.withNumberOfItems(0);
         QueueList queueList = QueueLists.sameThreadQueueList(queuePersister);
 
         Queue queue = queueList.addNewQueue(TITLE);
@@ -52,7 +58,7 @@ public class QueueListTest {
 
     @Test
     public void removingAQueueUnpersistsIt() {
-        Persisters.BasicQueuePersister queuePersister = Persisters.withNumberOfItems(0);
+        BasicQueuePersister queuePersister = Persisters.withNumberOfItems(0);
         QueueList queueList = QueueLists.sameThreadQueueList(queuePersister);
 
         Queue queue = queueList.addNewQueue(TITLE);
@@ -64,7 +70,7 @@ public class QueueListTest {
     @Test
     public void addingAQueueReturnsItFromTheList() {
         int numberOfQueues = 0;
-        Persisters.BasicQueuePersister queuePersister = Persisters.withNumberOfItems(numberOfQueues);
+        BasicQueuePersister queuePersister = Persisters.withNumberOfItems(numberOfQueues);
         QueueList queueList = QueueLists.sameThreadQueueList(queuePersister);
 
         Queue newQueue = queueList.addNewQueue(TITLE);
@@ -74,7 +80,7 @@ public class QueueListTest {
 
     @Test
     public void addingAQueueGivesItAUniqueId() {
-        Persisters.BasicQueuePersister queuePersister = Persisters.withNumberOfItems(0);
+        BasicQueuePersister queuePersister = Persisters.withNumberOfItems(0);
         QueueList queueList = QueueLists.sameThreadQueueList(queuePersister);
 
         Queue firstQueue = queueList.addNewQueue(TITLE);
@@ -108,7 +114,7 @@ public class QueueListTest {
 
     @Test
     public void gettingThePositionFromQueueReturnsTheCorrectPosition() {
-        Persisters.BasicQueuePersister queuePersister = Persisters.withNumberOfItems(0);
+        BasicQueuePersister queuePersister = Persisters.withNumberOfItems(0);
         QueueList queueList = QueueLists.sameThreadQueueList(queuePersister);
 
         Queue firstQueue = queueList.addNewQueue(TITLE);

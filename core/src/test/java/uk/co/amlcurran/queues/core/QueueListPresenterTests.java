@@ -2,6 +2,8 @@ package uk.co.amlcurran.queues.core;
 
 import org.junit.Test;
 
+import uk.co.amlcurran.queues.core.persisters.Persisters;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
