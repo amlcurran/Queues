@@ -34,6 +34,10 @@ public class Queue {
         return id;
     }
 
+    public int size() {
+        return queueItems.size();
+    }
+
     public QueueItem next() {
         QueueItem item = queueItems.get(iteratorIndex);
         iteratorIndex++;
@@ -43,5 +47,9 @@ public class Queue {
     public void removeItem(QueueItem item) {
         queueItems.remove(item);
         queuePersister.removeItemFromQueue(id, item);
+    }
+
+    public QueueItem firstItem() {
+        return queueItems.get(0);
     }
 }

@@ -19,6 +19,14 @@ class ViewHolder extends RecyclerView.ViewHolder {
     }
 
     void bind(Queue queue) {
-        ((TextView) itemView).setText(String.format("%1$d : %2$s", queue.getId(), queue.getTitle()));
+        ((TextView) itemView).setText(String.format("%1$s : %2$s", queue.getTitle(), firstItemSummary(queue)));
+    }
+
+    private CharSequence firstItemSummary(Queue queue) {
+        if (queue.size() == 0) {
+            return "No items";
+        } else {
+            return String.format("%1$d, %2$s", queue.size(), queue.firstItem().getLabel());
+        }
     }
 }
