@@ -82,6 +82,15 @@ public class QueueList {
         return queue;
     }
 
+    public Queue queueById(long queueId) {
+        for (Queue queue : queues) {
+            if (queue.getId() == queueId) {
+                return queue;
+            }
+        }
+        return null;
+    }
+
     public interface ListListener {
 
         void queueAdded(Queue queue);

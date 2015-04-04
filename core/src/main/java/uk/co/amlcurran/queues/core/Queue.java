@@ -17,7 +17,7 @@ public class Queue {
         this.queueItems = new ArrayList<>();
     }
 
-    static Queue withPersister(String title, final QueuePersister queuePersister) {
+    public static Queue withPersister(String title, final QueuePersister queuePersister) {
         return new Queue(title, queuePersister.uniqueId(), queuePersister);
     }
 

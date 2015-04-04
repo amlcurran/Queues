@@ -1,25 +1,13 @@
 package uk.co.amlcurran.queues.core.persisters;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import uk.co.amlcurran.queues.core.Queue;
 import uk.co.amlcurran.queues.core.QueueItem;
 import uk.co.amlcurran.queues.core.QueuePersister;
 
-public class BasicQueuePersister implements QueuePersister {
-
-    private final List<Queue> queues;
-    private long nextId = 0;
-    public Queue addedQueue;
-    public Queue removedQueue;
-
-    BasicQueuePersister(final int numberOfQueues) {
-        this.queues = new ArrayList<>();
-        for (int i = 0; i < numberOfQueues; i++) {
-            queues.add(Queue.withPersister("hello", this));
-        }
-    }
+public class AssertingPersister implements QueuePersister {
+    public long queueById;
 
     @Override
     public void addItemToQueue(long queueId, QueueItem queueItem) {
@@ -33,22 +21,21 @@ public class BasicQueuePersister implements QueuePersister {
 
     @Override
     public List<Queue> queues() {
-        return queues;
+        return null;
     }
 
     @Override
     public void saveQueue(Queue queue, Callbacks callbacks) {
-        addedQueue = queue;
+
     }
 
     @Override
     public long uniqueId() {
-        return nextId++;
+        return 0;
     }
 
     @Override
     public void deleteQueue(Queue queue, Callbacks callbacks) {
-        removedQueue = queue;
-    }
 
+    }
 }
