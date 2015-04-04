@@ -10,13 +10,25 @@ import uk.co.amlcurran.queues.core.Queue;
 
 public class QueueActivity extends ActionBarActivity {
 
+    private static final String QUEUE_TITLE = "queue_title";
+    private static final String QUEUE_ID = "queue_id";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_queue);
+
+        String title = getIntent().getStringExtra(QUEUE_TITLE);
+        getSupportActionBar().setTitle(title);
+
+//        long id = getIntent().getLongExtra(QUEUE_ID, -1);
+//        QueuesApplication.queueList(this).
     }
 
     public static Intent viewQueue(Activity activity, Queue queue) {
-        return new Intent(activity, QueueActivity.class);
+        Intent intent = new Intent(activity, QueueActivity.class);
+        intent.putExtra(QUEUE_TITLE, queue.getTitle());
+        intent.putExtra(QUEUE_ID, queue.getId());
+        return intent;
     }
 }
