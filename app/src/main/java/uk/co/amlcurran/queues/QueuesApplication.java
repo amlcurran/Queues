@@ -40,8 +40,8 @@ public class QueuesApplication extends Application {
         }
 
         @Override
-        public List<Queue> queues() {
-            return Collections.unmodifiableList(queues);
+        public void queues(LoadCallbacks callbacks) {
+            callbacks.loaded(Collections.unmodifiableList(queues));
         }
 
         @Override

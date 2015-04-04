@@ -2,8 +2,6 @@ package uk.co.amlcurran.queues.core;
 
 import org.junit.Test;
 
-import java.util.List;
-
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -98,8 +96,8 @@ public class QueueTest {
         }
 
         @Override
-        public List<Queue> queues() {
-            return null;
+        public void queues(LoadCallbacks callbacks) {
+
         }
 
         @Override
@@ -136,8 +134,8 @@ public class QueueTest {
         }
 
         @Override
-        public List<Queue> queues() {
-            return null;
+        public void queues(LoadCallbacks callbacks) {
+
         }
 
         @Override

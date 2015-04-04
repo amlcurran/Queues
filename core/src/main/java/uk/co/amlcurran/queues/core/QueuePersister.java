@@ -7,7 +7,7 @@ public interface QueuePersister {
 
     void removeItemFromQueue(long queueId, QueueItem queueItem);
 
-    List<Queue> queues();
+    void queues(LoadCallbacks callbacks);
 
     void saveQueue(Queue queue, Callbacks callbacks);
 
@@ -18,6 +18,11 @@ public interface QueuePersister {
     interface Callbacks {
 
         void failedToSave(Queue queue);
+    }
+
+    interface LoadCallbacks {
+
+        void loaded(List<Queue> queues);
     }
 
 }

@@ -17,7 +17,12 @@ public class QueueList {
 
     public void load() {
         this.queues.clear();
-        this.queues.addAll(queuePersister.queues());
+        queuePersister.queues(new QueuePersister.LoadCallbacks() {
+            @Override
+            public void loaded(List<Queue> queues) {
+                QueueList.this.queues.addAll(queues);
+            }
+        });
     }
 
     public int size() {

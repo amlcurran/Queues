@@ -1,13 +1,11 @@
 package uk.co.amlcurran.queues.core.persisters;
 
-import java.util.Collections;
-
 import uk.co.amlcurran.queues.core.Queue;
 import uk.co.amlcurran.queues.core.QueuePersister;
 
 public class Persisters {
     public static QueuePersister saveFailing() {
-        return new NullQueuePersister(Collections.<Queue>emptyList()) {
+        return new BasicQueuePersister(0) {
 
             @Override
             public void saveQueue(Queue queue, Callbacks callbacks) {
@@ -17,10 +15,10 @@ public class Persisters {
     }
 
     public static QueuePersister empty() {
-        return new NullQueuePersister(Collections.<Queue>emptyList());
+        return new BasicQueuePersister(0);
     }
 
-    public static BasicQueuePersister withNumberOfItems(int numberOfQueues) {
+    public static BasicQueuePersister withNumberOfQueues(int numberOfQueues) {
         return new BasicQueuePersister(numberOfQueues);
     }
 

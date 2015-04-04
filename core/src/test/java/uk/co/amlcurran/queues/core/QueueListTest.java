@@ -17,7 +17,7 @@ public class QueueListTest {
 
     @Test
     public void returnsTheCorrectAmountOfQueues() {
-        QueueList queueList = QueueLists.sameThreadQueueList(Persisters.withNumberOfItems(3));
+        QueueList queueList = QueueLists.sameThreadQueueList(Persisters.withNumberOfQueues(3));
         queueList.load();
 
         assertThat(queueList.size(), is(3));
@@ -25,7 +25,7 @@ public class QueueListTest {
 
     @Test
     public void addingAQueueIncrementsTheNumberOfQueues() {
-        BasicQueuePersister queuePersister = Persisters.withNumberOfItems(0);
+        BasicQueuePersister queuePersister = Persisters.withNumberOfQueues(0);
         QueueList queueList = QueueLists.sameThreadQueueList(queuePersister);
 
         queueList.addNewQueue(TITLE);
@@ -35,7 +35,7 @@ public class QueueListTest {
 
     @Test
     public void addingAQueuePersistsIt() {
-        BasicQueuePersister queuePersister = Persisters.withNumberOfItems(0);
+        BasicQueuePersister queuePersister = Persisters.withNumberOfQueues(0);
         QueueList queueList = QueueLists.sameThreadQueueList(queuePersister);
 
         Queue queue = queueList.addNewQueue(TITLE);
@@ -58,7 +58,7 @@ public class QueueListTest {
 
     @Test
     public void removingAQueueUnpersistsIt() {
-        BasicQueuePersister queuePersister = Persisters.withNumberOfItems(0);
+        BasicQueuePersister queuePersister = Persisters.withNumberOfQueues(0);
         QueueList queueList = QueueLists.sameThreadQueueList(queuePersister);
 
         Queue queue = queueList.addNewQueue(TITLE);
@@ -70,7 +70,7 @@ public class QueueListTest {
     @Test
     public void addingAQueueReturnsItFromTheList() {
         int numberOfQueues = 0;
-        BasicQueuePersister queuePersister = Persisters.withNumberOfItems(numberOfQueues);
+        BasicQueuePersister queuePersister = Persisters.withNumberOfQueues(numberOfQueues);
         QueueList queueList = QueueLists.sameThreadQueueList(queuePersister);
 
         Queue newQueue = queueList.addNewQueue(TITLE);
@@ -80,7 +80,7 @@ public class QueueListTest {
 
     @Test
     public void addingAQueueGivesItAUniqueId() {
-        BasicQueuePersister queuePersister = Persisters.withNumberOfItems(0);
+        BasicQueuePersister queuePersister = Persisters.withNumberOfQueues(0);
         QueueList queueList = QueueLists.sameThreadQueueList(queuePersister);
 
         Queue firstQueue = queueList.addNewQueue(TITLE);
@@ -91,7 +91,7 @@ public class QueueListTest {
 
     @Test
     public void addingAListNotifiesListeners() {
-        QueueList queueList = QueueLists.sameThreadQueueList(Persisters.withNumberOfItems(0));
+        QueueList queueList = QueueLists.sameThreadQueueList(Persisters.withNumberOfQueues(0));
         AssertingListListener listListener = new AssertingListListener();
         queueList.addCallbacks(listListener);
 
@@ -102,7 +102,7 @@ public class QueueListTest {
 
     @Test
     public void addingARemovedListenerDoesntGetNotified() {
-        QueueList queueList = QueueLists.sameThreadQueueList(Persisters.withNumberOfItems(0));
+        QueueList queueList = QueueLists.sameThreadQueueList(Persisters.withNumberOfQueues(0));
         AssertingListListener listListener = new AssertingListListener();
         queueList.addCallbacks(listListener);
         queueList.removeCallbacks(listListener);
@@ -114,7 +114,7 @@ public class QueueListTest {
 
     @Test
     public void gettingThePositionFromQueueReturnsTheCorrectPosition() {
-        BasicQueuePersister queuePersister = Persisters.withNumberOfItems(0);
+        BasicQueuePersister queuePersister = Persisters.withNumberOfQueues(0);
         QueueList queueList = QueueLists.sameThreadQueueList(queuePersister);
 
         Queue firstQueue = queueList.addNewQueue(TITLE);

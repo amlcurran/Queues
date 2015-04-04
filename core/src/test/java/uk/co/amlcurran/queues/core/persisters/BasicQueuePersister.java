@@ -32,8 +32,8 @@ public class BasicQueuePersister implements QueuePersister {
     }
 
     @Override
-    public List<Queue> queues() {
-        return queues;
+    public void queues(LoadCallbacks callbacks) {
+        callbacks.loaded(queues);;
     }
 
     @Override
