@@ -19,7 +19,7 @@ public class QueuesApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        queueList = new QueueList(new InMemoryPersister());
+        queueList = new QueueList(new SQLitePersister(this));
     }
 
     public static QueueList queueList(Context context) {

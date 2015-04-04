@@ -10,7 +10,7 @@ public class Queue {
     private final long id;
     private int iteratorIndex = 0;
 
-    private Queue(String title, long id, QueuePersister queuePersister) {
+    public Queue(String title, long id, QueuePersister queuePersister) {
         this.title = title;
         this.id = id;
         this.queuePersister = queuePersister;
