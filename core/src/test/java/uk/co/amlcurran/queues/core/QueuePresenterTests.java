@@ -15,6 +15,7 @@ public class QueuePresenterTests {
         QueuePersister queuePersister = Persisters.singleQueueWithId(queueId);
         AssertingQueueView queueView = new AssertingQueueView();
         QueueList queueList = new QueueList(queuePersister);
+        queueList.load();
 
         QueuePresenter presenter = new QueuePresenter(queueId, queueView, queueList);
         presenter.load();

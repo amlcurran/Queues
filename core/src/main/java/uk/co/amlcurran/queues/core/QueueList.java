@@ -11,8 +11,13 @@ public class QueueList {
 
     public QueueList(QueuePersister queuePersister) {
         this.queuePersister = queuePersister;
-        this.queues = new ArrayList<>(queuePersister.queues());
+        this.queues = new ArrayList<>();
         this.listeners = new ArrayList<>();
+    }
+
+    public void load() {
+        this.queues.clear();
+        this.queues.addAll(queuePersister.queues());
     }
 
     public int size() {

@@ -12,6 +12,7 @@ public class QueueListPresenter {
     }
 
     public void start() {
+        queueList.load();
         queueList.addCallbacks(updateSelfListener);
     }
 

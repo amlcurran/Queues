@@ -13,12 +13,12 @@ import static org.junit.Assert.assertTrue;
 
 public class QueueListTest {
 
-    private static final QueuePersister UNUSED_PERSISTER = null;
     private static final String TITLE = "title";
 
     @Test
     public void returnsTheCorrectAmountOfQueues() {
         QueueList queueList = QueueLists.sameThreadQueueList(Persisters.withNumberOfItems(3));
+        queueList.load();
 
         assertThat(queueList.size(), is(3));
     }
