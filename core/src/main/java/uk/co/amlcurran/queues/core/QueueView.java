@@ -4,4 +4,6 @@ public interface QueueView {
     void show(Queue queue);
 
     void itemAdded(QueueItem queueItem);
+
+    void itemRemoved(QueueItem item);
 }

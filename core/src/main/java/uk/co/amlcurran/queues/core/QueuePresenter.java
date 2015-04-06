@@ -23,7 +23,7 @@ class QueuePresenter {
 
             @Override
             public void itemRemoved(QueueItem item) {
-
+                queueView.itemRemoved(item);
             }
         });
         queueView.show(queue);
@@ -31,5 +31,9 @@ class QueuePresenter {
 
     public void addItem(QueueItem queueItem) {
         queue.addItem(queueItem);
+    }
+
+    public void removeItem(QueueItem queueItem) {
+        queue.removeItem(queueItem);
     }
 }

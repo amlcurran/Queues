@@ -40,9 +40,20 @@ public class QueuePresenterTests {
         assertThat(queueView.addedItem, is(queueItem));
     }
 
+    @Test
+    public void removingAnItemNotifiesTheView() {
+        QueueItem queueItem = new QueueItem("hello");
+        presenter.load();
+
+        presenter.removeItem(queueItem);
+
+        assertThat(queueView.removedItem, is(queueItem));
+    }
+
     private class AssertingQueueView implements QueueView {
         public Queue shownQueue;
         public QueueItem addedItem;
+        public QueueItem removedItem;
 
         @Override
         public void show(Queue queue) {
@@ -52,6 +63,11 @@ public class QueuePresenterTests {
         @Override
         public void itemAdded(QueueItem queueItem) {
             addedItem = queueItem;
+        }
+
+        @Override
+        public void itemRemoved(QueueItem item) {
+            removedItem = item;
         }
     }
 }
