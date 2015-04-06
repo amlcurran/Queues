@@ -1,5 +1,6 @@
 package uk.co.amlcurran.queues.core;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import uk.co.amlcurran.queues.core.persisters.Persisters;
@@ -9,31 +10,31 @@ import static org.junit.Assert.assertThat;
 
 public class QueuePresenterTests {
 
-    @Test
-    public void loadingWillRetrieveTheQueueFromThePersister() {
-        long queueId = 212;
-        QueuePersister queuePersister = Persisters.singleQueueWithId(queueId);
-        AssertingQueueView queueView = new AssertingQueueView();
+    private AssertingQueueView queueView;
+    private QueuePresenter presenter;
+    public static final long QUEUE_ID = 212;
+
+    @Before
+    public void setUp() throws Exception {
+        QueuePersister queuePersister = Persisters.singleQueueWithId(QUEUE_ID);
         QueueList queueList = new QueueList(queuePersister);
         queueList.load();
+        queueView = new AssertingQueueView();
+        presenter = new QueuePresenter(QUEUE_ID, queueView, queueList);
+    }
 
-        QueuePresenter presenter = new QueuePresenter(queueId, queueView, queueList);
+    @Test
+    public void loadingWillRetrieveTheQueueFromThePersister() {
         presenter.load();
 
-        assertThat(queueView.shownQueue.getId(), is(queueId));
+        assertThat(queueView.shownQueue.getId(), is(QUEUE_ID));
     }
 
     @Test
     public void addingAnItemNotifiesTheView() {
-        long queueId = 212;
-        QueuePersister queuePersister = Persisters.singleQueueWithId(queueId);
-        AssertingQueueView queueView = new AssertingQueueView();
-        QueueList queueList = new QueueList(queuePersister);
-        queueList.load();
         QueueItem queueItem = new QueueItem("hello");
-
-        QueuePresenter presenter = new QueuePresenter(queueId, queueView, queueList);
         presenter.load();
+
         presenter.addItem(queueItem);
 
         assertThat(queueView.addedItem, is(queueItem));
