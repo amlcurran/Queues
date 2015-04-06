@@ -98,19 +98,6 @@ public class QueueTest {
         assertThat(listener.itemAdded, is(item));
     }
 
-    @Test
-    public void removingAnItemNotifiesListener() {
-        Queue queue = QueueFactory.withPersister(Persisters.empty());
-        QueueItem item = new QueueItem("Woo");
-        AssertingQueueListener listener = new AssertingQueueListener();
-
-        queue.addItem(item);
-        queue.addListener(listener);
-        queue.removeItem(item);
-
-        assertThat(listener.itemRemoved, is(item));
-    }
-
     private static final QueuePersister UNUSED_PERSISTER = new QueuePersister() {
         @Override
         public void addItemToQueue(long queueId, QueueItem queueItem) {
