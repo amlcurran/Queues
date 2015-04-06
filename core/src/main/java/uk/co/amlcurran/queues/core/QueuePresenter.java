@@ -1,6 +1,6 @@
 package uk.co.amlcurran.queues.core;
 
-class QueuePresenter {
+public class QueuePresenter {
 
     private final long queueId;
     private final QueueView queueView;
@@ -36,4 +36,5 @@ class QueuePresenter {
     public void removeItem(QueueItem queueItem) {
         queue.removeItem(queueItem);
     }
+
 }

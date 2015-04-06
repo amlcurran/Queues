@@ -21,10 +21,10 @@ public class QueueActivity extends ActionBarActivity {
         String title = getIntent().getStringExtra(QUEUE_TITLE);
         getSupportActionBar().setTitle(title);
 
-//        long id = getIntent().getLongExtra(QUEUE_ID, -1);
+        long id = getIntent().getLongExtra(QUEUE_ID, -1);
 //        QueuesApplication.queueList(this).
         getFragmentManager().beginTransaction()
-                .replace(R.id.content, new QueueFragment())
+                .replace(R.id.content, QueueFragment.withId(id))
                 .commit();
     }
 

@@ -24,7 +24,16 @@ public class SQLitePersister implements QueuePersister {
 
     @Override
     public void addItemToQueue(long queueId, QueueItem queueItem) {
+//        SQLiteDatabase database = db.getWritableDatabase();
+//        long insert = database.insert(QueueItems.TABLE_NAME, null, fromQueueItem(queueItem, queueId));
+//        database.close();
+    }
 
+    private ContentValues fromQueueItem(QueueItem queueItem, long queueId) {
+        ContentValues values = new ContentValues();
+        values.put(QueueItems.QUEUE_ID, queueId);
+        values.put(QueueItems.LABEL, queueItem.getLabel());
+        return values;
     }
 
     @Override
@@ -97,6 +106,7 @@ public class SQLitePersister implements QueuePersister {
         @Override
         public void onCreate(SQLiteDatabase sqLiteDatabase) {
             sqLiteDatabase.execSQL("CREATE TABLE queuelist (_id INTEGER PRIMARY KEY, title TEXT);");
+            sqLiteDatabase.execSQL("CREATE TABLE queueItems (_id INTEGER PRIMARY KEY, label TEXT, queueId INTEGER);");
         }
 
         @Override
@@ -109,6 +119,15 @@ public class SQLitePersister implements QueuePersister {
 
         String TABLE_NAME = "queuelist";
         String TITLE = "title";
+
+    }
+
+    public interface QueueItems extends BaseColumns {
+
+        String TABLE_NAME = "queueItems";
+        String LABEL = "label";
+        String QUEUE_ID = "queueId";
+
     }
 
 }
