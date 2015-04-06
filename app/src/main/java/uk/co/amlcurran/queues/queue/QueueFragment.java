@@ -29,5 +29,6 @@ public class QueueFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         items.setLayoutManager(new LinearLayoutManager(getActivity()));
+
     }
 }
