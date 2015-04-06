@@ -2,6 +2,8 @@ package uk.co.amlcurran.queues.core;
 
 import org.junit.Test;
 
+import uk.co.amlcurran.queues.core.persisters.Persisters;
+
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
@@ -84,6 +86,18 @@ public class QueueTest {
         assertThat(queuePersister.remove_Item, is(queueItem));
     }
 
+    @Test
+    public void addingAnItemNotifiesListener() {
+        Queue queue = QueueFactory.withPersister(Persisters.empty());
+        QueueItem item = new QueueItem("Woo");
+        AssertingQueueListener listener = new AssertingQueueListener();
+
+        queue.addListener(listener);
+        queue.addItem(item);
+
+        assertThat(listener.itemAdded, is(item));
+    }
+
     private static final QueuePersister UNUSED_PERSISTER = new QueuePersister() {
         @Override
         public void addItemToQueue(long queueId, QueueItem queueItem) {
@@ -153,5 +167,14 @@ public class QueueTest {
 
         }
 
+    }
+
+    private class AssertingQueueListener implements Queue.QueueListener {
+        public QueueItem itemAdded;
+
+        @Override
+        public void itemAdded(QueueItem queueItem) {
+            itemAdded = queueItem;
+        }
     }
 }
