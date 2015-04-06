@@ -12,15 +12,15 @@ public class Queue {
     private int iteratorIndex = 0;
     private QueueListener listener = QueueListener.NONE;
 
-    public Queue(String title, long id, QueuePersister queuePersister) {
+    public Queue(String title, long id, QueuePersister queuePersister, List<QueueItem> queueItems) {
         this.title = title;
         this.id = id;
         this.queuePersister = queuePersister;
-        this.queueItems = new ArrayList<>();
+        this.queueItems = queueItems;
     }
 
     public static Queue withPersister(String title, final QueuePersister queuePersister) {
-        return new Queue(title, queuePersister.uniqueId(), queuePersister);
+        return new Queue(title, queuePersister.uniqueId(), queuePersister, new ArrayList<QueueItem>());
     }
 
     public void addItem(QueueItem queueItem) {

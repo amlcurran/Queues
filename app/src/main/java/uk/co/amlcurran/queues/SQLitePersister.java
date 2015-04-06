@@ -24,9 +24,9 @@ public class SQLitePersister implements QueuePersister {
 
     @Override
     public void addItemToQueue(long queueId, QueueItem queueItem) {
-//        SQLiteDatabase database = db.getWritableDatabase();
-//        long insert = database.insert(QueueItems.TABLE_NAME, null, fromQueueItem(queueItem, queueId));
-//        database.close();
+        SQLiteDatabase database = db.getWritableDatabase();
+        long insert = database.insert(QueueItems.TABLE_NAME, null, fromQueueItem(queueItem, queueId));
+        database.close();
     }
 
     private ContentValues fromQueueItem(QueueItem queueItem, long queueId) {
@@ -43,19 +43,36 @@ public class SQLitePersister implements QueuePersister {
 
     @Override
     public void queues(LoadCallbacks callbacks) {
-        Cursor cursor = db.getReadableDatabase().query(QueueList.TABLE_NAME, null, null, null, null, null, null);
+        SQLiteDatabase database = db.getReadableDatabase();
+        Cursor cursor = database.query(QueueList.TABLE_NAME, null, null, null, null, null, null);
         List<Queue> queues = new ArrayList<>();
         while (cursor.moveToNext()) {
-            queues.add(fromCursor(cursor));
+            long id = cursor.getLong(cursor.getColumnIndex(QueueList._ID));
+            String title = cursor.getString(cursor.getColumnIndex(QueueList.TITLE));
+            Cursor itemsCursor = database.query(QueueItems.TABLE_NAME, null, whereItemBelongsTo(), asArgs(id), null, null, null);
+            List<QueueItem> queueItems = fromItemsCursor(itemsCursor);
+            queues.add(new Queue(title, id, this, queueItems));
+            itemsCursor.close();
         }
+        database.close();
         cursor.close();
         callbacks.loaded(queues);
     }
 
-    private Queue fromCursor(Cursor cursor) {
-        String title = cursor.getString(cursor.getColumnIndex(QueueList.TITLE));
-        long id = cursor.getLong(cursor.getColumnIndex(QueueList._ID));
-        return new Queue(title, id, this);
+    private List<QueueItem> fromItemsCursor(Cursor itemsCursor) {
+        List<QueueItem> items = new ArrayList<>();
+        while (itemsCursor.moveToNext()) {
+            items.add(new QueueItem(itemsCursor.getString(itemsCursor.getColumnIndex(QueueItems.LABEL))));
+        }
+        return items;
+    }
+
+    private String[] asArgs(long id) {
+        return new String[] { String.valueOf(id) };
+    }
+
+    private String whereItemBelongsTo() {
+        return QueueItems.QUEUE_ID + "=?";
     }
 
     @Override
@@ -94,7 +111,7 @@ public class SQLitePersister implements QueuePersister {
     }
 
     private static String whereIdClause() {
-        return QueueList._ID;
+        return QueueList._ID + "=?";
     }
 
     private class DbHelper extends SQLiteOpenHelper {
