@@ -54,6 +54,7 @@ public class Queue {
     public void removeItem(QueueItem item) {
         queueItems.remove(item);
         queuePersister.removeItemFromQueue(id, item);
+        listener.itemRemoved(item);
     }
 
     public QueueItem firstItem() {
@@ -83,8 +84,15 @@ public class Queue {
             public void itemAdded(QueueItem queueItem) {
 
             }
+
+            @Override
+            public void itemRemoved(QueueItem item) {
+
+            }
         };
 
         void itemAdded(QueueItem queueItem);
+
+        void itemRemoved(QueueItem item);
     }
 }
