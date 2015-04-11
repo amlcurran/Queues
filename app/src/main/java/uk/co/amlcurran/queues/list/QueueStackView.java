@@ -18,6 +18,7 @@ public class QueueStackView extends View {
     private final int stackRectHeight;
     private final int stackPadding;
     private final int stackItemQuantity;
+    private final int stackItemColor;
     private int queueSize;
 
     public QueueStackView(Context context, AttributeSet attrs) {
@@ -33,12 +34,13 @@ public class QueueStackView extends View {
         stackRectHeight = array.getDimensionPixelSize(R.styleable.QueueStackView_stackItemHeight, getResources().getDimensionPixelSize(R.dimen.qsv_stack_height));
         stackPadding = array.getDimensionPixelSize(R.styleable.QueueStackView_stackPadding, getResources().getDimensionPixelSize(R.dimen.qsv_stack_padding));
         stackItemQuantity = array.getInteger(R.styleable.QueueStackView_stackItemQuantity, 4);
+        stackItemColor = array.getColor(R.styleable.QueueStackView_stackItemColor, Color.BLUE);
         initStackPaint();
         array.recycle();
     }
 
     private void initStackPaint() {
-        queueStackPaint.setColor(Color.BLUE);
+        queueStackPaint.setColor(stackItemColor);
     }
 
     @Override
@@ -51,7 +53,6 @@ public class QueueStackView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        canvas.drawColor(Color.RED);
         for (int i = 0; i < queueSize; i++) {
             int bottom = canvas.getHeight() - stackPadding - i * (stackRectHeight + stackPadding);
             int top = bottom - stackRectHeight;

@@ -15,6 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             class="uk.co.amlcurran.queues.list.QueueStackView"
+            app:stackItemColor="@color/app_color"
             android:id="@+id/queue_stack"/>
 
     <TextView

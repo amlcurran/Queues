@@ -4,5 +4,6 @@
         <attr name="stackPadding" format="dimension|reference" />
         <attr name="stackItemQuantity" format="integer|reference" />
         <attr name="stackItemHeight" format="dimension|reference" />
+        <attr name="stackItemColor" format="color|reference" />
     </declare-styleable>
 </resources>
