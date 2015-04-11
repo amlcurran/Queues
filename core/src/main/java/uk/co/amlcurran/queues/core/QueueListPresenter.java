@@ -41,6 +41,10 @@ public class QueueListPresenter {
         }
     };
 
+    public void deleteQueue(int position) {
+        queueList.remove(queueList.all().get(position));
+    }
+
     private static class BasicQueueSource implements Source<Queue> {
         private final QueueList queueList;
 

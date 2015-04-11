@@ -42,6 +42,11 @@ public class QueueListFragment extends Fragment implements QueueListView {
             public void selectedQueue(int position) {
                 queueListPresenter.selectedQueue(position);
             }
+
+            @Override
+            public void secondarySelectedQueue(int position) {
+                queueListPresenter.deleteQueue(position);
+            }
         });
         recyclerView.setAdapter(adapter);
         newTitleEntry.setOnEditorActionListener(new TextView.OnEditorActionListener() {

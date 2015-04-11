@@ -39,6 +39,8 @@ class QueueListAdapter extends RecyclerView.Adapter<ViewHolder> {
 
     public interface QueueListSelectionListener {
         void selectedQueue(int position);
+
+        void secondarySelectedQueue(int position);
     }
 
 }

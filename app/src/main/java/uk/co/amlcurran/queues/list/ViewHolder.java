@@ -22,6 +22,13 @@ class ViewHolder extends RecyclerView.ViewHolder {
                 queueListSelectionListener.selectedQueue(getPosition());
             }
         });
+        itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                queueListSelectionListener.secondarySelectedQueue(getPosition());
+                return true;
+            }
+        });
     }
 
     void bind(Queue queue) {
