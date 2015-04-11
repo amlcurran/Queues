@@ -1,6 +1,7 @@
 package uk.co.amlcurran.queues.list;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -16,6 +17,7 @@ public class QueueStackView extends View {
     private final Rect drawRect;
     private final int stackRectHeight;
     private final int stackPadding;
+    private final int stackItemQuantity;
     private int queueSize;
 
     public QueueStackView(Context context, AttributeSet attrs) {
@@ -26,9 +28,13 @@ public class QueueStackView extends View {
         super(context, attrs, defStyleAttr);
         queueStackPaint = new Paint();
         drawRect = new Rect();
-        stackRectHeight = getResources().getDimensionPixelSize(R.dimen.qsv_stack_height);
-        stackPadding = getResources().getDimensionPixelSize(R.dimen.qsv_stack_padding);
+
+        TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.QueueStackView);
+        stackRectHeight = array.getDimensionPixelSize(R.styleable.QueueStackView_stackItemHeight, getResources().getDimensionPixelSize(R.dimen.qsv_stack_height));
+        stackPadding = array.getDimensionPixelSize(R.styleable.QueueStackView_stackPadding, getResources().getDimensionPixelSize(R.dimen.qsv_stack_padding));
+        stackItemQuantity = array.getInteger(R.styleable.QueueStackView_stackItemQuantity, 4);
         initStackPaint();
+        array.recycle();
     }
 
     private void initStackPaint() {
@@ -38,7 +44,7 @@ public class QueueStackView extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int width = resolveSizeAndState(getSuggestedMinimumWidth(), widthMeasureSpec, 1);
-        int minHeight = stackPadding * 5 + stackRectHeight * 4;
+        int minHeight = stackPadding * (stackItemQuantity + 1) + stackRectHeight * stackItemQuantity;
         int height = resolveSizeAndState(minHeight, heightMeasureSpec, 1);
         setMeasuredDimension(width, height);
     }
@@ -49,9 +55,13 @@ public class QueueStackView extends View {
         for (int i = 0; i < queueSize; i++) {
             int bottom = canvas.getHeight() - stackPadding - i * (stackRectHeight + stackPadding);
             int top = bottom - stackRectHeight;
-            drawRect.set(stackPadding, top, canvas.getWidth() - stackPadding, bottom);
+            drawRect.set(getStackRectOffset(i), top, canvas.getWidth() - getStackRectOffset(i), bottom);
             canvas.drawRect(drawRect, queueStackPaint);
         }
+    }
+
+    private int getStackRectOffset(int i) {
+        return i == 0 ? stackPadding : stackPadding * 4;
     }
 
     public void setSize(int size) {

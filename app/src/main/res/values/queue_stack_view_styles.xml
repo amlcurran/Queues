@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="QueueStackView">
+        <attr name="stackPadding" format="dimension|reference" />
+        <attr name="stackItemQuantity" format="integer|reference" />
+        <attr name="stackItemHeight" format="dimension|reference" />
+    </declare-styleable>
+</resources>
