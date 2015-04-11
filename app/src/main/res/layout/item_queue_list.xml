@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<view
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        class="uk.co.amlcurran.queues.list.QueueListView"/>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:id="@+id/queue_title"/>
+
+    <view
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            class="uk.co.amlcurran.queues.list.QueueStackView"
+            android:id="@+id/queue_stack"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:id="@+id/queue_first"/>
+</LinearLayout>

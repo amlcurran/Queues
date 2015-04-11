@@ -10,18 +10,18 @@ import android.view.View;
 import uk.co.amlcurran.queues.R;
 import uk.co.amlcurran.queues.core.QueueItem;
 
-public class QueueListView extends View {
+public class QueueStackView extends View {
 
     private final TextPaint paintFirstItem;
     private CharSequence firstItemText = "No items";
 
-    public QueueListView(Context context, AttributeSet attrs) {
+    public QueueStackView(Context context, AttributeSet attrs) {
         super(context, attrs);
         paintFirstItem = new TextPaint();
         initFirstItemPaint();
     }
 
-    public QueueListView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public QueueStackView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         paintFirstItem = new TextPaint();
         initFirstItemPaint();
