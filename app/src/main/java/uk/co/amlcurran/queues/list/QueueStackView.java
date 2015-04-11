@@ -48,6 +48,7 @@ public class QueueStackView extends View {
     private void initTextPaint() {
         textPaint.setTextSize(getResources().getDimension(R.dimen.qlv_first_item_text_size));
         textPaint.setColor(Color.WHITE);
+        textPaint.setAntiAlias(true);
     }
 
     private void initStackPaint() {
@@ -68,6 +69,10 @@ public class QueueStackView extends View {
             updateStackItemRect(i);
             canvas.drawRect(drawRect, queueStackPaint);
         }
+        drawFirstSummary(canvas);
+    }
+
+    private void drawFirstSummary(Canvas canvas) {
         if (firstText != null) {
             updateStackItemRect(0);
             float textLength = textPaint.measureText(firstText, 0, firstText.length());
