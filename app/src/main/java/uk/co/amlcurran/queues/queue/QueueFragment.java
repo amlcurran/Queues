@@ -37,7 +37,12 @@ public class QueueFragment extends Fragment implements QueueView {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         presenter = new QueuePresenter(getArguments().getLong("id"), this, QueuesApplication.queueList(getActivity()));
-        adapter = new QueueAdapter(LayoutInflater.from(getActivity()));
+        adapter = new QueueAdapter(LayoutInflater.from(getActivity()), new QueueAdapter.QueueSelectionListener() {
+            @Override
+            public void itemSecondarySelected(int position) {
+                presenter.removeItem(position);
+            }
+        });
         items.setLayoutManager(new LinearLayoutManager(getActivity()));
         items.setAdapter(adapter);
         presenter.load();

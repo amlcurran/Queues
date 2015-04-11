@@ -8,8 +8,16 @@ import uk.co.amlcurran.queues.core.QueueItem;
 
 class ViewHolder extends RecyclerView.ViewHolder {
 
-    public ViewHolder(View itemView) {
+    public ViewHolder(View itemView, final QueueAdapter.QueueSelectionListener queueSelectionListener) {
         super(itemView);
+        itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                queueSelectionListener.itemSecondarySelected(getPosition());
+                return true;
+            }
+
+        });
     }
 
     void bind(QueueItem queueItem) {

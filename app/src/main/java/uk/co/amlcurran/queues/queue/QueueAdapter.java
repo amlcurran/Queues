@@ -14,16 +14,18 @@ class QueueAdapter extends RecyclerView.Adapter<ViewHolder> {
 
     private final List<QueueItem> queueSource;
     private final LayoutInflater layoutInflater;
+    private final QueueSelectionListener queueSelectionListener;
 
-    public QueueAdapter(LayoutInflater layoutInflater) {
+    public QueueAdapter(LayoutInflater layoutInflater, QueueSelectionListener queueSelectionListener) {
         this.layoutInflater = layoutInflater;
+        this.queueSelectionListener = queueSelectionListener;
         this.queueSource = new ArrayList<>();
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View view = layoutInflater.inflate(android.R.layout.simple_list_item_1, viewGroup, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, queueSelectionListener);
     }
 
     @Override
@@ -51,4 +53,10 @@ class QueueAdapter extends RecyclerView.Adapter<ViewHolder> {
         queueSource.remove(index);
         notifyItemRemoved(index);
     }
+
+    interface QueueSelectionListener {
+
+        void itemSecondarySelected(int position);
+    }
+
 }

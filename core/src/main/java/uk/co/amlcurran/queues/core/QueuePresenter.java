@@ -37,4 +37,7 @@ public class QueuePresenter {
         queue.removeItem(queueItem);
     }
 
+    public void removeItem(int position) {
+        removeItem(queue.all().get(position));
+    }
 }
