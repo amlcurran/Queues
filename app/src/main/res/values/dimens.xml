@@ -4,4 +4,6 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="queue_list_view_min_height">128dp</dimen>
     <dimen name="qlv_first_item_text_size">16sp</dimen>
+    <dimen name="qsv_stack_height">24dp</dimen>
+    <dimen name="qsv_stack_padding">4dp</dimen>
 </resources>

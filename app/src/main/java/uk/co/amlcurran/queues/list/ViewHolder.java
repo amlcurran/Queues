@@ -29,7 +29,7 @@ class ViewHolder extends RecyclerView.ViewHolder {
     void bind(Queue queue) {
         title.setText(queue.getTitle());
         firstItem.setText(firstItemSummary(queue));
-        stack.setFirstItem(queue.firstItem());
+        stack.setSize(queue.size());
     }
 
     private CharSequence firstItemSummary(Queue queue) {
