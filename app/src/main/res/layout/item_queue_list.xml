@@ -27,6 +27,7 @@
                 android:layout_height="wrap_content"
                 class="uk.co.amlcurran.queues.list.QueueStackView"
                 app:stackItemColor="@color/app_color"
+                app:stackItemQuantity="3"
                 android:id="@+id/queue_stack"/>
 
     </LinearLayout>

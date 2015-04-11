@@ -69,7 +69,8 @@ public class QueueStackView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        for (int i = 0; i < queueSize; i++) {
+        int maxStackSize = Math.min(queueSize, stackItemQuantity);
+        for (int i = 0; i < maxStackSize; i++) {
             updateStackItemRect(i);
             canvas.drawRoundRect(drawRect, rectRadius, rectRadius, queueStackPaint);
         }
