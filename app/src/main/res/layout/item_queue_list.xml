@@ -1,21 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<view xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="4dp"
+      app:cardBackgroundColor="#ff4a4a4a"
+      class="android.support.v7.widget.CardView"
+      android:id="@+id/view">
 
-    <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="New Text"
-            android:id="@+id/queue_title"/>
-
-    <view
+    <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            class="uk.co.amlcurran.queues.list.QueueStackView"
-            app:stackItemColor="@color/app_color"
-            android:id="@+id/queue_stack"/>
+            android:layout_height="match_parent">
 
-</LinearLayout>
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/TextAppearance.AppCompat.Headline"
+                tools:text="Queue title"
+                android:id="@+id/queue_title"
+                android:gravity="center_horizontal"/>
+
+        <view
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                class="uk.co.amlcurran.queues.list.QueueStackView"
+                app:stackItemColor="@color/app_color"
+                android:id="@+id/queue_stack"/>
+
+    </LinearLayout>
+
+</view>
+
