@@ -15,6 +15,7 @@ import uk.co.amlcurran.queues.core.Queue;
 
 public class QueueStackView extends View {
 
+    private final Paint queueStackFirstPaint;
     private final Paint queueStackPaint;
     private final RectF drawRect;
     private final int stackRectHeight;
@@ -32,6 +33,7 @@ public class QueueStackView extends View {
 
     public QueueStackView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        queueStackFirstPaint = new Paint();
         queueStackPaint = new Paint();
         textPaint = new TextPaint();
         drawRect = new RectF();
@@ -55,8 +57,10 @@ public class QueueStackView extends View {
     }
 
     private void initStackPaint() {
-        queueStackPaint.setColor(stackItemColor);
-        queueStackPaint.setAntiAlias(true);
+        queueStackFirstPaint.setColor(stackItemColor);
+        queueStackFirstPaint.setAntiAlias(true);
+        queueStackPaint.set(queueStackFirstPaint);
+        queueStackPaint.setAlpha(153);
     }
 
     @Override
@@ -70,8 +74,12 @@ public class QueueStackView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         int maxStackSize = Math.min(queueSize, stackItemQuantity);
-        for (int i = 0; i < maxStackSize; i++) {
-            updateStackItemRect(i);
+        if (maxStackSize > 0) {
+            updateStackItemRect(0, stackPadding);
+            canvas.drawRoundRect(drawRect, rectRadius, rectRadius, queueStackFirstPaint);
+        }
+        for (int i = 1; i < maxStackSize; i++) {
+            updateStackItemRect(i, stackPadding * 4);
             canvas.drawRoundRect(drawRect, rectRadius, rectRadius, queueStackPaint);
         }
         drawFirstSummary(canvas);
@@ -79,7 +87,7 @@ public class QueueStackView extends View {
 
     private void drawFirstSummary(Canvas canvas) {
         if (firstText != null) {
-            updateStackItemRect(0);
+            updateStackItemRect(0, stackPadding);
             float textLength = textPaint.measureText(firstText, 0, firstText.length());
             int textX = (int) Math.max(0, (getWidth() - textLength) / 2);
             float centerInRectOffset = (drawRect.height() - textPaint.getTextSize()) / 2;
@@ -88,14 +96,10 @@ public class QueueStackView extends View {
         }
     }
 
-    private void updateStackItemRect(int position) {
+    private void updateStackItemRect(int position, int stackRectOffset) {
         int bottom = getHeight() - stackPadding - position * (stackRectHeight + stackPadding);
         int top = bottom - stackRectHeight;
-        drawRect.set(getStackRectOffset(position), top, getWidth() - getStackRectOffset(position), bottom);
-    }
-
-    private int getStackRectOffset(int i) {
-        return i == 0 ? stackPadding : stackPadding * 4;
+        drawRect.set(stackRectOffset, top, getWidth() - stackRectOffset, bottom);
     }
 
     public void setSize(Queue queue) {
