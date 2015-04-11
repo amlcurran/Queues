@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import uk.co.amlcurran.queues.R;
 import uk.co.amlcurran.queues.core.Queue;
 import uk.co.amlcurran.queues.core.Source;
 
@@ -22,7 +23,7 @@ class QueueListAdapter extends RecyclerView.Adapter<ViewHolder> {
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View view = layoutInflater.inflate(android.R.layout.simple_list_item_1, viewGroup, false);
+        View view = layoutInflater.inflate(R.layout.item_queue_list, viewGroup, false);
         return new ViewHolder(view, queueListSelectionListener);
     }
 
