@@ -70,7 +70,7 @@ public class Queue {
     }
 
     public CharSequence firstItemSummary() {
-        if (firstItem() == null) {
+        if (size() == 0) {
             return "No items";
         } else {
             return firstItem().getLabel();
