@@ -6,10 +6,12 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.View;
 
 import uk.co.amlcurran.queues.R;
+import uk.co.amlcurran.queues.core.Queue;
 
 public class QueueStackView extends View {
 
@@ -19,7 +21,9 @@ public class QueueStackView extends View {
     private final int stackPadding;
     private final int stackItemQuantity;
     private final int stackItemColor;
+    private final TextPaint textPaint;
     private int queueSize;
+    private CharSequence firstText;
 
     public QueueStackView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
@@ -28,6 +32,7 @@ public class QueueStackView extends View {
     public QueueStackView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         queueStackPaint = new Paint();
+        textPaint = new TextPaint();
         drawRect = new Rect();
 
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.QueueStackView);
@@ -35,8 +40,14 @@ public class QueueStackView extends View {
         stackPadding = array.getDimensionPixelSize(R.styleable.QueueStackView_stackPadding, getResources().getDimensionPixelSize(R.dimen.qsv_stack_padding));
         stackItemQuantity = array.getInteger(R.styleable.QueueStackView_stackItemQuantity, 4);
         stackItemColor = array.getColor(R.styleable.QueueStackView_stackItemColor, Color.BLUE);
+        initTextPaint();
         initStackPaint();
         array.recycle();
+    }
+
+    private void initTextPaint() {
+        textPaint.setTextSize(getResources().getDimension(R.dimen.qlv_first_item_text_size));
+        textPaint.setColor(Color.WHITE);
     }
 
     private void initStackPaint() {
@@ -54,19 +65,32 @@ public class QueueStackView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         for (int i = 0; i < queueSize; i++) {
-            int bottom = canvas.getHeight() - stackPadding - i * (stackRectHeight + stackPadding);
-            int top = bottom - stackRectHeight;
-            drawRect.set(getStackRectOffset(i), top, canvas.getWidth() - getStackRectOffset(i), bottom);
+            updateStackItemRect(i);
             canvas.drawRect(drawRect, queueStackPaint);
         }
+        if (firstText != null) {
+            updateStackItemRect(0);
+            float textLength = textPaint.measureText(firstText, 0, firstText.length());
+            int textX = (int) Math.max(0, (getWidth() - textLength) / 2);
+            float centerInRectOffset = (drawRect.height() - textPaint.getTextSize()) / 2;
+            int textY = (int) (getHeight() - stackPadding - centerInRectOffset);
+            canvas.drawText(firstText, 0, firstText.length(), textX, textY, textPaint);
+        }
+    }
+
+    private void updateStackItemRect(int position) {
+        int bottom = getHeight() - stackPadding - position * (stackRectHeight + stackPadding);
+        int top = bottom - stackRectHeight;
+        drawRect.set(getStackRectOffset(position), top, getWidth() - getStackRectOffset(position), bottom);
     }
 
     private int getStackRectOffset(int i) {
         return i == 0 ? stackPadding : stackPadding * 4;
     }
 
-    public void setSize(int size) {
-        this.queueSize = size;
+    public void setSize(Queue queue) {
+        this.queueSize = queue.size();
+        this.firstText = queue.firstItemSummary();
         invalidate();
     }
 }

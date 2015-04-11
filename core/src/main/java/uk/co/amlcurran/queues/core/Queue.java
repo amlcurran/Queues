@@ -69,6 +69,14 @@ public class Queue {
         this.listener = QueueListener.NONE;
     }
 
+    public CharSequence firstItemSummary() {
+        if (firstItem() == null) {
+            return "No items";
+        } else {
+            return firstItem().getLabel();
+        }
+    }
+
 //    private void notifyListeners(ListenerAction action) {
 //
 //    }
