@@ -5,7 +5,7 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
+import android.graphics.RectF;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.View;
@@ -16,12 +16,13 @@ import uk.co.amlcurran.queues.core.Queue;
 public class QueueStackView extends View {
 
     private final Paint queueStackPaint;
-    private final Rect drawRect;
+    private final RectF drawRect;
     private final int stackRectHeight;
     private final int stackPadding;
     private final int stackItemQuantity;
     private final int stackItemColor;
     private final TextPaint textPaint;
+    private final float rectRadius;
     private int queueSize;
     private CharSequence firstText;
 
@@ -33,7 +34,9 @@ public class QueueStackView extends View {
         super(context, attrs, defStyleAttr);
         queueStackPaint = new Paint();
         textPaint = new TextPaint();
-        drawRect = new Rect();
+        drawRect = new RectF();
+
+        rectRadius = context.getResources().getDimension(R.dimen.qsv_rect_radius);
 
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.QueueStackView);
         stackRectHeight = array.getDimensionPixelSize(R.styleable.QueueStackView_stackItemHeight, getResources().getDimensionPixelSize(R.dimen.qsv_stack_height));
@@ -53,6 +56,7 @@ public class QueueStackView extends View {
 
     private void initStackPaint() {
         queueStackPaint.setColor(stackItemColor);
+        queueStackPaint.setAntiAlias(true);
     }
 
     @Override
@@ -67,7 +71,7 @@ public class QueueStackView extends View {
     protected void onDraw(Canvas canvas) {
         for (int i = 0; i < queueSize; i++) {
             updateStackItemRect(i);
-            canvas.drawRect(drawRect, queueStackPaint);
+            canvas.drawRoundRect(drawRect, rectRadius, rectRadius, queueStackPaint);
         }
         drawFirstSummary(canvas);
     }

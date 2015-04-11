@@ -6,4 +6,7 @@
     <dimen name="qlv_first_item_text_size">16sp</dimen>
     <dimen name="qsv_stack_height">24dp</dimen>
     <dimen name="qsv_stack_padding">8dp</dimen>
+    <dimen name="qsv_shadow_radius">4dp</dimen>
+    <dimen name="qsv_shadow_offset">2dp</dimen>
+    <dimen name="qsv_rect_radius">2dp</dimen>
 </resources>
