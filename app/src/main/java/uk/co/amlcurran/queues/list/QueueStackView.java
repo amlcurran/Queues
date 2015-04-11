@@ -38,7 +38,8 @@ public class QueueStackView extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int width = resolveSizeAndState(getSuggestedMinimumWidth(), widthMeasureSpec, 1);
-        int height = resolveSizeAndState(getResources().getDimensionPixelSize(R.dimen.queue_list_view_min_height), heightMeasureSpec, 1);
+        int minHeight = stackPadding * 5 + stackRectHeight * 4;
+        int height = resolveSizeAndState(minHeight, heightMeasureSpec, 1);
         setMeasuredDimension(width, height);
     }
 
@@ -46,8 +47,9 @@ public class QueueStackView extends View {
     protected void onDraw(Canvas canvas) {
         canvas.drawColor(Color.RED);
         for (int i = 0; i < queueSize; i++) {
-            int top = i * (stackRectHeight + stackPadding);
-            drawRect.set(0, top, canvas.getHeight(), top + stackRectHeight);
+            int bottom = canvas.getHeight() - stackPadding - i * (stackRectHeight + stackPadding);
+            int top = bottom - stackRectHeight;
+            drawRect.set(stackPadding, top, canvas.getWidth() - stackPadding, bottom);
             canvas.drawRect(drawRect, queueStackPaint);
         }
     }
