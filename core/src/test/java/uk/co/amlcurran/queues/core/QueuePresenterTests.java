@@ -32,17 +32,17 @@ public class QueuePresenterTests {
 
     @Test
     public void addingAnItemNotifiesTheView() {
-        QueueItem queueItem = new QueueItem(queuePersister.uniqueItemId(), "hello");
+        String label = "Hello";
         presenter.load();
 
-        presenter.addItem(queueItem);
+        presenter.addItem(label);
 
-        assertThat(queueView.addedItem, is(queueItem));
+        assertThat(queueView.addedItem.getLabel(), is(label));
     }
 
     @Test
     public void removingAnItemNotifiesTheView() {
-        QueueItem queueItem = new QueueItem(queuePersister.uniqueItemId(), "hello");
+        QueueItem queueItem = QueueItems.anyQueueItem();
         presenter.load();
 
         presenter.removeItem(queueItem);

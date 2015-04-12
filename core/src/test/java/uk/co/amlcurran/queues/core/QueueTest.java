@@ -14,10 +14,9 @@ public class QueueTest {
         AssertingQueuePersister persister = new AssertingQueuePersister();
         Queue queue = QueueFactory.withPersister(persister);
 
-        QueueItem queueItem = new QueueItem(queuePersister.uniqueItemId(), "Hello");
-        queue.addItem(queueItem);
+        queue.addItem("Hello");
 
-        assertThat(persister.saveNewItem_item, is(queueItem));
+        assertThat(persister.saveNewItem_item.getLabel(), is("Hello"));
         assertThat(persister.saveNewItem_queueId, is(queue.getId()));
     }
 
@@ -25,50 +24,45 @@ public class QueueTest {
     public void testAddingAnItemToAQueue_MeansItCanBeRetrieved() {
         Queue queue = QueueFactory.withPersister(UNUSED_PERSISTER);
 
-        QueueItem queueItem = new QueueItem(queuePersister.uniqueItemId(), "Hello");
-        queue.addItem(queueItem);
+        queue.addItem("Hello");
 
-        assertThat(queue.next(), is(queueItem));
+        assertThat(queue.next().getLabel(), is("Hello"));
     }
 
     @Test
     public void testAddingTwoItemsToAQueue_RetrievesThemInTheCorrectOrder() {
         Queue queue = QueueFactory.withPersister(UNUSED_PERSISTER);
 
-        QueueItem queueItem = new QueueItem(queuePersister.uniqueItemId(), "Hello");
-        QueueItem queueItem2 = new QueueItem(queuePersister.uniqueItemId(), "How are you");
-        queue.addItem(queueItem);
-        queue.addItem(queueItem2);
+        queue.addItem("Hello");
+        queue.addItem("How are you");
 
-        assertThat(queue.next(), is(queueItem));
-        assertThat(queue.next(), is(queueItem2));
+        assertThat(queue.next().getLabel(), is("Hello"));
+        assertThat(queue.next().getLabel(), is("How are you"));
     }
 
     @Test
     public void testAddingAndIteratingWorks() {
         Queue queue = QueueFactory.withPersister(UNUSED_PERSISTER);
 
-        QueueItem queueItem = new QueueItem(queuePersister.uniqueItemId(), "Hello");
-        queue.addItem(queueItem);
-        assertThat(queue.next(), is(queueItem));
+        queue.addItem("Hello");
+        assertThat(queue.next().getLabel(), is("Hello"));
 
-        QueueItem queueItem2 = new QueueItem(queuePersister.uniqueItemId(), "How are you");
-        queue.addItem(queueItem2);
-        assertThat(queue.next(), is(queueItem2));
+        queue.addItem("How are you");
+        assertThat(queue.next().getLabel(), is("How are you"));
     }
 
     @Test
     public void testRemovingAnItem_RemovesIt() {
         Queue queue = QueueFactory.withPersister(UNUSED_PERSISTER);
 
-        QueueItem queueItem = new QueueItem(queuePersister.uniqueItemId(), "Hello");
-        QueueItem queueItem2 = new QueueItem(queuePersister.uniqueItemId(), "How are you");
-        queue.addItem(queueItem);
-        queue.addItem(queueItem2);
+        String label1 = "Hello";
+        String label2 = "How are you";
+        queue.addItem(label1);
+        queue.addItem(label2);
 
-        queue.removeItem(new QueueItem(queuePersister.uniqueItemId(), "Hello"));
+        queue.removeItem(new QueueItem(0, "Hello"));
 
-        assertThat(queue.next(), is(queueItem2));
+        assertThat(queue.next().getLabel(), is(label2));
     }
 
     @Test
@@ -76,26 +70,26 @@ public class QueueTest {
         AssertingQueuePersister queuePersister = new AssertingQueuePersister();
         Queue queue = QueueFactory.withPersister(queuePersister);
 
-        QueueItem queueItem = new QueueItem(queuePersister.uniqueItemId(), "Hello");
-        QueueItem queueItem2 = new QueueItem(queuePersister.uniqueItemId(), "How are you");
-        queue.addItem(queueItem);
-        queue.addItem(queueItem2);
+        String label1 = "Hello";
+        String label2 = "How are you";
+        queue.addItem(label1);
+        queue.addItem(label2);
 
-        queue.removeItem(new QueueItem(queuePersister.uniqueItemId(), "Hello"));
+        queue.removeItem(new QueueItem(queuePersister.uniqueItemId(), label1));
 
-        assertThat(queuePersister.remove_Item, is(queueItem));
+        assertThat(queuePersister.remove_Item.getLabel(), is(label1));
     }
 
     @Test
     public void addingAnItemNotifiesListener() {
         Queue queue = QueueFactory.withPersister(Persisters.empty());
-        QueueItem item = new QueueItem(queuePersister.uniqueItemId(), "Woo");
         AssertingQueueListener listener = new AssertingQueueListener();
+        String label = "Label";
 
         queue.addListener(listener);
-        queue.addItem(item);
+        queue.addItem(label);
 
-        assertThat(listener.itemAdded, is(item));
+        assertThat(listener.itemAdded.getLabel(), is(label));
     }
 
     private static final QueuePersister UNUSED_PERSISTER = new QueuePersister() {
