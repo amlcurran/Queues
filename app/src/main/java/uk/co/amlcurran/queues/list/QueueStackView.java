@@ -18,10 +18,12 @@ import uk.co.amlcurran.queues.core.Queue;
 
 public class QueueStackView extends View {
 
-    public static final double MIN_ALPHA = 0.4;
-    public static final double ALPHA_STEP = 0.2;
-    public static final double MAX_ALPHA = 0.7;
-    public static final int FULL_ALPHA = 1;
+    private static final double MIN_ALPHA = 0.4;
+    private static final double ALPHA_STEP = 0.2;
+    private static final double MAX_ALPHA = 0.7;
+    private static final int FULL_ALPHA = 1;
+    private static final float HEIGHT_PERSPECTIVE_FACTOR = 0.2f;
+    private static final float MIN_HEIGHT = 0.4f;
     private final Paint queueStackFirstPaint;
     private final Paint queueStackPaint;
     private final RectF drawRect;
@@ -73,9 +75,11 @@ public class QueueStackView extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int width = resolveSizeAndState(getSuggestedMinimumWidth(), widthMeasureSpec, 1);
-        int numberOfStacks = Math.min(queueSize, stackItemQuantity);
-        numberOfStacks = Math.max(numberOfStacks, 1);
-        int minHeight = stackPadding * (numberOfStacks + 1) + stackRectHeight * numberOfStacks;
+        int numberOfStacks = Math.max(Math.min(queueSize, stackItemQuantity), 1);
+        int minHeight = stackPadding * (numberOfStacks + 1);
+        for (int i = 0; i < numberOfStacks; i++) {
+            minHeight += getStackRectHeightForPosition(i, stackRectHeight);
+        }
         int height = resolveSizeAndState(minHeight, heightMeasureSpec, 1);
         setMeasuredDimension(width, height);
     }
@@ -121,9 +125,17 @@ public class QueueStackView extends View {
     }
 
     private void updateStackItemRect(int position, int stackRectOffset) {
-        int bottom = getHeight() - stackPadding - position * (stackRectHeight + stackPadding);
-        int top = bottom - stackRectHeight;
+        float bottom = getHeight() - stackPadding;
+        for (int i = 0; i < position; i++) {
+            bottom -=  getStackRectHeightForPosition(i, stackRectHeight) + stackPadding;
+        }
+        float top = bottom - getStackRectHeightForPosition(position, stackRectHeight);
         drawRect.set(stackRectOffset, top, getWidth() - stackRectOffset, bottom);
+    }
+
+    private float getStackRectHeightForPosition(int i, int stackRectHeight) {
+        float heightProportion = 1 - i * HEIGHT_PERSPECTIVE_FACTOR;
+        return stackRectHeight * Math.max(heightProportion, MIN_HEIGHT);
     }
 
     public void setSize(Queue queue) {
