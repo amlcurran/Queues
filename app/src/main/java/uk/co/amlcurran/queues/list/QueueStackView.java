@@ -18,6 +18,10 @@ import uk.co.amlcurran.queues.core.Queue;
 
 public class QueueStackView extends View {
 
+    public static final double MIN_ALPHA = 0.4;
+    public static final double ALPHA_STEP = 0.2;
+    public static final double MAX_ALPHA = 0.7;
+    public static final int FULL_ALPHA = 1;
     private final Paint queueStackFirstPaint;
     private final Paint queueStackPaint;
     private final RectF drawRect;
@@ -94,7 +98,7 @@ public class QueueStackView extends View {
     }
 
     private static double alphaForPosition(int position) {
-        return position == 0 ? 1 : 0.7 - position * 0.2;
+        return position == 0 ? FULL_ALPHA : Math.max(MAX_ALPHA - position * ALPHA_STEP, MIN_ALPHA);
     }
 
     private void drawFirstSummary(Canvas canvas) {
