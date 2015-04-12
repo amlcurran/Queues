@@ -2,7 +2,7 @@
 <view xmlns:android="http://schemas.android.com/apk/res/android"
       xmlns:app="http://schemas.android.com/apk/res-auto"
       xmlns:tools="http://schemas.android.com/tools"
-      android:layout_width="wrap_content"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_margin="4dp"
       app:cardBackgroundColor="#ff4a4a4a"
@@ -17,7 +17,6 @@
         <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/TextAppearance.AppCompat.Headline"
                 android:fontFamily="sans-serif-condensed"
                 android:textStyle="italic"
                 tools:text="Queue title"
@@ -26,7 +25,8 @@
                 android:layout_marginTop="4dp"
                 android:ellipsize="end"
                 android:id="@+id/queue_title"
-                android:gravity="center_horizontal"/>
+                android:gravity="center_horizontal"
+                android:textSize="24sp"/>
 
         <view
                 android:layout_width="match_parent"
