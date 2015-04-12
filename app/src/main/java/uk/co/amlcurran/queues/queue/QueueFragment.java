@@ -24,12 +24,14 @@ public class QueueFragment extends Fragment implements QueueView {
     private RecyclerView items;
     private QueueAdapter adapter;
     private QueuePresenter presenter;
+    private View doneButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_queue, container, false);
         newItemEntry = (TextView) view.findViewById(R.id.queue_item_entry);
         items = (RecyclerView) view.findViewById(R.id.queue_items);
+        doneButton = view.findViewById(R.id.queue_done_button);
         return view;
     }
 
@@ -56,6 +58,12 @@ public class QueueFragment extends Fragment implements QueueView {
                     return true;
                 }
                 return false;
+            }
+        });
+        doneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.removeItem(0);
             }
         });
     }
