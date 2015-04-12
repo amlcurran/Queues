@@ -1,13 +1,20 @@
 package uk.co.amlcurran.queues.queue;
 
+import android.animation.TimeInterpolator;
+import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.Fragment;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
+import android.view.animation.Interpolator;
 import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 
@@ -47,6 +54,7 @@ public class QueueFragment extends Fragment implements QueueView {
         });
         items.setLayoutManager(new LinearLayoutManager(getActivity()));
         items.setAdapter(adapter);
+        items.setItemAnimator(new CustomAnimator(getActivity()));
         presenter.load();
         newItemEntry.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -89,5 +97,67 @@ public class QueueFragment extends Fragment implements QueueView {
         args.putLong("id", id);
         queueFragment.setArguments(args);
         return queueFragment;
+    }
+
+    private static class CustomAnimator extends DefaultItemAnimator {
+
+        private final TimeInterpolator interpolator;
+        private final float translationOut;
+
+        public CustomAnimator(Activity activity) {
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
+                interpolator = lollipop(activity);
+            }
+            else {
+                interpolator = other(activity);
+            }
+            translationOut = activity.getResources().getDimension(R.dimen.translation_out_length);
+        }
+
+        @Override
+        public boolean animateRemove(final RecyclerView.ViewHolder holder) {
+            holder.itemView.animate()
+                    .translationXBy(-translationOut)
+                    .alpha(0)
+                    .withStartAction(new StartRunnable(holder))
+                    .withEndAction(new EndRunnable(holder))
+                    .setInterpolator(interpolator).start();
+            return true;
+        }
+
+        private static Interpolator other(Activity activity) {
+            return AnimationUtils.loadInterpolator(activity, android.R.interpolator.accelerate_cubic);
+        }
+
+        @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+        private static Interpolator lollipop(Activity activity) {
+            return AnimationUtils.loadInterpolator(activity, android.R.interpolator.fast_out_slow_in);
+        }
+
+        private class StartRunnable implements Runnable {
+            private final RecyclerView.ViewHolder holder;
+
+            public StartRunnable(RecyclerView.ViewHolder holder) {
+                this.holder = holder;
+            }
+
+            @Override
+            public void run() {
+                dispatchRemoveStarting(holder);
+            }
+        }
+
+        private class EndRunnable implements Runnable {
+            private final RecyclerView.ViewHolder holder;
+
+            public EndRunnable(RecyclerView.ViewHolder holder) {
+                this.holder = holder;
+            }
+
+            @Override
+            public void run() {
+                dispatchRemoveFinished(holder);
+            }
+        }
     }
 }

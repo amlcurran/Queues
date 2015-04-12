@@ -46,7 +46,7 @@ class QueueAdapter extends RecyclerView.Adapter<ViewHolder> {
 
     public void add(QueueItem queueItem) {
         queueSource.add(queueItem);
-        notifyItemInserted(queueSource.size() - 1);
+        notifyItemInserted(Math.max(0, queueSource.size() - 1));
     }
 
     public void remove(QueueItem item) {
