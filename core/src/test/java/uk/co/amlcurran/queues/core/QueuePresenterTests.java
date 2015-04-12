@@ -32,7 +32,7 @@ public class QueuePresenterTests {
 
     @Test
     public void addingAnItemNotifiesTheView() {
-        QueueItem queueItem = new QueueItem("hello");
+        QueueItem queueItem = new QueueItem(queuePersister.uniqueItemId(), "hello");
         presenter.load();
 
         presenter.addItem(queueItem);
@@ -42,7 +42,7 @@ public class QueuePresenterTests {
 
     @Test
     public void removingAnItemNotifiesTheView() {
-        QueueItem queueItem = new QueueItem("hello");
+        QueueItem queueItem = new QueueItem(queuePersister.uniqueItemId(), "hello");
         presenter.load();
 
         presenter.removeItem(queueItem);

@@ -11,6 +11,11 @@ public class Persisters {
             public void saveQueue(Queue queue, Callbacks callbacks) {
                 callbacks.failedToSave(queue);
             }
+
+            @Override
+            public long uniqueItemId() {
+                return 0;
+            }
         };
     }
 
@@ -32,6 +37,11 @@ public class Persisters {
             @Override
             public long uniqueId() {
                 return queueId;
+            }
+
+            @Override
+            public long uniqueItemId() {
+                return 0;
             }
         };
     }

@@ -25,7 +25,8 @@ public class SQLitePersister implements QueuePersister {
     @Override
     public void addItemToQueue(long queueId, QueueItem queueItem) {
         SQLiteDatabase database = db.getWritableDatabase();
-        long insert = database.insert(QueueItems.TABLE_NAME, null, fromQueueItem(queueItem, queueId));
+        long update = database.update(QueueItems.TABLE_NAME, fromQueueItem(queueItem, queueId),
+                whereIdClause(), asArgs(queueItem.getId()));
         database.close();
     }
 
@@ -38,7 +39,8 @@ public class SQLitePersister implements QueuePersister {
 
     @Override
     public void removeItemFromQueue(long queueId, QueueItem queueItem) {
-
+        SQLiteDatabase database = db.getWritableDatabase();
+        database.delete(QueueItems.TABLE_NAME, whereIdClause(), asArgs(queueItem.getId()));
     }
 
     @Override
@@ -62,7 +64,8 @@ public class SQLitePersister implements QueuePersister {
     private List<QueueItem> fromItemsCursor(Cursor itemsCursor) {
         List<QueueItem> items = new ArrayList<>();
         while (itemsCursor.moveToNext()) {
-            items.add(new QueueItem(itemsCursor.getString(itemsCursor.getColumnIndex(QueueItems.LABEL))));
+            items.add(new QueueItem(itemsCursor.getLong(itemsCursor.getColumnIndex(QueueItems._ID)),
+                    itemsCursor.getString(itemsCursor.getColumnIndex(QueueItems.LABEL))));
         }
         return items;
     }
@@ -102,8 +105,22 @@ public class SQLitePersister implements QueuePersister {
     }
 
     @Override
+    public long uniqueItemId() {
+        long inserted = db.getWritableDatabase().insert(QueueItems.TABLE_NAME, QueueItems.LABEL, null);
+        if (inserted == -1) {
+            throw new IllegalArgumentException("Failed to insert");
+        }
+        return inserted;
+    }
+
+    @Override
     public void deleteQueue(Queue queue, Callbacks callbacks) {
         db.getWritableDatabase().delete(QueueList.TABLE_NAME, whereIdClause(), whereIdArgs(queue));
+        db.getWritableDatabase().delete(QueueItems.TABLE_NAME, whereQueueIdClause(), asArgs(queue.getId()));
+    }
+
+    private String whereQueueIdClause() {
+        return QueueItems.QUEUE_ID + "=?";
     }
 
     private static String[] whereIdArgs(Queue queue) {

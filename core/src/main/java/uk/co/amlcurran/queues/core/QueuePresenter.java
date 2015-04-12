@@ -29,8 +29,8 @@ public class QueuePresenter {
         queueView.show(queue);
     }
 
-    public void addItem(QueueItem queueItem) {
-        queue.addItem(queueItem);
+    public void addItem(String title) {
+        queue.addItem(title);
     }
 
     public void removeItem(QueueItem queueItem) {

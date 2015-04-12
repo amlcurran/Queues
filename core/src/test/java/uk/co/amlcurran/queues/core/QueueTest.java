@@ -14,7 +14,7 @@ public class QueueTest {
         AssertingQueuePersister persister = new AssertingQueuePersister();
         Queue queue = QueueFactory.withPersister(persister);
 
-        QueueItem queueItem = new QueueItem("Hello");
+        QueueItem queueItem = new QueueItem(queuePersister.uniqueItemId(), "Hello");
         queue.addItem(queueItem);
 
         assertThat(persister.saveNewItem_item, is(queueItem));
@@ -25,7 +25,7 @@ public class QueueTest {
     public void testAddingAnItemToAQueue_MeansItCanBeRetrieved() {
         Queue queue = QueueFactory.withPersister(UNUSED_PERSISTER);
 
-        QueueItem queueItem = new QueueItem("Hello");
+        QueueItem queueItem = new QueueItem(queuePersister.uniqueItemId(), "Hello");
         queue.addItem(queueItem);
 
         assertThat(queue.next(), is(queueItem));
@@ -35,8 +35,8 @@ public class QueueTest {
     public void testAddingTwoItemsToAQueue_RetrievesThemInTheCorrectOrder() {
         Queue queue = QueueFactory.withPersister(UNUSED_PERSISTER);
 
-        QueueItem queueItem = new QueueItem("Hello");
-        QueueItem queueItem2 = new QueueItem("How are you");
+        QueueItem queueItem = new QueueItem(queuePersister.uniqueItemId(), "Hello");
+        QueueItem queueItem2 = new QueueItem(queuePersister.uniqueItemId(), "How are you");
         queue.addItem(queueItem);
         queue.addItem(queueItem2);
 
@@ -48,11 +48,11 @@ public class QueueTest {
     public void testAddingAndIteratingWorks() {
         Queue queue = QueueFactory.withPersister(UNUSED_PERSISTER);
 
-        QueueItem queueItem = new QueueItem("Hello");
+        QueueItem queueItem = new QueueItem(queuePersister.uniqueItemId(), "Hello");
         queue.addItem(queueItem);
         assertThat(queue.next(), is(queueItem));
 
-        QueueItem queueItem2 = new QueueItem("How are you");
+        QueueItem queueItem2 = new QueueItem(queuePersister.uniqueItemId(), "How are you");
         queue.addItem(queueItem2);
         assertThat(queue.next(), is(queueItem2));
     }
@@ -61,12 +61,12 @@ public class QueueTest {
     public void testRemovingAnItem_RemovesIt() {
         Queue queue = QueueFactory.withPersister(UNUSED_PERSISTER);
 
-        QueueItem queueItem = new QueueItem("Hello");
-        QueueItem queueItem2 = new QueueItem("How are you");
+        QueueItem queueItem = new QueueItem(queuePersister.uniqueItemId(), "Hello");
+        QueueItem queueItem2 = new QueueItem(queuePersister.uniqueItemId(), "How are you");
         queue.addItem(queueItem);
         queue.addItem(queueItem2);
 
-        queue.removeItem(new QueueItem("Hello"));
+        queue.removeItem(new QueueItem(queuePersister.uniqueItemId(), "Hello"));
 
         assertThat(queue.next(), is(queueItem2));
     }
@@ -76,12 +76,12 @@ public class QueueTest {
         AssertingQueuePersister queuePersister = new AssertingQueuePersister();
         Queue queue = QueueFactory.withPersister(queuePersister);
 
-        QueueItem queueItem = new QueueItem("Hello");
-        QueueItem queueItem2 = new QueueItem("How are you");
+        QueueItem queueItem = new QueueItem(queuePersister.uniqueItemId(), "Hello");
+        QueueItem queueItem2 = new QueueItem(queuePersister.uniqueItemId(), "How are you");
         queue.addItem(queueItem);
         queue.addItem(queueItem2);
 
-        queue.removeItem(new QueueItem("Hello"));
+        queue.removeItem(new QueueItem(queuePersister.uniqueItemId(), "Hello"));
 
         assertThat(queuePersister.remove_Item, is(queueItem));
     }
@@ -89,7 +89,7 @@ public class QueueTest {
     @Test
     public void addingAnItemNotifiesListener() {
         Queue queue = QueueFactory.withPersister(Persisters.empty());
-        QueueItem item = new QueueItem("Woo");
+        QueueItem item = new QueueItem(queuePersister.uniqueItemId(), "Woo");
         AssertingQueueListener listener = new AssertingQueueListener();
 
         queue.addListener(listener);
@@ -121,6 +121,11 @@ public class QueueTest {
 
         @Override
         public long uniqueId() {
+            return 0;
+        }
+
+        @Override
+        public long uniqueItemId() {
             return 0;
         }
 
@@ -159,6 +164,11 @@ public class QueueTest {
 
         @Override
         public long uniqueId() {
+            return 0;
+        }
+
+        @Override
+        public long uniqueItemId() {
             return 0;
         }
 

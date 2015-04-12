@@ -2,8 +2,10 @@ package uk.co.amlcurran.queues.core;
 
 public class QueueItem {
     private final String label;
+    private final long id;
 
-    public QueueItem(String label) {
+    public QueueItem(long id, String label) {
+        this.id = id;
         this.label = label;
     }
 
@@ -24,5 +26,9 @@ public class QueueItem {
     @Override
     public int hashCode() {
         return label.hashCode();
+    }
+
+    public long getId() {
+        return id;
     }
 }

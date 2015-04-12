@@ -13,6 +13,8 @@ public interface QueuePersister {
 
     long uniqueId();
 
+    long uniqueItemId();
+
     void deleteQueue(Queue queue, Callbacks callbacks);
 
     interface Callbacks {

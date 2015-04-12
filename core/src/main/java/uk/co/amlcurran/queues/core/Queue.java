@@ -23,7 +23,8 @@ public class Queue {
         return new Queue(title, queuePersister.uniqueId(), queuePersister, new ArrayList<QueueItem>());
     }
 
-    public void addItem(QueueItem queueItem) {
+    public void addItem(String label) {
+        QueueItem queueItem = new QueueItem(queuePersister.uniqueItemId(), label);
         queueItems.add(queueItem);
         queuePersister.addItemToQueue(id, queueItem);
         listener.itemAdded(queueItem);

@@ -51,7 +51,7 @@ public class QueueFragment extends Fragment implements QueueView {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     String title = String.valueOf(newItemEntry.getText());
-                    presenter.addItem(new QueueItem(title));
+                    presenter.addItem(title);
                     newItemEntry.setText("");
                     return true;
                 }

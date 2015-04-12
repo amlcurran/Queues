@@ -33,6 +33,11 @@ public class AssertingPersister implements QueuePersister {
     }
 
     @Override
+    public long uniqueItemId() {
+        return 0;
+    }
+
+    @Override
     public void deleteQueue(Queue queue, Callbacks callbacks) {
 
     }
