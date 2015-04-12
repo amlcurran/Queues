@@ -185,6 +185,8 @@ public class QueueFragment extends Fragment implements QueueView {
             @Override
             public void run() {
                 dispatchRemoveFinished(holder);
+                holder.itemView.setTranslationX(0);
+                holder.itemView.setAlpha(1);
             }
         }
     }

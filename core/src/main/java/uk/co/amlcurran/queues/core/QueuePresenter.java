@@ -36,6 +36,11 @@ public class QueuePresenter {
                 queueView.empty();
             }
         });
+        if (queue.size() == 0) {
+            queueView.empty();
+        } else {
+            queueView.notEmpty();
+        }
         queueView.show(queue);
     }
 

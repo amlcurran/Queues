@@ -23,14 +23,20 @@
           android:layout_height="match_parent"
           android:layout_marginTop="4dp">
 
-    <ImageButton
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:id="@+id/queue_done_button"
-            android:src="@drawable/ic_done"
-            android:background="@drawable/done_button_bg"
-            android:layout_margin="4dp"
-            android:elevation="2dp"/>
+      <FrameLayout
+              android:layout_width="48dp"
+              android:layout_height="48dp">
+
+          <ImageButton
+                  android:layout_width="40dp"
+                  android:layout_height="40dp"
+                  android:id="@+id/queue_done_button"
+                  android:src="@drawable/ic_done"
+                  android:background="@drawable/done_button_bg"
+                  android:layout_margin="4dp"
+                  android:elevation="2dp"/>
+
+      </FrameLayout>
 
     <view
       android:layout_width="match_parent"
