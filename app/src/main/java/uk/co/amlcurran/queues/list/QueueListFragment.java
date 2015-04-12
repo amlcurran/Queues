@@ -39,7 +39,7 @@ public class QueueListFragment extends Fragment implements QueueListView {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         queueListPresenter = new QueueListPresenter(this, new ActivityNavigationController(getActivity()), QueuesApplication.queueList(getActivity()));
-        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(getResources().getInteger(R.integer.list_queue_columns), StaggeredGridLayoutManager.VERTICAL));
         adapter = new QueueListAdapter(LayoutInflater.from(getActivity()), new QueueListAdapter.QueueListSelectionListener() {
             @Override
             public void selectedQueue(int position) {
