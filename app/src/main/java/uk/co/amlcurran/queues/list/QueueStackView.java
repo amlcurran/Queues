@@ -92,13 +92,14 @@ public class QueueStackView extends View {
         if (firstText != null) {
             updateStackItemRect(0, stackPadding);
             float textLength = textPaint.measureText(firstText, 0, firstText.length());
-            int clippedWidth = (int) drawRect.width() - 2 * stackPadding;
+            int clippedWidth = (int) Math.min(textLength, drawRect.width() - 2 * stackPadding);
             StaticLayout layout = new StaticLayout(firstText, 0, firstText.length(), textPaint, (int) textLength,
                     Layout.Alignment.ALIGN_NORMAL, 1, 0, true, TextUtils.TruncateAt.END, clippedWidth);
-            float centerInRectOffset = (drawRect.height() - layout.getHeight()) / 2f;
+            float centerInRectYOffset = (drawRect.height() - layout.getHeight()) / 2f;
+            float centerInRectXOffset = (drawRect.width() - clippedWidth) / 2f;
 
-            float textX = Math.max(0, (getWidth() - drawRect.width()) / 2f) + stackPadding;
-            float textY = drawRect.top + centerInRectOffset;
+            float textX = drawRect.left + centerInRectXOffset;
+            float textY = drawRect.top + centerInRectYOffset;
 
             // Draw
             canvas.save();
