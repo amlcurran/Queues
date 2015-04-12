@@ -21,7 +21,6 @@
                 android:textStyle="italic"
                 tools:text="Queue title"
                 android:singleLine="true"
-                android:layout_marginBottom="4dp"
                 android:layout_marginTop="4dp"
                 android:ellipsize="end"
                 android:id="@+id/queue_title"
@@ -33,7 +32,6 @@
                 android:layout_height="wrap_content"
                 class="uk.co.amlcurran.queues.list.QueueStackView"
                 app:stackItemColor="@color/app_color"
-                app:stackItemQuantity="3"
                 android:id="@+id/queue_stack"/>
 
     </LinearLayout>

@@ -2,8 +2,8 @@ package uk.co.amlcurran.queues.list;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,7 +36,7 @@ public class QueueListFragment extends Fragment implements QueueListView {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         queueListPresenter = new QueueListPresenter(this, new ActivityNavigationController(getActivity()), QueuesApplication.queueList(getActivity()));
-        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         adapter = new QueueListAdapter(queueListPresenter.createQueueSource(), LayoutInflater.from(getActivity()), new QueueListAdapter.QueueListSelectionListener() {
             @Override
             public void selectedQueue(int position) {

@@ -73,7 +73,9 @@ public class QueueStackView extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int width = resolveSizeAndState(getSuggestedMinimumWidth(), widthMeasureSpec, 1);
-        int minHeight = stackPadding * (stackItemQuantity + 1) + stackRectHeight * stackItemQuantity;
+        int numberOfStacks = Math.min(queueSize, stackItemQuantity);
+        numberOfStacks = Math.max(numberOfStacks, 1);
+        int minHeight = stackPadding * (numberOfStacks + 1) + stackRectHeight * numberOfStacks;
         int height = resolveSizeAndState(minHeight, heightMeasureSpec, 1);
         setMeasuredDimension(width, height);
     }
@@ -127,6 +129,7 @@ public class QueueStackView extends View {
     public void setSize(Queue queue) {
         this.queueSize = queue.size();
         this.firstText = queue.firstItemSummary();
+        requestLayout();
         invalidate();
     }
 }
