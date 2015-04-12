@@ -72,6 +72,18 @@ public class QueuePresenterTests {
         assertThat(queueView.empty_called, is(true));
     }
 
+    @Test
+    public void removingAnItemToANonEmptyListDoesntNotifyTheView() {
+        String label = "Hello";
+        presenter.load();
+
+        presenter.addItem(label);
+        presenter.addItem("Hello again");
+        presenter.removeItem(0);
+
+        assertThat(queueView.empty_called, is(false));
+    }
+
     private class AssertingQueueView implements QueueView {
         public Queue shownQueue;
         public QueueItem addedItem;
