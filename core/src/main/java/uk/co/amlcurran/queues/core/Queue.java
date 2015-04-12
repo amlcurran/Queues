@@ -25,6 +25,9 @@ public class Queue {
 
     public void addItem(String label) {
         QueueItem queueItem = new QueueItem(queuePersister.uniqueItemId(), label);
+        if (queueItems.size() == 0) {
+            listener.notEmpty();
+        }
         queueItems.add(queueItem);
         queuePersister.addItemToQueue(id, queueItem);
         listener.itemAdded(queueItem);
@@ -55,6 +58,9 @@ public class Queue {
     public void removeItem(QueueItem item) {
         queueItems.remove(item);
         queuePersister.removeItemFromQueue(id, item);
+        if (queueItems.size() == 0) {
+            listener.empty();
+        }
         listener.itemRemoved(item);
     }
 
@@ -98,10 +104,24 @@ public class Queue {
             public void itemRemoved(QueueItem item) {
 
             }
+
+            @Override
+            public void notEmpty() {
+
+            }
+
+            @Override
+            public void empty() {
+
+            }
         };
 
         void itemAdded(QueueItem queueItem);
 
         void itemRemoved(QueueItem item);
+
+        void notEmpty();
+
+        void empty();
     }
 }

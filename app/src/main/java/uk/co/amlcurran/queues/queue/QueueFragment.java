@@ -95,6 +95,24 @@ public class QueueFragment extends Fragment implements QueueView {
         adapter.remove(item);
     }
 
+    @Override
+    public void notEmpty() {
+        doneButton.animate()
+                .scaleX(1)
+                .scaleY(1)
+                .setInterpolator(interpolator(getActivity()))
+                .start();
+    }
+
+    @Override
+    public void empty() {
+        doneButton.animate()
+                .scaleX(0)
+                .scaleY(0)
+                .setInterpolator(interpolator(getActivity()))
+                .start();
+    }
+
     public static QueueFragment withId(long id) {
         QueueFragment queueFragment = new QueueFragment();
         Bundle args = new Bundle();

@@ -186,5 +186,15 @@ public class QueueTest {
         public void itemRemoved(QueueItem item) {
             itemRemoved = item;
         }
+
+        @Override
+        public void notEmpty() {
+
+        }
+
+        @Override
+        public void empty() {
+
+        }
     }
 }

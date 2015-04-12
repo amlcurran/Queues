@@ -6,4 +6,8 @@ public interface QueueView {
     void itemAdded(QueueItem queueItem);
 
     void itemRemoved(QueueItem item);
+
+    void notEmpty();
+
+    void empty();
 }

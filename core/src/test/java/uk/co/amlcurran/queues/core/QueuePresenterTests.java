@@ -12,12 +12,13 @@ public class QueuePresenterTests {
 
     private AssertingQueueView queueView;
     private QueuePresenter presenter;
+    private QueueList queueList;
     public static final long QUEUE_ID = 212;
 
     @Before
     public void setUp() throws Exception {
         QueuePersister queuePersister = Persisters.singleQueueWithId(QUEUE_ID);
-        QueueList queueList = new QueueList(queuePersister);
+        queueList = new QueueList(queuePersister);
         queueList.load();
         queueView = new AssertingQueueView();
         presenter = new QueuePresenter(QUEUE_ID, queueView, queueList);
@@ -50,10 +51,33 @@ public class QueuePresenterTests {
         assertThat(queueView.removedItem, is(queueItem));
     }
 
+    @Test
+    public void addingAnItemToAnEmptyListNotifiesTheView() {
+        String label = "Hello";
+        presenter.load();
+
+        presenter.addItem(label);
+
+        assertThat(queueView.notEmpty_called, is(true));
+    }
+
+    @Test
+    public void removingAnItemToAnEmptyListNotifiesTheView() {
+        String label = "Hello";
+        presenter.load();
+
+        presenter.addItem(label);
+        presenter.removeItem(0);
+
+        assertThat(queueView.empty_called, is(true));
+    }
+
     private class AssertingQueueView implements QueueView {
         public Queue shownQueue;
         public QueueItem addedItem;
         public QueueItem removedItem;
+        public boolean notEmpty_called;
+        public boolean empty_called;
 
         @Override
         public void show(Queue queue) {
@@ -68,6 +92,16 @@ public class QueuePresenterTests {
         @Override
         public void itemRemoved(QueueItem item) {
             removedItem = item;
+        }
+
+        @Override
+        public void notEmpty() {
+            notEmpty_called = true;
+        }
+
+        @Override
+        public void empty() {
+            empty_called = true;
         }
     }
 }

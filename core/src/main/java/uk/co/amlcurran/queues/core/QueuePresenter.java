@@ -25,6 +25,16 @@ public class QueuePresenter {
             public void itemRemoved(QueueItem item) {
                 queueView.itemRemoved(item);
             }
+
+            @Override
+            public void notEmpty() {
+                queueView.notEmpty();
+            }
+
+            @Override
+            public void empty() {
+                queueView.empty();
+            }
         });
         queueView.show(queue);
     }
