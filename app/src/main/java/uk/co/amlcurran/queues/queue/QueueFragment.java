@@ -72,6 +72,10 @@ public class QueueFragment extends Fragment implements QueueView {
             @Override
             public void onClick(View v) {
                 presenter.removeItem(0);
+                doneButton.animate()
+                        .setInterpolator(interpolator(getActivity()))
+                        .rotationBy(-360)
+                        .start();
             }
         });
     }
@@ -99,18 +103,24 @@ public class QueueFragment extends Fragment implements QueueView {
         return queueFragment;
     }
 
+    public static TimeInterpolator interpolator(Activity activity) {
+        TimeInterpolator interpolator;
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
+            interpolator = CustomAnimator.lollipop(activity);
+        }
+        else {
+            interpolator = CustomAnimator.other(activity);
+        }
+        return interpolator;
+    }
+
     private static class CustomAnimator extends DefaultItemAnimator {
 
         private final TimeInterpolator interpolator;
         private final float translationOut;
 
         public CustomAnimator(Activity activity) {
-            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
-                interpolator = lollipop(activity);
-            }
-            else {
-                interpolator = other(activity);
-            }
+            interpolator = interpolator(activity);
             translationOut = activity.getResources().getDimension(R.dimen.translation_out_length);
         }
 
