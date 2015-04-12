@@ -65,6 +65,8 @@ public class QueuePresenterTests {
     public void removingAnItemToAnEmptyListNotifiesTheView() {
         queueList = QueueLists.singleQueueListWithItems(1, QUEUE_ID);
         queueList.load();
+        queueView = new AssertingQueueView();
+        presenter = new QueuePresenter(QUEUE_ID, queueView, queueList);
         presenter.load();
 
         presenter.removeItem(0);
