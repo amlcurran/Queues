@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import uk.co.amlcurran.queues.R;
 import uk.co.amlcurran.queues.core.QueueItem;
 
 class QueueAdapter extends RecyclerView.Adapter<ViewHolder> {
@@ -24,7 +25,7 @@ class QueueAdapter extends RecyclerView.Adapter<ViewHolder> {
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View view = layoutInflater.inflate(android.R.layout.simple_list_item_1, viewGroup, false);
+        View view = layoutInflater.inflate(R.layout.item_queue_item, viewGroup, false);
         return new ViewHolder(view, queueSelectionListener);
     }
 
