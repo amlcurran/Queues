@@ -5,18 +5,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import uk.co.amlcurran.queues.R;
 import uk.co.amlcurran.queues.core.Queue;
-import uk.co.amlcurran.queues.core.Source;
 
 class QueueListAdapter extends RecyclerView.Adapter<ViewHolder> {
 
-    private final Source<Queue> queueSource;
+    private final List<Queue> queueSource = new ArrayList<>();
     private final LayoutInflater layoutInflater;
     private final QueueListSelectionListener queueListSelectionListener;
 
-    public QueueListAdapter(Source<Queue> queueSource, LayoutInflater layoutInflater, QueueListSelectionListener queueListSelectionListener) {
-        this.queueSource = queueSource;
+    public QueueListAdapter(LayoutInflater layoutInflater, QueueListSelectionListener queueListSelectionListener) {
         this.layoutInflater = layoutInflater;
         this.queueListSelectionListener = queueListSelectionListener;
     }
@@ -32,9 +33,25 @@ class QueueListAdapter extends RecyclerView.Adapter<ViewHolder> {
         viewHolder.bind(queueSource.get(i));
     }
 
+    public void addAll(List<Queue> queues) {
+        queueSource.clear();
+        queueSource.addAll(queues);
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemCount() {
         return queueSource.size();
+    }
+
+    void add(Queue queue, int position) {
+        queueSource.add(position, queue);
+        notifyItemInserted(position);
+    }
+
+    void remove(Queue queue, int position) {
+        queueSource.remove(queue);
+        notifyItemRemoved(position);
     }
 
     public interface QueueListSelectionListener {

@@ -2,6 +2,8 @@ package uk.co.amlcurran.queues.core;
 
 import org.junit.Test;
 
+import java.util.List;
+
 import uk.co.amlcurran.queues.core.persisters.Persisters;
 
 import static org.hamcrest.core.Is.is;
@@ -43,7 +45,7 @@ public class QueueListPresenterTests {
     public void whenAnItemIsSelected_TheNavigationControllerMovesToQueueView() {
         AssertingNavigationController navigationController = new AssertingNavigationController();
         QueueList queueList = new QueueList(Persisters.withNumberOfQueues(2));
-        QueueListPresenter queueListPresenter = new QueueListPresenter(UNUSED_VIEW, navigationController, queueList);
+        QueueListPresenter queueListPresenter = new QueueListPresenter(QueueView.NULL_IMPL, navigationController, queueList);
         queueListPresenter.start();
 
         queueListPresenter.selectedQueue(1);
@@ -67,13 +69,18 @@ public class QueueListPresenterTests {
         public int removedItem;
 
         @Override
-        public void itemAdded(int position) {
+        public void queueAdded(Queue queue, int position) {
             addedItem = position;
         }
 
         @Override
-        public void itemRemoved(int position) {
+        public void queueRemoved(Queue queue, int position) {
             removedItem = position;
+        }
+
+        @Override
+        public void show(List<Queue> queues) {
+
         }
     }
 

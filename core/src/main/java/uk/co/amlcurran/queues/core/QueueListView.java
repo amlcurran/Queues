@@ -1,7 +1,11 @@
 package uk.co.amlcurran.queues.core;
 
-public interface QueueListView {
-    void itemAdded(int position);
+import java.util.List;
 
-    void itemRemoved(int position);
+public interface QueueListView {
+    void queueAdded(Queue queue, int position);
+
+    void queueRemoved(Queue queue, int position);
+
+    void show(List<Queue> queues);
 }

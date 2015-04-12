@@ -14,6 +14,7 @@ public class QueueListPresenter {
     public void start() {
         queueList.load();
         queueList.addCallbacks(updateSelfListener);
+        queueListView.show(queueList.all());
     }
 
     public void stop() {
@@ -32,12 +33,12 @@ public class QueueListPresenter {
         @Override
         public void queueAdded(Queue queue) {
             int position = queueList.positionFromQueue(queue);
-            queueListView.itemAdded(position);
+            queueListView.queueAdded(queue, position);
         }
 
         @Override
         public void queueRemoved(Queue queue, int removedPosition) {
-            queueListView.itemRemoved(removedPosition);
+            queueListView.queueRemoved(queue, removedPosition);
         }
     };
 

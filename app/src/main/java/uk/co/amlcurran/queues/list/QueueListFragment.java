@@ -11,9 +11,12 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 
+import java.util.List;
+
 import uk.co.amlcurran.queues.ActivityNavigationController;
 import uk.co.amlcurran.queues.QueuesApplication;
 import uk.co.amlcurran.queues.R;
+import uk.co.amlcurran.queues.core.Queue;
 import uk.co.amlcurran.queues.core.QueueListPresenter;
 import uk.co.amlcurran.queues.core.QueueListView;
 
@@ -21,7 +24,7 @@ public class QueueListFragment extends Fragment implements QueueListView {
 
     private QueueListPresenter queueListPresenter;
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
+    private QueueListAdapter adapter;
     private TextView newTitleEntry;
 
     @Override
@@ -37,7 +40,7 @@ public class QueueListFragment extends Fragment implements QueueListView {
         super.onActivityCreated(savedInstanceState);
         queueListPresenter = new QueueListPresenter(this, new ActivityNavigationController(getActivity()), QueuesApplication.queueList(getActivity()));
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-        adapter = new QueueListAdapter(queueListPresenter.createQueueSource(), LayoutInflater.from(getActivity()), new QueueListAdapter.QueueListSelectionListener() {
+        adapter = new QueueListAdapter(LayoutInflater.from(getActivity()), new QueueListAdapter.QueueListSelectionListener() {
             @Override
             public void selectedQueue(int position) {
                 queueListPresenter.selectedQueue(position);
@@ -70,19 +73,29 @@ public class QueueListFragment extends Fragment implements QueueListView {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
     public void onStop() {
         super.onStop();
         queueListPresenter.stop();
     }
 
     @Override
-    public void itemAdded(int position) {
-        adapter.notifyItemInserted(position);
+    public void queueAdded(Queue queue, int position) {
+        adapter.add(queue, position);
     }
 
     @Override
-    public void itemRemoved(int position) {
-        adapter.notifyItemRemoved(position);
+    public void queueRemoved(Queue queue, int position) {
+        adapter.remove(queue, position);
+    }
+
+    @Override
+    public void show(List<Queue> queues) {
+        adapter.addAll(queues);
     }
 
 }
