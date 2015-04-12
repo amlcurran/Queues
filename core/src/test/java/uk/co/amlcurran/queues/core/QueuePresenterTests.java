@@ -3,9 +3,6 @@ package uk.co.amlcurran.queues.core;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Collections;
-
 import uk.co.amlcurran.queues.core.persisters.Persisters;
 
 import static org.hamcrest.core.Is.is;
@@ -66,10 +63,10 @@ public class QueuePresenterTests {
 
     @Test
     public void removingAnItemToAnEmptyListNotifiesTheView() {
-        String label = "Hello";
+        queueList = QueueLists.singleQueueListWithItems(1, QUEUE_ID);
+        queueList.load();
         presenter.load();
 
-        presenter.addItem(label);
         presenter.removeItem(0);
 
         assertThat(queueView.empty_called, is(true));
@@ -77,19 +74,7 @@ public class QueuePresenterTests {
 
     @Test
     public void removingAnItemToANonEmptyListDoesntNotifyTheView() {
-        String label = "Hello";
-        final QueuePersister queuePersister = Persisters.singleQueueWithId(QUEUE_ID);
-        queueList = new QueueList(queuePersister) {
-
-            @Override
-            public Queue queueById(long queueId) {
-                QueueItem queueItem = new QueueItem(12, "label");
-                QueueItem queueItem1 = new QueueItem(14, "woo");
-                ArrayList<QueueItem> queueItems = new ArrayList<>();
-                Collections.addAll(queueItems, queueItem, queueItem1);
-                return new Queue("hello", queueId, queuePersister, queueItems);
-            }
-        };
+        queueList = QueueLists.singleQueueListWithItems(2, QUEUE_ID);
         queueList.load();
         queueView = new AssertingQueueView();
         presenter = new QueuePresenter(QUEUE_ID, queueView, queueList);
