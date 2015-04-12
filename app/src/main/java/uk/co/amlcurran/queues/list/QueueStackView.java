@@ -6,7 +6,10 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.text.Layout;
+import android.text.StaticLayout;
 import android.text.TextPaint;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -89,10 +92,19 @@ public class QueueStackView extends View {
         if (firstText != null) {
             updateStackItemRect(0, stackPadding);
             float textLength = textPaint.measureText(firstText, 0, firstText.length());
-            int textX = (int) Math.max(0, (getWidth() - textLength) / 2);
-            float centerInRectOffset = (drawRect.height() - textPaint.getTextSize()) / 2;
-            int textY = (int) (getHeight() - stackPadding - centerInRectOffset);
-            canvas.drawText(firstText, 0, firstText.length(), textX, textY, textPaint);
+            int clippedWidth = (int) drawRect.width() - 2 * stackPadding;
+            StaticLayout layout = new StaticLayout(firstText, 0, firstText.length(), textPaint, (int) textLength,
+                    Layout.Alignment.ALIGN_NORMAL, 1, 0, true, TextUtils.TruncateAt.END, clippedWidth);
+            float centerInRectOffset = (drawRect.height() - layout.getHeight()) / 2f;
+
+            float textX = Math.max(0, (getWidth() - drawRect.width()) / 2f) + stackPadding;
+            float textY = drawRect.top + centerInRectOffset;
+
+            // Draw
+            canvas.save();
+            canvas.translate(textX, textY);
+            layout.draw(canvas);
+            canvas.restore();
         }
     }
 
