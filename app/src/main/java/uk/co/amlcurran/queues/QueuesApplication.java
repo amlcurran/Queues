@@ -12,7 +12,7 @@ public class QueuesApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        queueList = new QueueList(new SQLitePersister(this));
+        queueList = new QueueList(new DropboxPersister(this));
     }
 
     public static QueueList queueList(Context context) {

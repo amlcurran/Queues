@@ -4,3 +4,5 @@
 .DS_Store
 /build
 *.iml
+
+app/src/main/java/uk/co/amlcurran/queues/Secretz.java
