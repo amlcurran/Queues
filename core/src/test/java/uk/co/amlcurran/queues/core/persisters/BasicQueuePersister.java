@@ -56,4 +56,9 @@ public class BasicQueuePersister implements QueuePersister {
         removedQueue = queue;
     }
 
+    @Override
+    public boolean requiresUserIntervention() {
+        return false;
+    }
+
 }

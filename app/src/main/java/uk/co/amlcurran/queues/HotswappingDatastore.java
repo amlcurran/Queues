@@ -7,30 +7,41 @@ import com.dropbox.sync.android.DbxException;
 
 public class HotswappingDatastore implements DatastoreProvider {
     private final DbxAccountManager accountManager;
-    private final DatastoreProvider.Delegate delegate;
+    private DbxDatastore datastore;
 
-    public HotswappingDatastore(DbxAccountManager accountManager, Delegate delegate) {
+    public HotswappingDatastore(DbxAccountManager accountManager) {
         this.accountManager = accountManager;
-        this.delegate = delegate;
     }
 
     @Override
     public DbxDatastore getDatastore() {
+        if (datastore == null) {
+            return createDatastore();
+        } else {
+            return datastore;
+        }
+    }
+
+    private DbxDatastore createDatastore() {
         try {
             DbxDatastoreManager datastoreManager = null;
-            if (accountManager.hasLinkedAccount()) {
+            if (isLinkedToAccount()) {
                 datastoreManager = DbxDatastoreManager.forAccount(accountManager.getLinkedAccount());
-            } else {
-                delegate.hasUserResolvableAction();
             }
             if (datastoreManager == null) {
                 datastoreManager = DbxDatastoreManager.localManager(accountManager);
             }
-            return datastoreManager.openDefaultDatastore();
+            datastore = datastoreManager.openDefaultDatastore();
+            return datastore;
         } catch (DbxException e) {
             e.printStackTrace();
             throw new IllegalStateException("Couldn't open a Dropbox datastore");
         }
+    }
+
+    @Override
+    public boolean isLinkedToAccount() {
+        return accountManager.hasLinkedAccount();
     }
 
 }

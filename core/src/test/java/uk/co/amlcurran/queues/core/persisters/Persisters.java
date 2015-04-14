@@ -16,6 +16,11 @@ public class Persisters {
             public String uniqueItemId() {
                 return "0";
             }
+
+            @Override
+            public boolean requiresUserIntervention() {
+                return false;
+            }
         };
     }
 
@@ -42,6 +47,11 @@ public class Persisters {
             @Override
             public String uniqueItemId() {
                 return String.valueOf(0);
+            }
+
+            @Override
+            public boolean requiresUserIntervention() {
+                return false;
             }
         };
     }

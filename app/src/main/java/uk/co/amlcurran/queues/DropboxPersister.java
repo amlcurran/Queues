@@ -17,7 +17,7 @@ public class DropboxPersister implements QueuePersister {
 
     public DropboxPersister(QueuesApplication queuesApplication, DatastoreProvider.Delegate delegate) {
         DbxAccountManager accountManager = DbxAccountManager.getInstance(queuesApplication, Secretz.APP_KEY, Secretz.APP_SECRET);
-        datastoreProvider = new HotswappingDatastore(accountManager, delegate);
+        datastoreProvider = new HotswappingDatastore(accountManager);
     }
 
     @Override
@@ -85,6 +85,11 @@ public class DropboxPersister implements QueuePersister {
                 queuesTable().get(queue.getId()).deleteRecord();
             }
         });
+    }
+
+    @Override
+    public boolean requiresUserIntervention() {
+        return !datastoreProvider.isLinkedToAccount();
     }
 
     private void doChangeAction(ChangeAction action) {

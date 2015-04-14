@@ -41,4 +41,9 @@ public class AssertingPersister implements QueuePersister {
     public void deleteQueue(Queue queue, Callbacks callbacks) {
 
     }
+
+    @Override
+    public boolean requiresUserIntervention() {
+        return false;
+    }
 }

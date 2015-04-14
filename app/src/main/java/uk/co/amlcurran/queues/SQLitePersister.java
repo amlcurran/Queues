@@ -122,6 +122,11 @@ public class SQLitePersister implements QueuePersister {
         db.getWritableDatabase().delete(QueueItems.TABLE_NAME, whereQueueIdClause(), asArgs(queue.getId()));
     }
 
+    @Override
+    public boolean requiresUserIntervention() {
+        return false;
+    }
+
     private String whereQueueIdClause() {
         return QueueItems.QUEUE_ID + "=?";
     }

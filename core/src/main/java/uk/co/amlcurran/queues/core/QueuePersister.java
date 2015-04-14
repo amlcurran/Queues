@@ -17,6 +17,8 @@ public interface QueuePersister {
 
     void deleteQueue(Queue queue, Callbacks callbacks);
 
+    boolean requiresUserIntervention();
+
     interface Callbacks {
 
         void failedToSave(Queue queue);

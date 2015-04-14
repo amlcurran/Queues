@@ -128,6 +128,11 @@ public class QueueTest {
 
         }
 
+        @Override
+        public boolean requiresUserIntervention() {
+            return false;
+        }
+
     };
 
     private class AssertingQueuePersister implements QueuePersister {
@@ -169,6 +174,11 @@ public class QueueTest {
         @Override
         public void deleteQueue(Queue queue, Callbacks callbacks) {
 
+        }
+
+        @Override
+        public boolean requiresUserIntervention() {
+            return false;
         }
 
     }

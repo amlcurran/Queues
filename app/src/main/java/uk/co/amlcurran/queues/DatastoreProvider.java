@@ -6,6 +6,8 @@ import com.dropbox.sync.android.DbxDatastore;
 public interface DatastoreProvider {
     DbxDatastore getDatastore();
 
+    boolean isLinkedToAccount();
+
     interface Delegate {
         void hasUserResolvableAction();
     }
