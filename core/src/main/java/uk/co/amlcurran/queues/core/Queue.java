@@ -8,11 +8,11 @@ public class Queue {
     private final QueuePersister queuePersister;
     private final List<QueueItem> queueItems;
     private final String title;
-    private final long id;
+    private final String id;
     private int iteratorIndex = 0;
     private QueueListener listener = QueueListener.NONE;
 
-    public Queue(String title, long id, QueuePersister queuePersister, List<QueueItem> queueItems) {
+    public Queue(String title, String id, QueuePersister queuePersister, List<QueueItem> queueItems) {
         this.title = title;
         this.id = id;
         this.queuePersister = queuePersister;
@@ -41,7 +41,7 @@ public class Queue {
         return title;
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 

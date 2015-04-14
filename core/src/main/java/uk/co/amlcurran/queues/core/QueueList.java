@@ -98,9 +98,9 @@ public class QueueList {
         return queue;
     }
 
-    public Queue queueById(long queueId) {
+    public Queue queueById(String queueId) {
         for (Queue queue : queues) {
-            if (queue.getId() == queueId) {
+            if (queue.getId().equals(queueId)) {
                 return queue;
             }
         }

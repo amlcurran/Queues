@@ -13,7 +13,7 @@ public class QueuePresenterTests {
     private AssertingQueueView queueView;
     private QueuePresenter presenter;
     private QueueList queueList;
-    public static final long QUEUE_ID = 212;
+    public static final String QUEUE_ID = "212";
 
     @Before
     public void setUp() throws Exception {

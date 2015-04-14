@@ -2,12 +2,12 @@ package uk.co.amlcurran.queues.core;
 
 public class QueuePresenter {
 
-    private final long queueId;
+    private final String queueId;
     private final QueueView queueView;
     private final QueueList queueList;
     private Queue queue;
 
-    public QueuePresenter(long queueId, QueueView queueView, QueueList queueList) {
+    public QueuePresenter(String queueId, QueueView queueView, QueueList queueList) {
         this.queueId = queueId;
         this.queueView = queueView;
         this.queueList = queueList;

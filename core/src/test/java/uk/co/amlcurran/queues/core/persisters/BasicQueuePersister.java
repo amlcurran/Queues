@@ -22,12 +22,12 @@ public class BasicQueuePersister implements QueuePersister {
     }
 
     @Override
-    public void addItemToQueue(long queueId, QueueItem queueItem) {
+    public void addItemToQueue(String queueId, QueueItem queueItem) {
 
     }
 
     @Override
-    public void removeItemFromQueue(long queueId, QueueItem queueItem) {
+    public void removeItemFromQueue(String queueId, QueueItem queueItem) {
 
     }
 
@@ -42,8 +42,8 @@ public class BasicQueuePersister implements QueuePersister {
     }
 
     @Override
-    public long uniqueId() {
-        return nextId++;
+    public String uniqueId() {
+        return String.valueOf(nextId++);
     }
 
     @Override

@@ -31,11 +31,11 @@ public class Persisters {
         return new AssertingPersister();
     }
 
-    public static QueuePersister singleQueueWithId(final long queueId) {
+    public static QueuePersister singleQueueWithId(final String queueId) {
         return new BasicQueuePersister(1) {
 
             @Override
-            public long uniqueId() {
+            public String uniqueId() {
                 return queueId;
             }
 

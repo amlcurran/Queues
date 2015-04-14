@@ -45,7 +45,7 @@ public class QueueFragment extends Fragment implements QueueView {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        presenter = new QueuePresenter(getArguments().getLong("id"), this, QueuesApplication.queueList(getActivity()));
+        presenter = new QueuePresenter(getArguments().getString("id"), this, QueuesApplication.queueList(getActivity()));
         adapter = new QueueAdapter(LayoutInflater.from(getActivity()), new QueueAdapter.QueueSelectionListener() {
             @Override
             public void itemSecondarySelected(int position) {
@@ -113,10 +113,10 @@ public class QueueFragment extends Fragment implements QueueView {
                 .start();
     }
 
-    public static QueueFragment withId(long id) {
+    public static QueueFragment withId(String id) {
         QueueFragment queueFragment = new QueueFragment();
         Bundle args = new Bundle();
-        args.putLong("id", id);
+        args.putString("id", id);
         queueFragment.setArguments(args);
         return queueFragment;
     }

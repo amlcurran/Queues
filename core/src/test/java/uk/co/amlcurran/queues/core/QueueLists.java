@@ -9,13 +9,13 @@ public class QueueLists {
         return new QueueList(queuePersister);
     }
 
-    static QueueList singleQueueListWithItems(final int numberItems, final long queueId) {
-        final QueuePersister queuePersister = Persisters.singleQueueWithId(queueId);
+    static QueueList singleQueueListWithItems(final int numberItems, final String inputId) {
+        final QueuePersister queuePersister = Persisters.singleQueueWithId(inputId);
         return new QueueList(queuePersister) {
 
             @Override
-            public Queue queueById(long queueId) {
-                if (queueId == 212) {
+            public Queue queueById(String queueId) {
+                if (queueId.equals(inputId)) {
                     ArrayList<QueueItem> queueItems = new ArrayList<>();
                     for (int i = 0; i < numberItems; i++) {
                         queueItems.add(new QueueItem(i, "A label"));

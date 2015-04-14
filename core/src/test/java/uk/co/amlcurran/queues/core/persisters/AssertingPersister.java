@@ -5,15 +5,15 @@ import uk.co.amlcurran.queues.core.QueueItem;
 import uk.co.amlcurran.queues.core.QueuePersister;
 
 public class AssertingPersister implements QueuePersister {
-    public long queueById;
+    public String queueById;
 
     @Override
-    public void addItemToQueue(long queueId, QueueItem queueItem) {
+    public void addItemToQueue(String queueId, QueueItem queueItem) {
 
     }
 
     @Override
-    public void removeItemFromQueue(long queueId, QueueItem queueItem) {
+    public void removeItemFromQueue(String queueId, QueueItem queueItem) {
 
     }
 
@@ -28,8 +28,8 @@ public class AssertingPersister implements QueuePersister {
     }
 
     @Override
-    public long uniqueId() {
-        return 0;
+    public String uniqueId() {
+        return "0";
     }
 
     @Override

@@ -23,14 +23,14 @@ public class SQLitePersister implements QueuePersister {
     }
 
     @Override
-    public void addItemToQueue(long queueId, QueueItem queueItem) {
+    public void addItemToQueue(String queueId, QueueItem queueItem) {
         SQLiteDatabase database = db.getWritableDatabase();
         long update = database.update(QueueItems.TABLE_NAME, fromQueueItem(queueItem, queueId),
                 whereIdClause(), asArgs(queueItem.getId()));
         database.close();
     }
 
-    private ContentValues fromQueueItem(QueueItem queueItem, long queueId) {
+    private ContentValues fromQueueItem(QueueItem queueItem, String queueId) {
         ContentValues values = new ContentValues();
         values.put(QueueItems.QUEUE_ID, queueId);
         values.put(QueueItems.LABEL, queueItem.getLabel());
@@ -38,7 +38,7 @@ public class SQLitePersister implements QueuePersister {
     }
 
     @Override
-    public void removeItemFromQueue(long queueId, QueueItem queueItem) {
+    public void removeItemFromQueue(String queueId, QueueItem queueItem) {
         SQLiteDatabase database = db.getWritableDatabase();
         database.delete(QueueItems.TABLE_NAME, whereIdClause(), asArgs(queueItem.getId()));
     }
@@ -49,7 +49,7 @@ public class SQLitePersister implements QueuePersister {
         Cursor cursor = database.query(QueueList.TABLE_NAME, null, null, null, null, null, null);
         List<Queue> queues = new ArrayList<>();
         while (cursor.moveToNext()) {
-            long id = cursor.getLong(cursor.getColumnIndex(QueueList._ID));
+            String id = cursor.getString(cursor.getColumnIndex(QueueList._ID));
             String title = cursor.getString(cursor.getColumnIndex(QueueList.TITLE));
             Cursor itemsCursor = database.query(QueueItems.TABLE_NAME, null, whereItemBelongsTo(), asArgs(id), null, null, null);
             List<QueueItem> queueItems = fromItemsCursor(itemsCursor);
@@ -72,6 +72,9 @@ public class SQLitePersister implements QueuePersister {
 
     private String[] asArgs(long id) {
         return new String[] { String.valueOf(id) };
+    }
+    private String[] asArgs(String id) {
+        return new String[] { id };
     }
 
     private String whereItemBelongsTo() {
@@ -96,12 +99,12 @@ public class SQLitePersister implements QueuePersister {
     }
 
     @Override
-    public long uniqueId() {
+    public String uniqueId() {
         long inserted = db.getWritableDatabase().insert(QueueList.TABLE_NAME, QueueList.TITLE, null);
         if (inserted == -1) {
             throw new IllegalArgumentException("Failed to insert");
         }
-        return inserted;
+        return String.valueOf(inserted);
     }
 
     @Override

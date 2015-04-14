@@ -55,7 +55,7 @@ public class QueueListPresenterTests {
     }
 
     private static class AssertingNavigationController implements NavigationController {
-        public long queueViewed;
+        public String queueViewed;
 
         @Override
         public void viewQueue(Queue queue) {

@@ -3,15 +3,15 @@ package uk.co.amlcurran.queues.core;
 import java.util.List;
 
 public interface QueuePersister {
-    void addItemToQueue(long queueId, QueueItem queueItem);
+    void addItemToQueue(String queueId, QueueItem queueItem);
 
-    void removeItemFromQueue(long queueId, QueueItem queueItem);
+    void removeItemFromQueue(String queueId, QueueItem queueItem);
 
     void queues(LoadCallbacks callbacks);
 
     void saveQueue(Queue queue, Callbacks callbacks);
 
-    long uniqueId();
+    String uniqueId();
 
     long uniqueItemId();
 
