@@ -1,5 +1,7 @@
 package uk.co.amlcurran.queues.core;
 
+import java.util.List;
+
 public class QueueListPresenter {
     private final QueueListView queueListView;
     private final NavigationController navigationController;
@@ -12,9 +14,8 @@ public class QueueListPresenter {
     }
 
     public void start() {
-        queueList.load();
         queueList.addCallbacks(updateSelfListener);
-        queueListView.show(queueList.all());
+        queueList.load();
     }
 
     public void stop() {
@@ -39,6 +40,11 @@ public class QueueListPresenter {
         @Override
         public void queueRemoved(Queue queue, int removedPosition) {
             queueListView.queueRemoved(queue, removedPosition);
+        }
+
+        @Override
+        public void queuesLoaded(List<Queue> queues) {
+            queueListView.show(queues);
         }
     };
 

@@ -2,6 +2,8 @@ package uk.co.amlcurran.queues.core;
 
 import org.junit.Test;
 
+import java.util.List;
+
 import uk.co.amlcurran.queues.core.persisters.BasicQueuePersister;
 import uk.co.amlcurran.queues.core.persisters.Persisters;
 
@@ -141,6 +143,11 @@ public class QueueListTest {
         @Override
         public void queueRemoved(Queue queue, int removedPosition) {
             queueRemoved = queue;
+        }
+
+        @Override
+        public void queuesLoaded(List<Queue> queues) {
+
         }
     }
 }

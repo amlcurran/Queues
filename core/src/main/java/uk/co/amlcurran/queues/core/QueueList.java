@@ -19,8 +19,14 @@ public class QueueList {
         this.queues.clear();
         queuePersister.queues(new QueuePersister.LoadCallbacks() {
             @Override
-            public void loaded(List<Queue> queues) {
+            public void loaded(final List<Queue> queues) {
                 QueueList.this.queues.addAll(queues);
+                notifyListeners(new ListenerAction() {
+                    @Override
+                    public void act(ListListener listListener) {
+                        listListener.queuesLoaded(new ArrayList<>(queues));
+                    }
+                });
             }
         });
     }
@@ -106,6 +112,8 @@ public class QueueList {
         void queueAdded(Queue queue);
 
         void queueRemoved(Queue queue, int removedPosition);
+
+        void queuesLoaded(List<Queue> queues);
     }
 
     private void notifyListeners(ListenerAction action) {
