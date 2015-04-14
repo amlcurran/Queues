@@ -1,8 +1,6 @@
 package uk.co.amlcurran.queues;
 
 import com.dropbox.sync.android.DbxAccountManager;
-import com.dropbox.sync.android.DbxDatastore;
-import com.dropbox.sync.android.DbxDatastoreManager;
 import com.dropbox.sync.android.DbxException;
 import com.dropbox.sync.android.DbxRecord;
 import com.dropbox.sync.android.DbxTable;
@@ -15,28 +13,11 @@ import uk.co.amlcurran.queues.core.QueueItem;
 import uk.co.amlcurran.queues.core.QueuePersister;
 
 public class DropboxPersister implements QueuePersister {
-    private final DbxDatastore datastore;
+    private final DatastoreProvider datastoreProvider;
 
-    public DropboxPersister(QueuesApplication queuesApplication) {
+    public DropboxPersister(QueuesApplication queuesApplication, DatastoreProvider.Delegate delegate) {
         DbxAccountManager accountManager = DbxAccountManager.getInstance(queuesApplication, Secretz.APP_KEY, Secretz.APP_SECRET);
-        DbxDatastoreManager datastoreManager = managerFromAccount(accountManager);
-        try {
-            datastore = datastoreManager.openDefaultDatastore();
-        } catch (DbxException e) {
-            e.printStackTrace();
-            throw new IllegalStateException("Couldn't open a Dropbox datastore");
-        }
-    }
-
-    private DbxDatastoreManager managerFromAccount(DbxAccountManager accountManager) {
-        if (accountManager.hasLinkedAccount()) {
-            try {
-                return DbxDatastoreManager.forAccount(accountManager.getLinkedAccount());
-            } catch (DbxException.Unauthorized unauthorized) {
-                unauthorized.printStackTrace();
-            }
-        }
-        return DbxDatastoreManager.localManager(accountManager);
+        datastoreProvider = new HotswappingDatastore(accountManager, delegate);
     }
 
     @Override
@@ -113,7 +94,7 @@ public class DropboxPersister implements QueuePersister {
     private void doChangeAction(ChangeAction action, FailAction failAction) {
         try {
             action.run();
-            datastore.sync();
+            datastoreProvider.getDatastore().sync();
         } catch (DbxException e) {
             e.printStackTrace();
             if (failAction != null) {
@@ -131,7 +112,7 @@ public class DropboxPersister implements QueuePersister {
     }
 
     private DbxTable itemsTable() {
-        return datastore.getTable("items");
+        return datastoreProvider.getDatastore().getTable("items");
     }
 
     private QueueItem itemFromRecord(DbxRecord record) {
@@ -159,6 +140,6 @@ public class DropboxPersister implements QueuePersister {
     }
 
     private DbxTable queuesTable() {
-        return datastore.getTable("queues");
+        return datastoreProvider.getDatastore().getTable("queues");
     }
 }

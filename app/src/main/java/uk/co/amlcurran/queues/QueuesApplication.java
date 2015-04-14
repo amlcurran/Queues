@@ -12,7 +12,12 @@ public class QueuesApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        queueList = new QueueList(new DropboxPersister(this));
+        queueList = new QueueList(new DropboxPersister(this, new DatastoreProvider.Delegate() {
+            @Override
+            public void hasUserResolvableAction() {
+
+            }
+        }));
     }
 
     public static QueueList queueList(Context context) {
