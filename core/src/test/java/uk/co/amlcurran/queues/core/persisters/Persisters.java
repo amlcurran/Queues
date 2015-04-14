@@ -13,8 +13,8 @@ public class Persisters {
             }
 
             @Override
-            public long uniqueItemId() {
-                return 0;
+            public String uniqueItemId() {
+                return "0";
             }
         };
     }
@@ -40,8 +40,8 @@ public class Persisters {
             }
 
             @Override
-            public long uniqueItemId() {
-                return 0;
+            public String uniqueItemId() {
+                return String.valueOf(0);
             }
         };
     }

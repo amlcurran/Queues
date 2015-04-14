@@ -13,7 +13,7 @@ public interface QueuePersister {
 
     String uniqueId();
 
-    long uniqueItemId();
+    String uniqueItemId();
 
     void deleteQueue(Queue queue, Callbacks callbacks);
 

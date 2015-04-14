@@ -18,7 +18,7 @@ public class QueueLists {
                 if (queueId.equals(inputId)) {
                     ArrayList<QueueItem> queueItems = new ArrayList<>();
                     for (int i = 0; i < numberItems; i++) {
-                        queueItems.add(new QueueItem(i, "A label"));
+                        queueItems.add(new QueueItem(String.valueOf(i), "A label"));
                     }
                     return new Queue("hello", queueId, queuePersister, queueItems);
                 }

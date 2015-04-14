@@ -2,9 +2,9 @@ package uk.co.amlcurran.queues.core;
 
 public class QueueItem {
     private final String label;
-    private final long id;
+    private final String id;
 
-    public QueueItem(long id, String label) {
+    public QueueItem(String id, String label) {
         this.id = id;
         this.label = label;
     }
@@ -28,7 +28,7 @@ public class QueueItem {
         return label.hashCode();
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 }

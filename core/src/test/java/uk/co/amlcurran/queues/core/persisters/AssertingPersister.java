@@ -33,8 +33,8 @@ public class AssertingPersister implements QueuePersister {
     }
 
     @Override
-    public long uniqueItemId() {
-        return 0;
+    public String uniqueItemId() {
+        return String.valueOf(0);
     }
 
     @Override

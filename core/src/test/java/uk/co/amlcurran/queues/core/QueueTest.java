@@ -60,7 +60,7 @@ public class QueueTest {
         queue.addItem(label1);
         queue.addItem(label2);
 
-        queue.removeItem(new QueueItem(0, "Hello"));
+        queue.removeItem(new QueueItem("0", "Hello"));
 
         assertThat(queue.next().getLabel(), is(label2));
     }
@@ -119,8 +119,8 @@ public class QueueTest {
         }
 
         @Override
-        public long uniqueItemId() {
-            return 0;
+        public String uniqueItemId() {
+            return "0";
         }
 
         @Override
@@ -162,8 +162,8 @@ public class QueueTest {
         }
 
         @Override
-        public long uniqueItemId() {
-            return 0;
+        public String uniqueItemId() {
+            return String.valueOf(0);
         }
 
         @Override

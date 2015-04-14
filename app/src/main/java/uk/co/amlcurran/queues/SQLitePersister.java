@@ -64,7 +64,7 @@ public class SQLitePersister implements QueuePersister {
     private List<QueueItem> fromItemsCursor(Cursor itemsCursor) {
         List<QueueItem> items = new ArrayList<>();
         while (itemsCursor.moveToNext()) {
-            items.add(new QueueItem(itemsCursor.getLong(itemsCursor.getColumnIndex(QueueItems._ID)),
+            items.add(new QueueItem(itemsCursor.getString(itemsCursor.getColumnIndex(QueueItems._ID)),
                     itemsCursor.getString(itemsCursor.getColumnIndex(QueueItems.LABEL))));
         }
         return items;
@@ -108,12 +108,12 @@ public class SQLitePersister implements QueuePersister {
     }
 
     @Override
-    public long uniqueItemId() {
+    public String uniqueItemId() {
         long inserted = db.getWritableDatabase().insert(QueueItems.TABLE_NAME, QueueItems.LABEL, null);
         if (inserted == -1) {
             throw new IllegalArgumentException("Failed to insert");
         }
-        return inserted;
+        return String.valueOf(inserted);
     }
 
     @Override

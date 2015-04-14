@@ -47,8 +47,8 @@ public class BasicQueuePersister implements QueuePersister {
     }
 
     @Override
-    public long uniqueItemId() {
-        return 0;
+    public String uniqueItemId() {
+        return "0";
     }
 
     @Override
