@@ -1,5 +1,6 @@
 package uk.co.amlcurran.queues;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 
@@ -13,12 +14,7 @@ public class QueuesApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        queuePersister = new DropboxPersister(this, new DatastoreProvider.Delegate() {
-            @Override
-            public void hasUserResolvableAction() {
-
-            }
-        });
+        queuePersister = new DropboxPersister(this);
         queueList = new QueueList(queuePersister);
     }
 
@@ -27,6 +23,18 @@ public class QueuesApplication extends Application {
     }
 
     public static boolean userInterventionRequired(Context context) {
-        return ((QueuesApplication) context.getApplicationContext()).queuePersister.requiresUserIntervention();
+        return persister(context).requiresUserIntervention();
+    }
+
+    private static DropboxPersister persister(Context context) {
+        return ((QueuesApplication) context.getApplicationContext()).queuePersister;
+    }
+
+    public static void resolveUserIntervention(Activity activity) {
+        persister(activity).linkAccount(activity);
+    }
+
+    public static boolean handleUserIntervention(Activity activity, int requestCode, int resultCode) {
+        return persister(activity).handleAccountLinkAttempt(requestCode, resultCode);
     }
 }

@@ -1,8 +1,10 @@
 package uk.co.amlcurran.queues.list;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
+import android.view.MenuItem;
 
 import uk.co.amlcurran.queues.QueuesApplication;
 import uk.co.amlcurran.queues.R;
@@ -29,5 +31,18 @@ public class QueueListActivity extends ActionBarActivity {
     public boolean onPrepareOptionsMenu(Menu menu) {
         menu.findItem(R.id.action_dropbox_link).setVisible(QueuesApplication.userInterventionRequired(this));
         return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        QueuesApplication.resolveUserIntervention(this);
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (!QueuesApplication.handleUserIntervention(this, requestCode, resultCode)) {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
     }
 }

@@ -1,5 +1,7 @@
 package uk.co.amlcurran.queues;
 
+import android.app.Activity;
+
 import com.dropbox.sync.android.DbxAccountManager;
 import com.dropbox.sync.android.DbxException;
 import com.dropbox.sync.android.DbxRecord;
@@ -13,10 +15,12 @@ import uk.co.amlcurran.queues.core.QueueItem;
 import uk.co.amlcurran.queues.core.QueuePersister;
 
 public class DropboxPersister implements QueuePersister {
+    private static final int REQUEST_LINK = 2;
     private final DatastoreProvider datastoreProvider;
+    private final DbxAccountManager accountManager;
 
-    public DropboxPersister(QueuesApplication queuesApplication, DatastoreProvider.Delegate delegate) {
-        DbxAccountManager accountManager = DbxAccountManager.getInstance(queuesApplication, Secretz.APP_KEY, Secretz.APP_SECRET);
+    public DropboxPersister(QueuesApplication queuesApplication) {
+        accountManager = DbxAccountManager.getInstance(queuesApplication, Secretz.APP_KEY, Secretz.APP_SECRET);
         datastoreProvider = new HotswappingDatastore(accountManager);
     }
 
@@ -106,6 +110,20 @@ public class DropboxPersister implements QueuePersister {
                 failAction.fail();
             }
         }
+    }
+
+    public void linkAccount(Activity activity) {
+        accountManager.startLink(activity, DropboxPersister.REQUEST_LINK);
+    }
+
+    public boolean handleAccountLinkAttempt(int requestCode, int resultCode) {
+        if (requestCode == DropboxPersister.REQUEST_LINK) {
+            if (resultCode == Activity.RESULT_OK) {
+                datastoreProvider.migrateToLinked();
+            }
+            return true;
+        }
+        return false;
     }
 
     private interface ChangeAction {

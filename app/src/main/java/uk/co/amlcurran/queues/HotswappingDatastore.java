@@ -44,4 +44,21 @@ public class HotswappingDatastore implements DatastoreProvider {
         return accountManager.hasLinkedAccount();
     }
 
+    @Override
+    public void invalidate() {
+        datastore.close();
+        datastore = null;
+    }
+
+    @Override
+    public void migrateToLinked() {
+        datastore.close();
+        try {
+            DbxDatastoreManager.localManager(accountManager).migrateToAccount(accountManager.getLinkedAccount());
+            invalidate();
+        } catch (DbxException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
