@@ -16,7 +16,34 @@
 		8625B84D1AF02FB100624EE2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8625B84C1AF02FB100624EE2 /* Images.xcassets */; };
 		8625B8501AF02FB100624EE2 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8625B84E1AF02FB100624EE2 /* LaunchScreen.xib */; };
 		8625B85C1AF02FB100624EE2 /* QueuesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8625B85B1AF02FB100624EE2 /* QueuesTests.m */; };
+		8625B8671AF031AB00624EE2 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8625B8661AF031AB00624EE2 /* libz.dylib */; };
+		8625B8691AF031B400624EE2 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8625B8681AF031B400624EE2 /* Security.framework */; };
+		8625B86B1AF031BD00624EE2 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8625B86A1AF031BD00624EE2 /* libicucore.dylib */; };
+		8625B8701AF035E200624EE2 /* NavigationController.java in Sources */ = {isa = PBXBuildFile; fileRef = 8625B86F1AF035E200624EE2 /* NavigationController.java */; };
+		8625B87A1AF0368600624EE2 /* Queue.java in Sources */ = {isa = PBXBuildFile; fileRef = 8625B8711AF0368600624EE2 /* Queue.java */; };
+		8625B87B1AF0368600624EE2 /* QueueItem.java in Sources */ = {isa = PBXBuildFile; fileRef = 8625B8721AF0368600624EE2 /* QueueItem.java */; };
+		8625B87C1AF0368600624EE2 /* QueueList.java in Sources */ = {isa = PBXBuildFile; fileRef = 8625B8731AF0368600624EE2 /* QueueList.java */; };
+		8625B87D1AF0368600624EE2 /* QueueListPresenter.java in Sources */ = {isa = PBXBuildFile; fileRef = 8625B8741AF0368600624EE2 /* QueueListPresenter.java */; };
+		8625B87E1AF0368600624EE2 /* QueueListView.java in Sources */ = {isa = PBXBuildFile; fileRef = 8625B8751AF0368600624EE2 /* QueueListView.java */; };
+		8625B87F1AF0368600624EE2 /* QueuePersister.java in Sources */ = {isa = PBXBuildFile; fileRef = 8625B8761AF0368600624EE2 /* QueuePersister.java */; };
+		8625B8801AF0368600624EE2 /* QueuePresenter.java in Sources */ = {isa = PBXBuildFile; fileRef = 8625B8771AF0368600624EE2 /* QueuePresenter.java */; };
+		8625B8811AF0368600624EE2 /* QueueView.java in Sources */ = {isa = PBXBuildFile; fileRef = 8625B8781AF0368600624EE2 /* QueueView.java */; };
+		8625B8821AF0368600624EE2 /* Source.java in Sources */ = {isa = PBXBuildFile; fileRef = 8625B8791AF0368600624EE2 /* Source.java */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXBuildRule section */
+		8625B86C1AF0342D00624EE2 /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			fileType = sourcecode.java;
+			isEditable = 1;
+			outputFiles = (
+				"$(DERIVED_FILES_DIR)/${INPUT_FILE_BASE}.h",
+				"$(DERIVED_FILES_DIR)/${INPUT_FILE_BASE}.m",
+			);
+			script = "if [ ! -f \"${J2OBJC_HOME}/j2objc\" ]; then echo \"J2OBJC_HOME not correctly defined in Settings.xcconfig, currently set to '${J2OBJC_HOME}'\"; exit 1; fi;\n\"${J2OBJC_HOME}/j2objc\" -d ${DERIVED_FILES_DIR} -sourcepath \"../core/src/main/java\" --no-package-directories -use-arc --prefix uk.co.amlcurran.queues.core=QC -g ${INPUT_FILE_PATH};";
+		};
+/* End PBXBuildRule section */
 
 /* Begin PBXContainerItemProxy section */
 		8625B8561AF02FB100624EE2 /* PBXContainerItemProxy */ = {
@@ -45,6 +72,20 @@
 		8625B8551AF02FB100624EE2 /* QueuesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QueuesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8625B85A1AF02FB100624EE2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8625B85B1AF02FB100624EE2 /* QueuesTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QueuesTests.m; sourceTree = "<group>"; };
+		8625B8661AF031AB00624EE2 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		8625B8681AF031B400624EE2 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		8625B86A1AF031BD00624EE2 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
+		8625B86D1AF035CB00624EE2 /* java */ = {isa = PBXFileReference; lastKnownFileType = folder; name = java; path = ../core/src/main/java; sourceTree = "<group>"; };
+		8625B86F1AF035E200624EE2 /* NavigationController.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; name = NavigationController.java; path = ../core/src/main/java/uk/co/amlcurran/queues/core/NavigationController.java; sourceTree = "<group>"; };
+		8625B8711AF0368600624EE2 /* Queue.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; name = Queue.java; path = ../core/src/main/java/uk/co/amlcurran/queues/core/Queue.java; sourceTree = "<group>"; };
+		8625B8721AF0368600624EE2 /* QueueItem.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; name = QueueItem.java; path = ../core/src/main/java/uk/co/amlcurran/queues/core/QueueItem.java; sourceTree = "<group>"; };
+		8625B8731AF0368600624EE2 /* QueueList.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; name = QueueList.java; path = ../core/src/main/java/uk/co/amlcurran/queues/core/QueueList.java; sourceTree = "<group>"; };
+		8625B8741AF0368600624EE2 /* QueueListPresenter.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; name = QueueListPresenter.java; path = ../core/src/main/java/uk/co/amlcurran/queues/core/QueueListPresenter.java; sourceTree = "<group>"; };
+		8625B8751AF0368600624EE2 /* QueueListView.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; name = QueueListView.java; path = ../core/src/main/java/uk/co/amlcurran/queues/core/QueueListView.java; sourceTree = "<group>"; };
+		8625B8761AF0368600624EE2 /* QueuePersister.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; name = QueuePersister.java; path = ../core/src/main/java/uk/co/amlcurran/queues/core/QueuePersister.java; sourceTree = "<group>"; };
+		8625B8771AF0368600624EE2 /* QueuePresenter.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; name = QueuePresenter.java; path = ../core/src/main/java/uk/co/amlcurran/queues/core/QueuePresenter.java; sourceTree = "<group>"; };
+		8625B8781AF0368600624EE2 /* QueueView.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; name = QueueView.java; path = ../core/src/main/java/uk/co/amlcurran/queues/core/QueueView.java; sourceTree = "<group>"; };
+		8625B8791AF0368600624EE2 /* Source.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; name = Source.java; path = ../core/src/main/java/uk/co/amlcurran/queues/core/Source.java; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +93,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8625B86B1AF031BD00624EE2 /* libicucore.dylib in Frameworks */,
+				8625B8691AF031B400624EE2 /* Security.framework in Frameworks */,
+				8625B8671AF031AB00624EE2 /* libz.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,6 +112,11 @@
 		8625B82D1AF02FB100624EE2 = {
 			isa = PBXGroup;
 			children = (
+				8625B8841AF0369400624EE2 /* domain */,
+				8625B86D1AF035CB00624EE2 /* java */,
+				8625B86A1AF031BD00624EE2 /* libicucore.dylib */,
+				8625B8681AF031B400624EE2 /* Security.framework */,
+				8625B8661AF031AB00624EE2 /* libz.dylib */,
 				8625B8381AF02FB100624EE2 /* Queues */,
 				8625B8581AF02FB100624EE2 /* QueuesTests */,
 				8625B8371AF02FB100624EE2 /* Products */,
@@ -127,6 +176,23 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		8625B8841AF0369400624EE2 /* domain */ = {
+			isa = PBXGroup;
+			children = (
+				8625B8711AF0368600624EE2 /* Queue.java */,
+				8625B8721AF0368600624EE2 /* QueueItem.java */,
+				8625B8731AF0368600624EE2 /* QueueList.java */,
+				8625B8741AF0368600624EE2 /* QueueListPresenter.java */,
+				8625B8751AF0368600624EE2 /* QueueListView.java */,
+				8625B8761AF0368600624EE2 /* QueuePersister.java */,
+				8625B8771AF0368600624EE2 /* QueuePresenter.java */,
+				8625B8781AF0368600624EE2 /* QueueView.java */,
+				8625B8791AF0368600624EE2 /* Source.java */,
+				8625B86F1AF035E200624EE2 /* NavigationController.java */,
+			);
+			name = domain;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -139,6 +205,7 @@
 				8625B8341AF02FB100624EE2 /* Resources */,
 			);
 			buildRules = (
+				8625B86C1AF0342D00624EE2 /* PBXBuildRule */,
 			);
 			dependencies = (
 			);
@@ -227,6 +294,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8625B87A1AF0368600624EE2 /* Queue.java in Sources */,
+				8625B87B1AF0368600624EE2 /* QueueItem.java in Sources */,
+				8625B87C1AF0368600624EE2 /* QueueList.java in Sources */,
+				8625B87D1AF0368600624EE2 /* QueueListPresenter.java in Sources */,
+				8625B87E1AF0368600624EE2 /* QueueListView.java in Sources */,
+				8625B87F1AF0368600624EE2 /* QueuePersister.java in Sources */,
+				8625B8801AF0368600624EE2 /* QueuePresenter.java in Sources */,
+				8625B8811AF0368600624EE2 /* QueueView.java in Sources */,
+				8625B8821AF0368600624EE2 /* Source.java in Sources */,
+				8625B8701AF035E200624EE2 /* NavigationController.java in Sources */,
 				8625B8481AF02FB100624EE2 /* DetailViewController.m in Sources */,
 				8625B8451AF02FB100624EE2 /* MasterViewController.m in Sources */,
 				8625B8421AF02FB100624EE2 /* Queues.xcdatamodeld in Sources */,
@@ -359,8 +436,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"~/bin/include",
+				);
 				INFOPLIST_FILE = Queues/Info.plist;
+				J2OBJC_HOME = /Users/amlcurran/bin;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "~/bin/lib";
+				OTHER_LDFLAGS = "-ljre_emul";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -369,8 +454,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"~/bin/include",
+				);
 				INFOPLIST_FILE = Queues/Info.plist;
+				J2OBJC_HOME = /Users/amlcurran/bin;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = "~/bin/lib";
+				OTHER_LDFLAGS = "-ljre_emul";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -428,6 +521,7 @@
 				8625B8611AF02FB100624EE2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8625B8621AF02FB100624EE2 /* Build configuration list for PBXNativeTarget "QueuesTests" */ = {
 			isa = XCConfigurationList;
@@ -436,6 +530,7 @@
 				8625B8641AF02FB100624EE2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

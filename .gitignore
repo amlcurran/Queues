@@ -6,3 +6,7 @@
 *.iml
 
 app/src/main/java/uk/co/amlcurran/queues/Secretz.java
+
+ios/DerivedData/
+ios/Queues.xcodeproj/project.xcworkspace/xcshareddata/
+ios/Queues.xcodeproj/project.xcworkspace/xcuserdata/
