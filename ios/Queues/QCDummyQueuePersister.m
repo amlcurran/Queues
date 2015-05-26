@@ -55,7 +55,7 @@ withQCQueuePersister_Callbacks:(id<QCQueuePersister_Callbacks>)callbacks
 - (void)deleteQueueWithQCQueue:(QCQueue *)queue
 withQCQueuePersister_Callbacks:(id<QCQueuePersister_Callbacks>)callbacks;
 {
-    
+    NSLog(@"Deleted: %@", [queue getTitle]);
 }
 
 - (jboolean)requiresUserIntervention

@@ -36,7 +36,12 @@
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Add" style:UIBarButtonItemStylePlain target:self action:@selector(addItem)];
+}
+
+- (void)addItem
+{
+    [self.list addNewQueueWithNSString:@"other"];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -57,12 +62,10 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    // Return the number of rows in the section.
     return [self.queueList count];
 }
 
@@ -81,17 +84,16 @@
 }
 */
 
-/*
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
+        [self.presenter deleteQueueWithInt:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }   
 }
-*/
 
 /*
 // Override to support rearranging the table view.
@@ -123,13 +125,15 @@
 - (void)queueAddedWithQCQueue:(QCQueue *)queue
                       withInt:(jint)position
 {
-    
+    [self.queueList insertObject:queue atIndex:position];
+    NSIndexPath *path = [NSIndexPath indexPathForRow:position inSection:0];
+    [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:path] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 - (void)queueRemovedWithQCQueue:(QCQueue *)queue
                         withInt:(jint)position
 {
-    
+    [self.queueList removeObject:queue];
 }
 
 - (void)showWithJavaUtilList:(id<JavaUtilList>)queues
