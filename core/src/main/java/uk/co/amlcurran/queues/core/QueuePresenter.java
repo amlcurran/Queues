@@ -14,6 +14,9 @@ public class QueuePresenter {
     }
 
     public void load() {
+        if (!queueList.isLoaded()) {
+            queueList.load();
+        }
         queue = queueList.queueById(queueId);
         queue.addListener(new Queue.QueueListener() {
             @Override

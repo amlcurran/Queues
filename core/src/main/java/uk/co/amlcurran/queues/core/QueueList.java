@@ -8,6 +8,7 @@ public class QueueList {
     private final QueuePersister queuePersister;
     private final List<Queue> queues;
     private final List<ListListener> listeners;
+    private boolean loaded;
 
     public QueueList(QueuePersister queuePersister) {
         this.queuePersister = queuePersister;
@@ -20,6 +21,7 @@ public class QueueList {
         queuePersister.queues(new QueuePersister.LoadCallbacks() {
             @Override
             public void loaded(final List<Queue> queues) {
+                loaded = true;
                 QueueList.this.queues.addAll(queues);
                 notifyListeners(new ListenerAction() {
                     @Override
@@ -105,6 +107,10 @@ public class QueueList {
             }
         }
         return null;
+    }
+
+    public boolean isLoaded() {
+        return loaded;
     }
 
     public interface ListListener {
