@@ -36,7 +36,19 @@
 
 - (void)addItem
 {
-    [self.list addNewQueueWithNSString:@"other"];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Add new queue" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Add" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        UITextField *textField = [alertController.textFields objectAtIndex:0];
+        [self addQueue:textField.text];
+    }]];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+    [alertController addTextFieldWithConfigurationHandler:nil];
+    [self presentViewController:alertController animated:true completion:nil];
+}
+
+- (void)addQueue:(NSString *)queueTitle
+{
+    [self.list addNewQueueWithNSString:queueTitle];
 }
 
 - (void)viewDidAppear:(BOOL)animated
