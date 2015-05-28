@@ -12,7 +12,25 @@
 #import "java/util/ArrayList.h"
 #import "IOSClass.h"
 
+@interface QCDummyQueuePersister ()
+
+@property (nonatomic, strong) NSMutableArray *queues;
+@property (nonatomic, assign) NSInteger queueIndex;
+
+@end
+
 @implementation QCDummyQueuePersister
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _queues = [[NSMutableArray alloc] init];
+        QCQueue *queue = [[QCQueue alloc] initWithNSString:@"Hard-coded queue" withNSString:@"something" withQCQueuePersister:self withJavaUtilList:nil];
+        [_queues addObject:queue];
+    }
+    return self;
+}
 
 - (void)addItemToQueueWithNSString:(NSString *)queueId
                    withQCQueueItem:(QCQueueItem *)queueItem
@@ -28,10 +46,10 @@
 
 - (void)queuesWithQCQueuePersister_LoadCallbacks:(id<QCQueuePersister_LoadCallbacks>)callbacks
 {
-    QCQueue *queue = [[QCQueue alloc] initWithNSString:@"Hard-coded queue" withNSString:@"something" withQCQueuePersister:self withJavaUtilList:nil];
-    
     JavaUtilArrayList *arrayList = [[JavaUtilArrayList alloc] init];
-    [arrayList addWithId:queue];
+    [self.queues enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        [arrayList addWithId:obj];
+    }];
     
     [callbacks loadedWithJavaUtilList:arrayList];
 }
@@ -39,12 +57,14 @@
 - (void)saveQueueWithQCQueue:(QCQueue *)queue
 withQCQueuePersister_Callbacks:(id<QCQueuePersister_Callbacks>)callbacks
 {
-    
+    [self.queues addObject:queue];
 }
 
 - (NSString *)uniqueId
 {
-    return @"1";
+    NSInteger nextIndex = self.queueIndex++;
+    self.queueIndex = nextIndex;
+    return [NSString stringWithFormat:@"%ld", (long)nextIndex];
 }
 
 - (NSString *)uniqueItemId
@@ -55,7 +75,7 @@ withQCQueuePersister_Callbacks:(id<QCQueuePersister_Callbacks>)callbacks
 - (void)deleteQueueWithQCQueue:(QCQueue *)queue
 withQCQueuePersister_Callbacks:(id<QCQueuePersister_Callbacks>)callbacks;
 {
-    NSLog(@"Deleted: %@", [queue getTitle]);
+    [self.queues removeObject:queue];
 }
 
 - (jboolean)requiresUserIntervention
