@@ -29,7 +29,7 @@
     [super viewDidLoad];
     
     _queueList = [[NSMutableArray alloc] init];
-    _presenter = [[QCQueueListPresenter alloc] initWithQCQueueListView:self withQCNavigationController:nil withQCQueueList:[self sharedList]];
+    _presenter = [[QCQueueListPresenter alloc] initWithQCQueueListView:self withQCNavigationController:nil withQCQueueList:[AppDelegate sharedList]];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Add" style:UIBarButtonItemStylePlain target:self action:@selector(addItem)];
 }
@@ -46,15 +46,9 @@
     [self presentViewController:alertController animated:true completion:nil];
 }
 
-- (QCQueueList *)sharedList
-{
-    AppDelegate *appDelegate = (AppDelegate*) [[UIApplication sharedApplication] delegate];
-    return appDelegate.queueList;
-}
-
 - (void)addQueue:(NSString *)queueTitle
 {
-    [[self sharedList] addNewQueueWithNSString:queueTitle];
+    [[AppDelegate sharedList] addNewQueueWithNSString:queueTitle];
 }
 
 - (void)viewDidAppear:(BOOL)animated

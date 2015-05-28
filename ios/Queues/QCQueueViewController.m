@@ -9,6 +9,16 @@
 #import "QCQueueViewController.h"
 #import "QueueItem.h"
 #import "java/util/List.h"
+#import "QueuePresenter.h"
+#import "AppDelegate.h"
+#import "QueueView.h"
+
+@interface QCQueueViewController () <QCQueueView>
+
+@property (nonatomic, strong) QCQueuePresenter *presenter;
+@property (nonatomic, strong) NSMutableArray *queueItems;
+
+@end
 
 @interface QCQueueViewController ()
 
@@ -23,7 +33,15 @@
         [NSException raise:@"Attempting to view a queue without supplying one" format:nil];
     }
     
+    _presenter = [[QCQueuePresenter alloc] initWithNSString:[self.queue getId] withQCQueueView:self withQCQueueList:[AppDelegate sharedList]];
+    _queueItems = [[NSMutableArray alloc] init];
+    
     self.title = [self.queue getTitle];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [self.presenter load__];
 }
 
 #pragma mark - Table view data source
@@ -33,12 +51,12 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.queue size];
+    return [self.queueItems count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"queueItem" forIndexPath:indexPath];
-    QCQueueItem *item = [[self.queue all] getWithInt:indexPath.row];
+    QCQueueItem *item = [self.queueItems objectAtIndex:indexPath.row];
     cell.textLabel.text = [item getLabel];
     return cell;
 }
@@ -85,6 +103,40 @@
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
 }
-*/
+ */
+
+- (void)showWithQCQueue:(QCQueue *)queue
+{
+    [self.queueItems removeAllObjects];
+    IOSObjectArray *array = [[queue all] toArray];
+    for (id queue in array) {
+        [self.queueItems addObject:queue];
+    }
+    [self.tableView reloadData];
+}
+
+- (void)itemAddedWithQCQueueItem:(QCQueueItem *)queueItem
+{
+    
+}
+
+- (void)itemRemovedWithQCQueueItem:(QCQueueItem *)item
+{
+    
+}
+
+- (void)notEmpty
+{
+    
+}
+
+- (void)empty
+{
+    UIAlertController *controller = [UIAlertController alertControllerWithTitle:@"No items" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+    
+    [controller addAction:okAction];
+    [self presentViewController:controller animated:YES completion:nil];
+}
 
 @end

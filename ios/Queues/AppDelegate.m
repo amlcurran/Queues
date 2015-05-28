@@ -45,4 +45,11 @@
     // Saves changes in the application's managed object context before the application terminates.
 }
 
+
++ (QCQueueList *)sharedList
+{
+    AppDelegate *appDelegate = (AppDelegate*) [[UIApplication sharedApplication] delegate];
+    return appDelegate.queueList;
+}
+
 @end

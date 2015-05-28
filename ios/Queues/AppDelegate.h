@@ -15,5 +15,7 @@
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) QCQueueList *queueList;
 
++ (QCQueueList *)sharedList;
+
 @end
 
