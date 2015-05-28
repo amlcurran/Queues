@@ -37,6 +37,19 @@
     _queueItems = [[NSMutableArray alloc] init];
     
     self.title = [self.queue getTitle];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Add" style:UIBarButtonItemStylePlain target:self action:@selector(addItem)];
+}
+
+- (void)addItem
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Add new queue" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Add" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+        UITextField *textField = [alertController.textFields objectAtIndex:0];
+        [self.presenter addItemWithNSString:textField.text];
+    }]];
+    [alertController addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+    [alertController addTextFieldWithConfigurationHandler:nil];
+    [self presentViewController:alertController animated:true completion:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -61,25 +74,14 @@
     return cell;
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [_presenter removeItemWithInt:indexPath.row];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }   
 }
-*/
 
 /*
 // Override to support rearranging the table view.
@@ -117,12 +119,18 @@
 
 - (void)itemAddedWithQCQueueItem:(QCQueueItem *)queueItem
 {
-    
+    [self.queueItems addObject:queueItem];
+    NSInteger addedIndex = [self.queueItems indexOfObject:queueItem];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:addedIndex inSection:0];
+    [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 - (void)itemRemovedWithQCQueueItem:(QCQueueItem *)item
 {
-    
+    NSInteger removedIndex = [self.queueItems indexOfObject:item];
+    [self.queueItems removeObject:item];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:removedIndex inSection:0];
+    [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 - (void)notEmpty
