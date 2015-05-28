@@ -13,6 +13,7 @@
 #import "IOSObjectArray.h"
 #import "java/util/List.h"
 #import "Queue.h"
+#import "QCQueueViewControllerTableViewController.h"
 
 @interface QCQueueListViewControllerTableViewController ()
 
@@ -80,7 +81,6 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
         [self.presenter deleteQueueWithInt:indexPath.row];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
@@ -88,15 +88,14 @@
     }   
 }
 
-/*
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    QCQueueViewControllerTableViewController *queueView = [segue destinationViewController];
+    NSIndexPath *selected = [self.tableView indexPathForSelectedRow];
+    QCQueue *queue = [self.queueList objectAtIndex:selected.row];
+    queueView.queue = queue;
 }
-*/
 
 #pragma mark QCListView
 

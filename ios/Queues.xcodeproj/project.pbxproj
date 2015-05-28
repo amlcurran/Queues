@@ -30,6 +30,7 @@
 		864E1FB81B06AF260066926E /* QCQueueListViewControllerTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 864E1FB71B06AF260066926E /* QCQueueListViewControllerTableViewController.m */; };
 		864E1FBB1B06B20F0066926E /* QCDummyQueuePersister.m in Sources */ = {isa = PBXBuildFile; fileRef = 864E1FBA1B06B20F0066926E /* QCDummyQueuePersister.m */; };
 		864E1FBE1B06B2B10066926E /* NSArrayShim.m in Sources */ = {isa = PBXBuildFile; fileRef = 864E1FBD1B06B2B10066926E /* NSArrayShim.m */; };
+		FA0963FE1B16E9870050CB55 /* QCQueueViewControllerTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0963FD1B16E9870050CB55 /* QCQueueViewControllerTableViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -89,6 +90,8 @@
 		864E1FBA1B06B20F0066926E /* QCDummyQueuePersister.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QCDummyQueuePersister.m; sourceTree = "<group>"; };
 		864E1FBC1B06B2B10066926E /* NSArrayShim.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSArrayShim.h; sourceTree = "<group>"; };
 		864E1FBD1B06B2B10066926E /* NSArrayShim.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSArrayShim.m; sourceTree = "<group>"; };
+		FA0963FC1B16E9870050CB55 /* QCQueueViewControllerTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCQueueViewControllerTableViewController.h; sourceTree = "<group>"; };
+		FA0963FD1B16E9870050CB55 /* QCQueueViewControllerTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QCQueueViewControllerTableViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +154,8 @@
 				864E1FBA1B06B20F0066926E /* QCDummyQueuePersister.m */,
 				864E1FBC1B06B2B10066926E /* NSArrayShim.h */,
 				864E1FBD1B06B2B10066926E /* NSArrayShim.m */,
+				FA0963FC1B16E9870050CB55 /* QCQueueViewControllerTableViewController.h */,
+				FA0963FD1B16E9870050CB55 /* QCQueueViewControllerTableViewController.m */,
 			);
 			path = Queues;
 			sourceTree = "<group>";
@@ -299,6 +304,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FA0963FE1B16E9870050CB55 /* QCQueueViewControllerTableViewController.m in Sources */,
 				8625B87A1AF0368600624EE2 /* Queue.java in Sources */,
 				8625B87B1AF0368600624EE2 /* QueueItem.java in Sources */,
 				864E1FB81B06AF260066926E /* QCQueueListViewControllerTableViewController.m in Sources */,
@@ -440,7 +446,7 @@
 					"~/bin/include",
 				);
 				INFOPLIST_FILE = Queues/Info.plist;
-				J2OBJC_HOME = /Users/amlcurran/bin;
+				J2OBJC_HOME = /Users/alex/bin;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "~/bin/lib";
 				OTHER_LDFLAGS = "-ljre_emul";
@@ -458,7 +464,7 @@
 					"~/bin/include",
 				);
 				INFOPLIST_FILE = Queues/Info.plist;
-				J2OBJC_HOME = /Users/amlcurran/bin;
+				J2OBJC_HOME = /Users/alex/bin;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "~/bin/lib";
 				OTHER_LDFLAGS = "-ljre_emul";
