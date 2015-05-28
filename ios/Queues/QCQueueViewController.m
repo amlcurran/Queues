@@ -6,15 +6,15 @@
 //  Copyright (c) 2015 Alex Curran. All rights reserved.
 //
 
-#import "QCQueueViewControllerTableViewController.h"
+#import "QCQueueViewController.h"
 #import "QueueItem.h"
 #import "java/util/List.h"
 
-@interface QCQueueViewControllerTableViewController ()
+@interface QCQueueViewController ()
 
 @end
 
-@implementation QCQueueViewControllerTableViewController
+@implementation QCQueueViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

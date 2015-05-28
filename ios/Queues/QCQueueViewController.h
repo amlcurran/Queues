@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Queue.h"
 
-@interface QCQueueViewControllerTableViewController : UITableViewController
+@interface QCQueueViewController : UITableViewController
 
 @property (nonatomic, strong) QCQueue *queue;
 

@@ -7,7 +7,7 @@
         <!--My Queues-->
         <scene sceneID="IQQ-gC-UOD">
             <objects>
-                <tableViewController id="5qN-6A-aWa" customClass="QCQueueListViewControllerTableViewController" sceneMemberID="viewController">
+                <tableViewController id="5qN-6A-aWa" customClass="QCQueueListViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="gXS-C1-cGC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -34,10 +34,10 @@
             </objects>
             <point key="canvasLocation" x="928" y="404"/>
         </scene>
-        <!--Queue View Controller Table View Controller-->
+        <!--Queue View Controller-->
         <scene sceneID="20D-5H-2OC">
             <objects>
-                <tableViewController id="seh-hQ-voQ" customClass="QCQueueViewControllerTableViewController" sceneMemberID="viewController">
+                <tableViewController id="seh-hQ-voQ" customClass="QCQueueViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="vw1-yf-ELq">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

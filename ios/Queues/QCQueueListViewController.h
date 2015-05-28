@@ -10,6 +10,6 @@
 #import "QueueListView.h"
 #import "QueueListPresenter.h"
 
-@interface QCQueueListViewControllerTableViewController : UITableViewController<QCQueueListView>
+@interface QCQueueListViewController : UITableViewController<QCQueueListView>
 
 @end

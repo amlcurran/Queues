@@ -27,10 +27,10 @@
 		8625B8811AF0368600624EE2 /* QueueView.java in Sources */ = {isa = PBXBuildFile; fileRef = 8625B8781AF0368600624EE2 /* QueueView.java */; };
 		8625B8821AF0368600624EE2 /* Source.java in Sources */ = {isa = PBXBuildFile; fileRef = 8625B8791AF0368600624EE2 /* Source.java */; };
 		864E1FB51B06ADE50066926E /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 864E1FB41B06ADE50066926E /* Storyboard.storyboard */; };
-		864E1FB81B06AF260066926E /* QCQueueListViewControllerTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 864E1FB71B06AF260066926E /* QCQueueListViewControllerTableViewController.m */; };
+		864E1FB81B06AF260066926E /* QCQueueListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 864E1FB71B06AF260066926E /* QCQueueListViewController.m */; };
 		864E1FBB1B06B20F0066926E /* QCDummyQueuePersister.m in Sources */ = {isa = PBXBuildFile; fileRef = 864E1FBA1B06B20F0066926E /* QCDummyQueuePersister.m */; };
 		864E1FBE1B06B2B10066926E /* NSArrayShim.m in Sources */ = {isa = PBXBuildFile; fileRef = 864E1FBD1B06B2B10066926E /* NSArrayShim.m */; };
-		FA0963FE1B16E9870050CB55 /* QCQueueViewControllerTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0963FD1B16E9870050CB55 /* QCQueueViewControllerTableViewController.m */; };
+		FA0963FE1B16E9870050CB55 /* QCQueueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA0963FD1B16E9870050CB55 /* QCQueueViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -84,14 +84,14 @@
 		8625B8781AF0368600624EE2 /* QueueView.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; name = QueueView.java; path = ../core/src/main/java/uk/co/amlcurran/queues/core/QueueView.java; sourceTree = "<group>"; };
 		8625B8791AF0368600624EE2 /* Source.java */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.java; name = Source.java; path = ../core/src/main/java/uk/co/amlcurran/queues/core/Source.java; sourceTree = "<group>"; };
 		864E1FB41B06ADE50066926E /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
-		864E1FB61B06AF260066926E /* QCQueueListViewControllerTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCQueueListViewControllerTableViewController.h; sourceTree = "<group>"; };
-		864E1FB71B06AF260066926E /* QCQueueListViewControllerTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QCQueueListViewControllerTableViewController.m; sourceTree = "<group>"; };
+		864E1FB61B06AF260066926E /* QCQueueListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCQueueListViewController.h; sourceTree = "<group>"; };
+		864E1FB71B06AF260066926E /* QCQueueListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QCQueueListViewController.m; sourceTree = "<group>"; };
 		864E1FB91B06B20F0066926E /* QCDummyQueuePersister.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCDummyQueuePersister.h; sourceTree = "<group>"; };
 		864E1FBA1B06B20F0066926E /* QCDummyQueuePersister.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QCDummyQueuePersister.m; sourceTree = "<group>"; };
 		864E1FBC1B06B2B10066926E /* NSArrayShim.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSArrayShim.h; sourceTree = "<group>"; };
 		864E1FBD1B06B2B10066926E /* NSArrayShim.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSArrayShim.m; sourceTree = "<group>"; };
-		FA0963FC1B16E9870050CB55 /* QCQueueViewControllerTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCQueueViewControllerTableViewController.h; sourceTree = "<group>"; };
-		FA0963FD1B16E9870050CB55 /* QCQueueViewControllerTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QCQueueViewControllerTableViewController.m; sourceTree = "<group>"; };
+		FA0963FC1B16E9870050CB55 /* QCQueueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QCQueueViewController.h; sourceTree = "<group>"; };
+		FA0963FD1B16E9870050CB55 /* QCQueueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QCQueueViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,14 +148,14 @@
 				8625B8401AF02FB100624EE2 /* Queues.xcdatamodeld */,
 				8625B8391AF02FB100624EE2 /* Supporting Files */,
 				864E1FB41B06ADE50066926E /* Storyboard.storyboard */,
-				864E1FB61B06AF260066926E /* QCQueueListViewControllerTableViewController.h */,
-				864E1FB71B06AF260066926E /* QCQueueListViewControllerTableViewController.m */,
+				864E1FB61B06AF260066926E /* QCQueueListViewController.h */,
+				864E1FB71B06AF260066926E /* QCQueueListViewController.m */,
 				864E1FB91B06B20F0066926E /* QCDummyQueuePersister.h */,
 				864E1FBA1B06B20F0066926E /* QCDummyQueuePersister.m */,
 				864E1FBC1B06B2B10066926E /* NSArrayShim.h */,
 				864E1FBD1B06B2B10066926E /* NSArrayShim.m */,
-				FA0963FC1B16E9870050CB55 /* QCQueueViewControllerTableViewController.h */,
-				FA0963FD1B16E9870050CB55 /* QCQueueViewControllerTableViewController.m */,
+				FA0963FC1B16E9870050CB55 /* QCQueueViewController.h */,
+				FA0963FD1B16E9870050CB55 /* QCQueueViewController.m */,
 			);
 			path = Queues;
 			sourceTree = "<group>";
@@ -304,10 +304,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA0963FE1B16E9870050CB55 /* QCQueueViewControllerTableViewController.m in Sources */,
+				FA0963FE1B16E9870050CB55 /* QCQueueViewController.m in Sources */,
 				8625B87A1AF0368600624EE2 /* Queue.java in Sources */,
 				8625B87B1AF0368600624EE2 /* QueueItem.java in Sources */,
-				864E1FB81B06AF260066926E /* QCQueueListViewControllerTableViewController.m in Sources */,
+				864E1FB81B06AF260066926E /* QCQueueListViewController.m in Sources */,
 				8625B87C1AF0368600624EE2 /* QueueList.java in Sources */,
 				8625B87D1AF0368600624EE2 /* QueueListPresenter.java in Sources */,
 				8625B87E1AF0368600624EE2 /* QueueListView.java in Sources */,

@@ -6,24 +6,24 @@
 //  Copyright (c) 2015 Alex Curran. All rights reserved.
 //
 
-#import "QCQueueListViewControllerTableViewController.h"
+#import "QCQueueListViewController.h"
 #import "J2ObjC_header.h"
 #import "QCDummyQueuePersister.h"
 #import "QueueList.h"
 #import "IOSObjectArray.h"
 #import "java/util/List.h"
 #import "Queue.h"
-#import "QCQueueViewControllerTableViewController.h"
+#import "QCQueueViewController.h"
 #import "AppDelegate.h"
 
-@interface QCQueueListViewControllerTableViewController ()
+@interface QCQueueListViewController ()
 
 @property (nonatomic, strong) QCQueueListPresenter *presenter;
 @property (nonatomic, strong) NSMutableArray *queueList;
 
 @end
 
-@implementation QCQueueListViewControllerTableViewController
+@implementation QCQueueListViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -96,7 +96,7 @@
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    QCQueueViewControllerTableViewController *queueView = [segue destinationViewController];
+    QCQueueViewController *queueView = [segue destinationViewController];
     NSIndexPath *selected = [self.tableView indexPathForSelectedRow];
     QCQueue *queue = [self.queueList objectAtIndex:selected.row];
     queueView.queue = queue;
