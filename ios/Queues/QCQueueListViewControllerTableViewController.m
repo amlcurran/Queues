@@ -14,11 +14,11 @@
 #import "java/util/List.h"
 #import "Queue.h"
 #import "QCQueueViewControllerTableViewController.h"
+#import "AppDelegate.h"
 
 @interface QCQueueListViewControllerTableViewController ()
 
 @property (nonatomic, strong) QCQueueListPresenter *presenter;
-@property (nonatomic, strong) QCQueueList *list;
 @property (nonatomic, strong) NSMutableArray *queueList;
 
 @end
@@ -27,10 +27,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    QCDummyQueuePersister *persister = [[QCDummyQueuePersister alloc] init];
-    _list = [[QCQueueList alloc] initWithQCQueuePersister:persister];
+    
     _queueList = [[NSMutableArray alloc] init];
-    _presenter = [[QCQueueListPresenter alloc] initWithQCQueueListView:self withQCNavigationController:nil withQCQueueList:self.list];
+    _presenter = [[QCQueueListPresenter alloc] initWithQCQueueListView:self withQCNavigationController:nil withQCQueueList:[self sharedList]];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Add" style:UIBarButtonItemStylePlain target:self action:@selector(addItem)];
 }
@@ -47,9 +46,15 @@
     [self presentViewController:alertController animated:true completion:nil];
 }
 
+- (QCQueueList *)sharedList
+{
+    AppDelegate *appDelegate = (AppDelegate*) [[UIApplication sharedApplication] delegate];
+    return appDelegate.queueList;
+}
+
 - (void)addQueue:(NSString *)queueTitle
 {
-    [self.list addNewQueueWithNSString:queueTitle];
+    [[self sharedList] addNewQueueWithNSString:queueTitle];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -116,6 +121,7 @@
 
 - (void)showWithJavaUtilList:(id<JavaUtilList>)queues
 {
+    [self.queueList removeAllObjects];
     IOSObjectArray *array = [queues toArray];
     for (id queue in array) {
         [self.queueList addObject:queue];

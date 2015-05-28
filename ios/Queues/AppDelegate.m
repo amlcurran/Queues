@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import "QCDummyQueuePersister.h"
 
 @interface AppDelegate () <UISplitViewControllerDelegate>
 
@@ -16,6 +17,8 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    QCDummyQueuePersister *persister = [[QCDummyQueuePersister alloc] init];
+    _queueList = [[QCQueueList alloc] initWithQCQueuePersister:persister];
     return YES;
 }
 
