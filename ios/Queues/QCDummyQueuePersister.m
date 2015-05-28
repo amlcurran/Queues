@@ -8,6 +8,7 @@
 
 #import "QCDummyQueuePersister.h"
 #import "Queue.h"
+#import "QueueItem.h"
 #import "java/util/List.h"
 #import "java/util/ArrayList.h"
 #import "IOSClass.h"
@@ -26,7 +27,10 @@
     self = [super init];
     if (self) {
         _queues = [[NSMutableArray alloc] init];
-        QCQueue *queue = [[QCQueue alloc] initWithNSString:@"Hard-coded queue" withNSString:@"something" withQCQueuePersister:self withJavaUtilList:nil];
+        QCQueueItem *firstItem = [[QCQueueItem alloc] initWithNSString:@"an id" withNSString:@"label"];
+        JavaUtilArrayList *queueItemList = [[JavaUtilArrayList alloc] init];
+        [queueItemList addWithId:firstItem];
+        QCQueue *queue = [[QCQueue alloc] initWithNSString:@"Hard-coded queue" withNSString:@"something" withQCQueuePersister:self withJavaUtilList:queueItemList];
         [_queues addObject:queue];
     }
     return self;
