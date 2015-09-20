@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
+          android:layout_width="match_parent"
+          android:layout_height="48dp"
+          android:fontFamily="sans-serif-condensed"
+          android:textStyle="italic"
+          tools:text="Queue title"
+          android:singleLine="true"
+          android:layout_marginTop="4dp"
+          android:ellipsize="end"
+          android:id="@+id/queue_title"
+          android:textSize="24sp"
+          android:paddingLeft="4dp"
+          android:paddingRight="4dp"
+          android:gravity="center_vertical"/>
+
+
+
+

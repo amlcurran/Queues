@@ -1,49 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="uk.co.amlcurran.queues" >
+          package="uk.co.amlcurran.queues">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
-        android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-        android:name=".QueuesApplication">
-        <activity
-            android:name=".list.QueueListActivity"
-            android:label="@string/app_name" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:allowBackup="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme"
+            android:name=".QueuesApplication">
 
-                <category android:name="android.intent.category.LAUNCHER" />
+        <activity
+                android:name=".list.QueueListActivity"
+                android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-      <activity android:name=".queue.QueueActivity" >
-          <meta-data
-                  android:name="android.support.PARENT_ACTIVITY"
-                  android:value=".list.QueueListActivity" />
-      </activity>
+
+        <activity android:name=".queue.QueueActivity">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value=".list.QueueListActivity"/>
+        </activity>
+
+        <activity android:name=".share.ShareEntryActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND"/>
+                <data android:mimeType="text/plain"/>
+            </intent-filter>
+        </activity>
 
         <!-- Dropbox stuff -->
 
-        <activity android:name="com.dropbox.sync.android.DbxAuthActivity" />
+        <activity android:name="com.dropbox.sync.android.DbxAuthActivity"/>
         <activity
                 android:name="com.dropbox.client2.android.AuthActivity"
-                android:launchMode="singleTask" >
+                android:launchMode="singleTask">
             <intent-filter>
-                <data android:scheme="db-6j8aoczfty21g3p" />
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="db-6j8aoczfty21g3p"/>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
+
         <service
                 android:name="com.dropbox.sync.android.DbxSyncService"
                 android:enabled="true"
                 android:exported="false"
-                android:label="Dropbox Sync" />
+                android:label="Dropbox Sync"/>
 
     </application>
 
