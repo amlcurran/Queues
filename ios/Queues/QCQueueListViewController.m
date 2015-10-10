@@ -32,7 +32,7 @@
     _presenter = [[QCQueueListPresenter alloc] initWithQCQueueListView:self withQCNavigationController:nil withQCQueueList:[AppDelegate sharedList]];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Add" style:UIBarButtonItemStylePlain target:self action:@selector(addItem)];
-//    self.navigationController.navigationBar.translucent = NO;
+//    self.navigationController.navigationBar.translucent = NO; 65 106 157 #416a9d
     self.navigationController.navigationBar.barTintColor = [UIColor colorWithRed:0.255 green:0.416 blue:0.616 alpha:1];
     self.navigationController.navigationBar.tintColor = [UIColor colorWithWhite:1 alpha:0.8];
 }

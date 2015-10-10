@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "QCDummyQueuePersister.h"
+#import "Time.h"
 
 @interface AppDelegate () <UISplitViewControllerDelegate>
 
