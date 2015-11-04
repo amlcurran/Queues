@@ -449,6 +449,7 @@
 					"~/bin/include",
 				);
 				INFOPLIST_FILE = Queues/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				J2OBJC_HOME = /Users/amlcurran/bin;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "~/bin/lib";
@@ -470,6 +471,7 @@
 					"~/bin/include",
 				);
 				INFOPLIST_FILE = Queues/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				J2OBJC_HOME = /Users/amlcurran/bin;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = "~/bin/lib";
