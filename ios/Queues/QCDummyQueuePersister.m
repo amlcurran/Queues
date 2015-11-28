@@ -12,11 +12,12 @@
 #import "java/util/List.h"
 #import "java/util/ArrayList.h"
 #import "IOSClass.h"
+#import <CoreData/CoreData.h>
 
 @interface QCDummyQueuePersister ()
 
-@property (nonatomic, strong) NSMutableArray *queues;
 @property (nonatomic, assign) NSInteger queueIndex;
+@property (nonatomic, strong) NSManagedObjectContext *coreDataContext;
 
 @end
 
@@ -26,12 +27,23 @@
 {
     self = [super init];
     if (self) {
-        _queues = [[NSMutableArray alloc] init];
+        NSURL *modelUrl = [[NSBundle mainBundle] URLForResource:@"QueueModel" withExtension:@"momd"];
+        NSManagedObjectModel *mom = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelUrl];
+        NSPersistentStoreCoordinator *coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:mom];
+        NSURL *documentsURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+        NSURL *storeURL = [documentsURL URLByAppendingPathComponent:@"DataModel.sqlite"];
+        NSError *error;
+        [coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error];
+        
+        if (error) {
+            NSLog(error);
+        }
+        
+        self.coreDataContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+        [self.coreDataContext setPersistentStoreCoordinator:coordinator];
         QCQueueItem *firstItem = [[QCQueueItem alloc] initWithNSString:@"an id" withNSString:@"label"];
         JavaUtilArrayList *queueItemList = [[JavaUtilArrayList alloc] init];
         [queueItemList addWithId:firstItem];
-        QCQueue *queue = [[QCQueue alloc] initWithNSString:@"Hard-coded queue" withNSString:@"something" withQCQueuePersister:self withJavaUtilList:queueItemList];
-        [_queues addObject:queue];
     }
     return self;
 }
@@ -50,25 +62,44 @@
 
 - (void)queuesWithQCQueuePersister_LoadCallbacks:(id<QCQueuePersister_LoadCallbacks>)callbacks
 {
-    JavaUtilArrayList *arrayList = [[JavaUtilArrayList alloc] init];
-    [self.queues enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
-        [arrayList addWithId:obj];
+    NSFetchRequest *request = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Queue" inManagedObjectContext:self.coreDataContext];
+    NSError *error;
+    [request setEntity:entity];
+    NSArray *response = [self.coreDataContext executeFetchRequest:request error:&error];
+    NSArray *sorted = [response sortedArrayWithOptions:NSSortConcurrent usingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+        NSString *title1 = [((NSManagedObject *) obj1) valueForKey:@"title"];
+        NSString *title2 = [((NSManagedObject *) obj2) valueForKey:@"title"];
+        return [title1 compare:title2];
     }];
-    
+    JavaUtilArrayList *arrayList = [[JavaUtilArrayList alloc] init];
+    if (!error) {
+        [sorted enumerateObjectsWithOptions:NSEnumerationConcurrent usingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+            NSManagedObject *object = (NSManagedObject *)obj;
+            NSString *idString = [NSString stringWithFormat:@"%@", [[object objectID] URIRepresentation]];
+            QCQueue *queue = [[QCQueue alloc] initWithNSString:[object valueForKey:@"title"] withNSString:idString withQCQueuePersister:self withJavaUtilList:[[JavaUtilArrayList alloc] init]];
+            [arrayList addWithId:queue];
+        }];
+    }
     [callbacks loadedWithJavaUtilList:arrayList];
 }
 
 - (void)saveQueueWithQCQueue:(QCQueue *)queue
 withQCQueuePersister_Callbacks:(id<QCQueuePersister_Callbacks>)callbacks
 {
-    [self.queues addObject:queue];
+    NSManagedObject *newQueue = [NSEntityDescription insertNewObjectForEntityForName:@"Queue" inManagedObjectContext:self.coreDataContext];
+    [newQueue setValue:[queue getTitle] forKey:@"title"];
+    NSError *error;
+    if ([self.coreDataContext save:&error]) {
+        [callbacks failedToSaveWithQCQueue:queue];
+    }
 }
 
 - (NSString *)uniqueId
 {
     NSInteger nextIndex = self.queueIndex++;
     self.queueIndex = nextIndex;
-    return [NSString stringWithFormat:@"%ld", (long)nextIndex];
+    return nil;
 }
 
 - (NSString *)uniqueItemId
@@ -79,7 +110,7 @@ withQCQueuePersister_Callbacks:(id<QCQueuePersister_Callbacks>)callbacks
 - (void)deleteQueueWithQCQueue:(QCQueue *)queue
 withQCQueuePersister_Callbacks:(id<QCQueuePersister_Callbacks>)callbacks;
 {
-    [self.queues removeObject:queue];
+    
 }
 
 - (jboolean)requiresUserIntervention

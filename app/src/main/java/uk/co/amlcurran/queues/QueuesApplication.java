@@ -57,7 +57,7 @@ public class QueuesApplication extends Application {
 
             @Override
             public String uniqueId() {
-                return ParseObject.c;
+                return "1";
             }
 
             @Override

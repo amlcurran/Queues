@@ -105,9 +105,18 @@
 - (void)queueAddedWithQCQueue:(QCQueue *)queue
                       withInt:(jint)position
 {
-    [self.queueList insertObject:queue atIndex:position];
-    NSIndexPath *path = [NSIndexPath indexPathForRow:position inSection:0];
+    [self.queueList addObject:queue];
+    if (position == -1) {
+        [self.tableView reloadData];
+    } else {
+    NSIndexPath *path;
+    if (position >= 0) {
+        path = [NSIndexPath indexPathForRow:position inSection:0];
+    } else {
+        path = [NSIndexPath indexPathForRow:0 inSection:0];
+    }
     [self.tableView insertRowsAtIndexPaths:[NSArray arrayWithObject:path] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
 }
 
 - (void)queueRemovedWithQCQueue:(QCQueue *)queue

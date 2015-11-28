@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9057" systemVersion="15A278b" minimumToolsVersion="Xcode 7.0">
+    <entity name="Queue" syncable="YES">
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="newRelationship" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="QueueItem" inverseName="newRelationship" inverseEntity="QueueItem" syncable="YES"/>
+    </entity>
+    <entity name="QueueItem" syncable="YES">
+        <attribute name="label" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="newRelationship" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Queue" inverseName="newRelationship" inverseEntity="Queue" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Queue" positionX="-63" positionY="-18" width="128" height="73"/>
+        <element name="QueueItem" positionX="144" positionY="-18" width="128" height="73"/>
+    </elements>
+</model>
