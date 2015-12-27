@@ -82,7 +82,7 @@ public class SQLitePersister implements QueuePersister {
     }
 
     @Override
-    public void saveQueue(Queue queue, Callbacks callbacks) {
+    public Queue saveQueue(Queue queue, Callbacks callbacks) {
         ContentValues queueValues = fromQueue(queue);
         SQLiteDatabase database = db.getWritableDatabase();
         int update = database.update(QueueList.TABLE_NAME, queueValues, whereIdClause(), whereIdArgs(queue));
@@ -90,6 +90,7 @@ public class SQLitePersister implements QueuePersister {
         if (update == 0) {
             callbacks.failedToSave(queue);
         }
+        return queue;
     }
 
     private ContentValues fromQueue(Queue queue) {

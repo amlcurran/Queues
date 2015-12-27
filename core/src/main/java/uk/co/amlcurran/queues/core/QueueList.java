@@ -38,8 +38,7 @@ public class QueueList {
     }
 
     public void add(final Queue queue) {
-        queues.add(queue);
-        queuePersister.saveQueue(queue, new QueuePersister.Callbacks() {
+        final Queue resultQueue = queuePersister.saveQueue(queue, new QueuePersister.Callbacks() {
             @Override
             public void failedToSave(final Queue queue) {
                 notifyListeners(new ListenerAction() {
@@ -50,12 +49,15 @@ public class QueueList {
                 });
             }
         });
-        notifyListeners(new ListenerAction() {
-            @Override
-            public void act(ListListener listListener) {
-                listListener.queueAdded(queue);
-            }
-        });
+        if (resultQueue != null) {
+            queues.add(resultQueue);
+            notifyListeners(new ListenerAction() {
+                @Override
+                public void act(ListListener listListener) {
+                    listListener.queueAdded(resultQueue);
+                }
+            });
+        }
     }
 
     private Queue newQueue(String title) {

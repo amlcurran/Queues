@@ -8,8 +8,9 @@ public class Persisters {
         return new BasicQueuePersister(0) {
 
             @Override
-            public void saveQueue(Queue queue, Callbacks callbacks) {
+            public Queue saveQueue(Queue queue, Callbacks callbacks) {
                 callbacks.failedToSave(queue);
+                return null;
             }
 
             @Override

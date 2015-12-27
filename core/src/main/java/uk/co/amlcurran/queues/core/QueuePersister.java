@@ -9,7 +9,7 @@ public interface QueuePersister {
 
     void queues(LoadCallbacks callbacks);
 
-    void saveQueue(Queue queue, Callbacks callbacks);
+    Queue saveQueue(Queue queue, Callbacks callbacks);
 
     String uniqueId();
 

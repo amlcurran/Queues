@@ -43,7 +43,7 @@ public class QueuesApplication extends Application {
             }
 
             @Override
-            public void saveQueue(Queue queue, Callbacks callbacks) {
+            public Queue saveQueue(Queue queue, Callbacks callbacks) {
                 ParseObject parseObject = new ParseObject("Queue");
                 parseObject.put("id", queue.getId());
                 parseObject.put("title", queue.getTitle());
@@ -53,6 +53,7 @@ public class QueuesApplication extends Application {
                     e.printStackTrace();
                     callbacks.failedToSave(queue);
                 }
+                return queue;
             }
 
             @Override

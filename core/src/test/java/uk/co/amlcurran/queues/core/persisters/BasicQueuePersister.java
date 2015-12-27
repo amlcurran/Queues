@@ -37,8 +37,9 @@ public class BasicQueuePersister implements QueuePersister {
     }
 
     @Override
-    public void saveQueue(Queue queue, Callbacks callbacks) {
+    public Queue saveQueue(Queue queue, Callbacks callbacks) {
         addedQueue = queue;
+        return queue;
     }
 
     @Override

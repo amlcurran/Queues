@@ -109,8 +109,8 @@ public class QueueTest {
         }
 
         @Override
-        public void saveQueue(Queue queue, Callbacks callbacks) {
-
+        public Queue saveQueue(Queue queue, Callbacks callbacks) {
+            return null;
         }
 
         @Override
@@ -157,8 +157,8 @@ public class QueueTest {
         }
 
         @Override
-        public void saveQueue(Queue queue, Callbacks callbacks) {
-
+        public Queue saveQueue(Queue queue, Callbacks callbacks) {
+            return null;
         }
 
         @Override

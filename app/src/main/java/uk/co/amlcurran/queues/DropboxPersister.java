@@ -62,13 +62,14 @@ public class DropboxPersister implements QueuePersister {
     }
 
     @Override
-    public void saveQueue(final Queue queue, Callbacks callbacks) {
+    public Queue saveQueue(final Queue queue, Callbacks callbacks) {
         doChangeAction(new ChangeAction() {
             @Override
             public void run() throws DbxException {
                 queuesTable().get(queue.getId()).set("title", queue.getTitle());
             }
         });
+        return queue;
     }
 
     @Override
