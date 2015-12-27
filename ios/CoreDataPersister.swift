@@ -13,10 +13,6 @@ import Foundation
 class CoreDataPersister: NSObject, QCQueuePersister {
     
     let managedObjectContext : NSManagedObjectContext
-    /*
-    NSURL *documentsURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
-    NSURL *storeURL = [documentsURL URLByAppendingPathComponent:@"DataModel.sqlite"];
-    */
     
     override init() {
         let modelUrl = NSBundle.mainBundle().URLForResource("QueueModel", withExtension: "momd")
@@ -60,21 +56,22 @@ class CoreDataPersister: NSObject, QCQueuePersister {
         }
     }
     
-    func saveQueueWithQCQueue(queue: QCQueue!, withQCQueuePersister_Callbacks callbacks: QCQueuePersister_Callbacks!) {
-        Queue.insert(queue.getTitle(), into: managedObjectContext)
+    func saveQueueWithQCQueue(queue: QCQueue!, withQCQueuePersister_Callbacks callbacks: QCQueuePersister_Callbacks!) -> QCQueue {
+        let queue = Queue.insert(queue.getTitle(), into: managedObjectContext)
         do {
             try managedObjectContext.save()
         } catch let error as NSError {
             NSLog("%@", error)
         }
+        return QCQueue(NSString: queue.title, withNSString: "\(queue.objectID)", withQCQueuePersister: self, withJavaUtilList: JavaUtilArrayList())
     }
     
     func deleteQueueWithQCQueue(queue: QCQueue!, withQCQueuePersister_Callbacks callbacks: QCQueuePersister_Callbacks!) {
-        
+
     }
     
     func addItemToQueueWithNSString(queueId: String!, withQCQueueItem queueItem: QCQueueItem!) {
-        // Do nothing
+        
     }
     
     func removeItemFromQueueWithNSString(queueId: String!, withQCQueueItem queueItem: QCQueueItem!) {

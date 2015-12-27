@@ -84,7 +84,7 @@
     [callbacks loadedWithJavaUtilList:arrayList];
 }
 
-- (void)saveQueueWithQCQueue:(QCQueue *)queue
+- (QCQueue *)saveQueueWithQCQueue:(QCQueue *)queue
 withQCQueuePersister_Callbacks:(id<QCQueuePersister_Callbacks>)callbacks
 {
     NSManagedObject *newQueue = [NSEntityDescription insertNewObjectForEntityForName:@"Queue" inManagedObjectContext:self.coreDataContext];
@@ -93,6 +93,7 @@ withQCQueuePersister_Callbacks:(id<QCQueuePersister_Callbacks>)callbacks
     if ([self.coreDataContext save:&error]) {
         [callbacks failedToSaveWithQCQueue:queue];
     }
+    return queue;
 }
 
 - (NSString *)uniqueId
