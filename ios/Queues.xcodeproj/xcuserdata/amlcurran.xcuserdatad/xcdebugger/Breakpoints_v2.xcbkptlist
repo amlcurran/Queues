@@ -6,16 +6,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CoreDataPersister.swift"
-            timestampString = "472933799.337709"
+            timestampString = "472946147.045274"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "72"
-            endingLineNumber = "72"
-            landmarkName = "deleteQueueWithQCQueue(_:withQCQueuePersister_Callbacks:)"
+            startingLineNumber = "103"
+            endingLineNumber = "103"
+            landmarkName = "addItemToQueueWithNSString(_:withQCQueueItem:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

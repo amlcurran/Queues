@@ -12,6 +12,11 @@ import CoreData
 
 class QueueItem: NSManagedObject {
 
-// Insert code here to add functionality to your managed object subclass
+    static func insert(label: String, host: Queue, into context: NSManagedObjectContext) -> QueueItem {
+        let queueItem = NSEntityDescription.insertNewObjectForEntityForName("QueueItem", inManagedObjectContext: context) as! QueueItem
+        queueItem.label = label
+        queueItem.host = host
+        return queueItem
+    }
 
 }
