@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8624E51D1C304D0800BDBB33 /* CoreDataPersister.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8624E51C1C304D0800BDBB33 /* CoreDataPersister.swift */; };
 		8625B83C1AF02FB100624EE2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8625B83B1AF02FB100624EE2 /* main.m */; };
 		8625B83F1AF02FB100624EE2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8625B83E1AF02FB100624EE2 /* AppDelegate.m */; };
 		8625B84D1AF02FB100624EE2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8625B84C1AF02FB100624EE2 /* Images.xcassets */; };
@@ -45,15 +46,6 @@
 			);
 			script = "if [ ! -f \"${J2OBJC_HOME}/j2objc\" ]; then echo \"J2OBJC_HOME not correctly defined in Settings.xcconfig, currently set to '${J2OBJC_HOME}'\"; exit 1; fi;\n\"${J2OBJC_HOME}/j2objc\" -d ${DERIVED_FILES_DIR} -sourcepath \"../core/src/main/java\" --no-package-directories -use-arc --prefix uk.co.amlcurran.queues.core=QC -g ${INPUT_FILE_PATH};";
 		};
-		865299151BEA66020015706B /* PBXBuildRule */ = {
-			isa = PBXBuildRule;
-			compilerSpec = com.apple.compilers.proxy.script;
-			fileType = pattern.proxy;
-			isEditable = 1;
-			outputFiles = (
-			);
-			script = "";
-		};
 /* End PBXBuildRule section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +59,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8624E51B1C304D0800BDBB33 /* Queues-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Queues-Bridging-Header.h"; sourceTree = "<group>"; };
+		8624E51C1C304D0800BDBB33 /* CoreDataPersister.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataPersister.swift; sourceTree = "<group>"; };
 		8625B8361AF02FB100624EE2 /* Queues.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Queues.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8625B83A1AF02FB100624EE2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8625B83B1AF02FB100624EE2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -127,6 +121,7 @@
 		8625B82D1AF02FB100624EE2 = {
 			isa = PBXGroup;
 			children = (
+				8624E51C1C304D0800BDBB33 /* CoreDataPersister.swift */,
 				8652991A1BEA68EB0015706B /* QueueModel.xcdatamodeld */,
 				8625B8841AF0369400624EE2 /* domain */,
 				8625B86D1AF035CB00624EE2 /* java */,
@@ -136,6 +131,7 @@
 				8625B8381AF02FB100624EE2 /* Queues */,
 				8625B8581AF02FB100624EE2 /* QueuesTests */,
 				8625B8371AF02FB100624EE2 /* Products */,
+				8624E51B1C304D0800BDBB33 /* Queues-Bridging-Header.h */,
 			);
 			sourceTree = "<group>";
 		};
@@ -224,7 +220,6 @@
 				8625B8341AF02FB100624EE2 /* Resources */,
 			);
 			buildRules = (
-				865299151BEA66020015706B /* PBXBuildRule */,
 				8625B86C1AF0342D00624EE2 /* PBXBuildRule */,
 			);
 			dependencies = (
@@ -258,6 +253,7 @@
 		8625B82E1AF02FB100624EE2 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0720;
 				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = "Alex Curran";
 				TargetAttributes = {
@@ -331,6 +327,7 @@
 				8625B8701AF035E200624EE2 /* NavigationController.java in Sources */,
 				864E1FBB1B06B20F0066926E /* QCDummyQueuePersister.m in Sources */,
 				8625B83F1AF02FB100624EE2 /* AppDelegate.m in Sources */,
+				8624E51D1C304D0800BDBB33 /* CoreDataPersister.swift in Sources */,
 				8625B83C1AF02FB100624EE2 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -452,6 +449,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				HEADER_SEARCH_PATHS = (
@@ -468,6 +466,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "uk.co.amlcurran.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Queues-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -475,6 +475,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				HEADER_SEARCH_PATHS = (
@@ -491,6 +492,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "uk.co.amlcurran.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Queues-Bridging-Header.h";
 			};
 			name = Release;
 		};

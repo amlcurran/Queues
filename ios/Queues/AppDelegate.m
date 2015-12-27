@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "QCDummyQueuePersister.h"
 #import "Time.h"
+#import "Queues-swift.h"
 
 @interface AppDelegate () <UISplitViewControllerDelegate>
 
@@ -18,7 +19,7 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    QCDummyQueuePersister *persister = [[QCDummyQueuePersister alloc] init];
+    id<QCQueuePersister> persister = [[CoreDataPersister alloc] init];
     _queueList = [[QCQueueList alloc] initWithQCQueuePersister:persister];
     return YES;
 }
