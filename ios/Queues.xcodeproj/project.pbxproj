@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		8624E51D1C304D0800BDBB33 /* CoreDataPersister.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8624E51C1C304D0800BDBB33 /* CoreDataPersister.swift */; };
+		8624E5221C30584900BDBB33 /* Queue+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8624E51E1C30584900BDBB33 /* Queue+CoreDataProperties.swift */; };
+		8624E5231C30584900BDBB33 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8624E51F1C30584900BDBB33 /* Queue.swift */; };
+		8624E5241C30584900BDBB33 /* QueueItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8624E5201C30584900BDBB33 /* QueueItem+CoreDataProperties.swift */; };
+		8624E5251C30584900BDBB33 /* QueueItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8624E5211C30584900BDBB33 /* QueueItem.swift */; };
 		8625B83C1AF02FB100624EE2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8625B83B1AF02FB100624EE2 /* main.m */; };
 		8625B83F1AF02FB100624EE2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8625B83E1AF02FB100624EE2 /* AppDelegate.m */; };
 		8625B84D1AF02FB100624EE2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8625B84C1AF02FB100624EE2 /* Images.xcassets */; };
@@ -61,6 +65,10 @@
 /* Begin PBXFileReference section */
 		8624E51B1C304D0800BDBB33 /* Queues-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Queues-Bridging-Header.h"; sourceTree = "<group>"; };
 		8624E51C1C304D0800BDBB33 /* CoreDataPersister.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataPersister.swift; sourceTree = "<group>"; };
+		8624E51E1C30584900BDBB33 /* Queue+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Queue+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		8624E51F1C30584900BDBB33 /* Queue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
+		8624E5201C30584900BDBB33 /* QueueItem+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "QueueItem+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		8624E5211C30584900BDBB33 /* QueueItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueueItem.swift; sourceTree = "<group>"; };
 		8625B8361AF02FB100624EE2 /* Queues.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Queues.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8625B83A1AF02FB100624EE2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8625B83B1AF02FB100624EE2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -123,6 +131,10 @@
 			children = (
 				8624E51C1C304D0800BDBB33 /* CoreDataPersister.swift */,
 				8652991A1BEA68EB0015706B /* QueueModel.xcdatamodeld */,
+				8624E51E1C30584900BDBB33 /* Queue+CoreDataProperties.swift */,
+				8624E51F1C30584900BDBB33 /* Queue.swift */,
+				8624E5201C30584900BDBB33 /* QueueItem+CoreDataProperties.swift */,
+				8624E5211C30584900BDBB33 /* QueueItem.swift */,
 				8625B8841AF0369400624EE2 /* domain */,
 				8625B86D1AF035CB00624EE2 /* java */,
 				8625B86A1AF031BD00624EE2 /* libicucore.dylib */,
@@ -314,6 +326,7 @@
 				FA0963FE1B16E9870050CB55 /* QCQueueViewController.m in Sources */,
 				8625B87A1AF0368600624EE2 /* Queue.java in Sources */,
 				8625B87B1AF0368600624EE2 /* QueueItem.java in Sources */,
+				8624E5241C30584900BDBB33 /* QueueItem+CoreDataProperties.swift in Sources */,
 				864E1FB81B06AF260066926E /* QCQueueListViewController.m in Sources */,
 				8625B87C1AF0368600624EE2 /* QueueList.java in Sources */,
 				8625B87D1AF0368600624EE2 /* QueueListPresenter.java in Sources */,
@@ -323,8 +336,11 @@
 				8625B8801AF0368600624EE2 /* QueuePresenter.java in Sources */,
 				8625B8811AF0368600624EE2 /* QueueView.java in Sources */,
 				864E1FBE1B06B2B10066926E /* NSArrayShim.m in Sources */,
+				8624E5221C30584900BDBB33 /* Queue+CoreDataProperties.swift in Sources */,
+				8624E5251C30584900BDBB33 /* QueueItem.swift in Sources */,
 				8625B8821AF0368600624EE2 /* Source.java in Sources */,
 				8625B8701AF035E200624EE2 /* NavigationController.java in Sources */,
+				8624E5231C30584900BDBB33 /* Queue.swift in Sources */,
 				864E1FBB1B06B20F0066926E /* QCDummyQueuePersister.m in Sources */,
 				8625B83F1AF02FB100624EE2 /* AppDelegate.m in Sources */,
 				8624E51D1C304D0800BDBB33 /* CoreDataPersister.swift in Sources */,
