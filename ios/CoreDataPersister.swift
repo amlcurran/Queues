@@ -69,11 +69,7 @@ class CoreDataPersister: NSObject, QCQueuePersister {
     
     func saveQueueWithQCQueue(queue: QCQueue!, withQCQueuePersister_Callbacks callbacks: QCQueuePersister_Callbacks!) -> QCQueue {
         let queue = Queue.insert(queue.getTitle(), into: managedObjectContext)
-        do {
-            try managedObjectContext.save()
-        } catch let error as NSError {
-            NSLog("%@", error)
-        }
+        managedObjectContext.safeSave()
         return QCQueue(NSString: queue.title, withNSString: "\(queue.objectID)", withQCQueuePersister: self, withJavaUtilList: JavaUtilArrayList())
     }
     
@@ -83,6 +79,23 @@ class CoreDataPersister: NSObject, QCQueuePersister {
             return
         }
         managedObjectContext.deleteObject(managedQueue)
+        managedObjectContext.safeSave()
+    }
+    
+    func addItemToQueueWithNSString(queueId: String!, withQCQueueItem queueItem: QCQueueItem!) {
+        guard let host = fetchQueue(queueId) else {
+            return
+        }
+        QueueItem.insert(queueItem.getLabel(), host: host, into: managedObjectContext)
+        managedObjectContext.safeSave()
+    }
+    
+    func removeItemFromQueueWithNSString(queueId: String!, withQCQueueItem queueItem: QCQueueItem!) {
+        guard let item = fetchQueueItem(queueItem.getId()) else {
+            return
+        }
+        managedObjectContext.deleteObject(item)
+        managedObjectContext.safeSave()
     }
     
     private func fetchQueue(queueId: String) -> Queue? {
@@ -99,20 +112,18 @@ class CoreDataPersister: NSObject, QCQueuePersister {
         return nil
     }
     
-    func addItemToQueueWithNSString(queueId: String!, withQCQueueItem queueItem: QCQueueItem!) {
-        guard let host = fetchQueue(queueId) else {
-            return
-        }
-        QueueItem.insert(queueItem.getLabel(), host: host, into: managedObjectContext)
+    private func fetchQueueItem(queueItemId: String) -> QueueItem? {
+        let fetchRequest = NSFetchRequest(entityName: "QueueItem")
         do {
-            try managedObjectContext.save()
+            let results = try managedObjectContext.executeFetchRequest(fetchRequest) as! [NSManagedObject]
+            let filteredById = results.filter({ (object: NSManagedObject) -> Bool in
+                return "\(object.objectID)" == queueItemId
+            })
+            return filteredById.last as! QueueItem?
         } catch let error as NSError {
             NSLog("\(error.localizedDescription)")
         }
-    }
-    
-    func removeItemFromQueueWithNSString(queueId: String!, withQCQueueItem queueItem: QCQueueItem!) {
-        // Do nothing
+        return nil
     }
 
 }

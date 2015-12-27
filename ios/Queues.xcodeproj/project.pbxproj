@@ -12,6 +12,7 @@
 		8624E5231C30584900BDBB33 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8624E51F1C30584900BDBB33 /* Queue.swift */; };
 		8624E5241C30584900BDBB33 /* QueueItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8624E5201C30584900BDBB33 /* QueueItem+CoreDataProperties.swift */; };
 		8624E5251C30584900BDBB33 /* QueueItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8624E5211C30584900BDBB33 /* QueueItem.swift */; };
+		8624E5271C30976200BDBB33 /* NSManagedObjectContext+Safety.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8624E5261C30976200BDBB33 /* NSManagedObjectContext+Safety.swift */; };
 		8625B83C1AF02FB100624EE2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8625B83B1AF02FB100624EE2 /* main.m */; };
 		8625B83F1AF02FB100624EE2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8625B83E1AF02FB100624EE2 /* AppDelegate.m */; };
 		8625B84D1AF02FB100624EE2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8625B84C1AF02FB100624EE2 /* Images.xcassets */; };
@@ -69,6 +70,7 @@
 		8624E51F1C30584900BDBB33 /* Queue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
 		8624E5201C30584900BDBB33 /* QueueItem+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "QueueItem+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		8624E5211C30584900BDBB33 /* QueueItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QueueItem.swift; sourceTree = "<group>"; };
+		8624E5261C30976200BDBB33 /* NSManagedObjectContext+Safety.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSManagedObjectContext+Safety.swift"; path = "Extensions/NSManagedObjectContext+Safety.swift"; sourceTree = "<group>"; };
 		8625B8361AF02FB100624EE2 /* Queues.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Queues.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8625B83A1AF02FB100624EE2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8625B83B1AF02FB100624EE2 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 		8625B82D1AF02FB100624EE2 = {
 			isa = PBXGroup;
 			children = (
+				8624E5261C30976200BDBB33 /* NSManagedObjectContext+Safety.swift */,
 				8624E51C1C304D0800BDBB33 /* CoreDataPersister.swift */,
 				8652991A1BEA68EB0015706B /* QueueModel.xcdatamodeld */,
 				8624E51E1C30584900BDBB33 /* Queue+CoreDataProperties.swift */,
@@ -343,6 +346,7 @@
 				8624E5231C30584900BDBB33 /* Queue.swift in Sources */,
 				864E1FBB1B06B20F0066926E /* QCDummyQueuePersister.m in Sources */,
 				8625B83F1AF02FB100624EE2 /* AppDelegate.m in Sources */,
+				8624E5271C30976200BDBB33 /* NSManagedObjectContext+Safety.swift in Sources */,
 				8624E51D1C304D0800BDBB33 /* CoreDataPersister.swift in Sources */,
 				8625B83C1AF02FB100624EE2 /* main.m in Sources */,
 			);
