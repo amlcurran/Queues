@@ -47,7 +47,7 @@ class CoreDataPersister: NSObject, QCQueuePersister {
             let list = JavaUtilArrayList()
             let results = try managedObjectContext.executeFetchRequest(fetchRequest)
             for item in results as! [Queue] {
-                let fakeQueue = QCQueue(NSString: item.title, withNSString: "id", withQCQueuePersister: self, withJavaUtilList: JavaUtilArrayList())
+                let fakeQueue = QCQueue(NSString: item.title, withNSString: "\(item.objectID)", withQCQueuePersister: self, withJavaUtilList: JavaUtilArrayList())
                 list.addWithId(fakeQueue)
             }
             callbacks.loadedWithJavaUtilList(list)
@@ -67,7 +67,19 @@ class CoreDataPersister: NSObject, QCQueuePersister {
     }
     
     func deleteQueueWithQCQueue(queue: QCQueue!, withQCQueuePersister_Callbacks callbacks: QCQueuePersister_Callbacks!) {
-
+        let fetchRequest = NSFetchRequest(entityName: "Queue")
+        do {
+            let results = try managedObjectContext.executeFetchRequest(fetchRequest) as! [NSManagedObject]
+            let filteredById = results.filter({ (object: NSManagedObject) -> Bool in
+                return "\(object.objectID)" == queue.getId()
+            })
+            for managedObject in filteredById {
+                managedObjectContext.deleteObject(managedObject)
+            }
+            try managedObjectContext.save()
+        } catch let error as NSError {
+            NSLog("\(error.localizedDescription)")
+        }
     }
     
     func addItemToQueueWithNSString(queueId: String!, withQCQueueItem queueItem: QCQueueItem!) {
